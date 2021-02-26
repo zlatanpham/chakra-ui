@@ -59,8 +59,15 @@ export function useStyleConfig(themeKey: any, props: any = {}, opts: any = {}) {
       const styles = mergeWith({}, baseStyles, sizes, variants)
 
       if (opts?.isMultiPart && styleConfig.parts) {
+        styles.root = {}
+
         styleConfig.parts.forEach((part: string) => {
           styles[part] = styles[part] ?? {}
+
+          // draft for class based approach
+          const partClassName = createMultiPartClassName(themeKey, part)
+          styles.root[`.${partClassName}`] = styles[part] ?? {}
+          delete styles[part]
         })
       }
 
@@ -77,4 +84,10 @@ export function useStyleConfig(themeKey: any, props: any = {}, opts: any = {}) {
 
 export function useMultiStyleConfig(themeKey: string, props: any) {
   return useStyleConfig(themeKey, props, { isMultiPart: true })
+}
+
+export function createMultiPartClassName(themeKey: string, part: string) {
+  return `chakra-${themeKey}__${part}`
+    .replace(/\s/g, "") // in case there is some whitespace
+    .toLowerCase()
 }
