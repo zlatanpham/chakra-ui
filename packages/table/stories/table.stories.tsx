@@ -27,7 +27,14 @@ const SimpleTable = (props: TableProps) => (
     </Thead>
     <Tbody>
       <Tr>
-        <Td>inches</Td>
+        <Td
+          sx={{
+            textAlign: "right",
+          }}
+        >
+          inches
+        </Td>
+
         <Td>millimetres (mm)</Td>
         <Td isNumeric>25.4</Td>
       </Tr>

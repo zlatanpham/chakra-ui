@@ -39,7 +39,20 @@ interface GetStyleObject {
 export const toCSSObject: GetStyleObject = ({ baseStyle }) => (props) => {
   const { theme, css: cssProp, __css, sx, ...rest } = props
   const styleProps = objectFilter(rest, (_, prop) => isStyleProp(prop))
-  const finalStyles = Object.assign({}, __css, baseStyle, styleProps, sx)
+  const dataPart = props?.["data-part"]
+  const specify = <T>(styles: T) =>
+    dataPart
+      ? {
+          [`&,&[data-part="${dataPart}"]`]: styles,
+        }
+      : styles
+  const finalStyles = Object.assign(
+    {},
+    __css,
+    baseStyle,
+    specify(styleProps),
+    specify(sx),
+  )
   const computedCSS = css(finalStyles)(props.theme)
   return cssProp ? [computedCSS, cssProp] : computedCSS
 }

@@ -1,13 +1,10 @@
 import {
   chakra,
-  createMultiPartClassName,
   forwardRef,
   HTMLChakraProps,
   omitThemingProps,
-  StylesProvider,
   ThemingProps,
   useMultiStyleConfig,
-  useStyles,
 } from "@chakra-ui/system"
 import { cx, __DEV__ } from "@chakra-ui/utils"
 import * as React from "react"
@@ -44,38 +41,13 @@ export const Table = forwardRef<TableProps, "table">((props, ref) => {
   const { className, ...tableProps } = omitThemingProps(props)
 
   return (
-    <StylesProvider value={styles}>
-      <chakra.table
-        role="table"
-        ref={ref}
-        /**
-         * Merge element styles with root styles which contains nested styles
-         * with CSS classes for its sub components, like in the "old days":
-         *
-         * E.g. `.css-1cxjw3k .chakra-table__td { text-align: left }`
-         *
-         * Currently this would be a breaking change, because the style props
-         * given to the sub components would not override the CSS properties
-         * from the theme, because of their higher specificity.
-         *
-         * I think we could apply the styles for the sub components
-         * differently, if the props contains a className.
-         *
-         * E.g. Given a component receives a className
-         *   <chakra.td className="chakra-table__td" textAlign="right" />
-         *
-         * We could increase the specificity by concatinating the emotion class
-         * with the sub component class.
-         *
-         * => <td __css={{ ['&.chakra-table__td']: { textAlign: 'right' } }} />
-         *
-         * I think this needs happen on the styled-system level.
-         */
-        __css={{ ...styles.root, ...styles.table }}
-        className={cx("chakra-table", className)}
-        {...tableProps}
-      />
-    </StylesProvider>
+    <chakra.table
+      role="table"
+      ref={ref}
+      __css={{ ...styles.root, ...styles.table }}
+      className={cx("chakra-table", className)}
+      {...tableProps}
+    />
   )
 })
 
@@ -93,15 +65,14 @@ export interface TableCaptionProps extends HTMLChakraProps<"caption"> {
 
 export const TableCaption = forwardRef<TableCaptionProps, "caption">(
   (props, ref) => {
-    const { placement = "bottom", className, ...rest } = props
-    const styles = useStyles()
+    const { placement = "bottom", ...rest } = props
+
     return (
       <chakra.caption
         {...rest}
-        className={cx(createMultiPartClassName("Table", "caption"), className)}
+        data-part="table.caption"
         ref={ref}
         __css={{
-          ...styles.caption,
           captionSide: placement,
         }}
       />
@@ -115,39 +86,21 @@ if (__DEV__) {
 
 export interface TableHeadProps extends HTMLChakraProps<"thead"> {}
 
-export const Thead = forwardRef<TableHeadProps, "thead">(
-  ({ className, ...rest }, ref) => (
-    <chakra.thead
-      {...rest}
-      ref={ref}
-      className={cx(createMultiPartClassName("Table", "thead"), className)}
-    />
-  ),
-)
+export const Thead = forwardRef<TableHeadProps, "thead">(({ ...rest }, ref) => (
+  <chakra.thead {...rest} ref={ref} data-part="table.thead" />
+))
 
 export interface TableBodyProps extends HTMLChakraProps<"tbody"> {}
 
-export const Tbody = forwardRef<TableBodyProps, "tbody">(
-  ({ className, ...rest }, ref) => (
-    <chakra.tbody
-      {...rest}
-      ref={ref}
-      className={cx(createMultiPartClassName("Table", "tbody"), className)}
-    />
-  ),
-)
+export const Tbody = forwardRef<TableBodyProps, "tbody">((props, ref) => (
+  <chakra.tbody {...props} data-part="table.tbody" ref={ref} />
+))
 
 export interface TableFooterProps extends HTMLChakraProps<"tfoot"> {}
 
-export const Tfoot = forwardRef<TableFooterProps, "tfoot">(
-  ({ className, ...rest }, ref) => (
-    <chakra.tfoot
-      {...rest}
-      ref={ref}
-      className={cx(createMultiPartClassName("Table", "tfoot"), className)}
-    />
-  ),
-)
+export const Tfoot = forwardRef<TableFooterProps, "tfoot">((props, ref) => (
+  <chakra.tfoot {...props} data-part="table.tfoot" ref={ref} />
+))
 
 export interface TableColumnHeaderProps extends HTMLChakraProps<"th"> {
   /**
@@ -156,27 +109,20 @@ export interface TableColumnHeaderProps extends HTMLChakraProps<"th"> {
   isNumeric?: boolean
 }
 export const Th = forwardRef<TableColumnHeaderProps, "th">(
-  ({ isNumeric, className, ...rest }, ref) => (
+  ({ isNumeric, ...rest }, ref) => (
     <chakra.th
       {...rest}
+      data-part="table.th"
       ref={ref}
-      className={cx(createMultiPartClassName("Table", "th"), className)}
       data-is-numeric={isNumeric}
     />
   ),
 )
 
 export interface TableRowProps extends HTMLChakraProps<"tr"> {}
-export const Tr = forwardRef<TableRowProps, "tr">(
-  ({ className, ...rest }, ref) => (
-    <chakra.tr
-      role="row"
-      {...rest}
-      ref={ref}
-      className={cx(createMultiPartClassName("Table", "tr"), className)}
-    />
-  ),
-)
+export const Tr = forwardRef<TableRowProps, "tr">((props, ref) => (
+  <chakra.tr role="row" data-part="table.tr" {...props} ref={ref} />
+))
 
 export interface TableCellProps extends HTMLChakraProps<"td"> {
   /**
@@ -185,12 +131,12 @@ export interface TableCellProps extends HTMLChakraProps<"td"> {
   isNumeric?: boolean
 }
 export const Td = forwardRef<TableCellProps, "td">(
-  ({ isNumeric, className, ...rest }, ref) => (
+  ({ isNumeric, ...rest }, ref) => (
     <chakra.td
       role="gridcell"
       {...rest}
+      data-part="table.td"
       ref={ref}
-      className={cx(createMultiPartClassName("Table", "td"), className)}
       data-is-numeric={isNumeric}
     />
   ),
