@@ -2,11 +2,9 @@ import {
   chakra,
   forwardRef,
   omitThemingProps,
-  StylesProvider,
   SystemStyleObject,
   ThemingProps,
   useMultiStyleConfig,
-  useStyles,
   HTMLChakraProps,
 } from "@chakra-ui/system"
 import { cx, runIfFn, __DEV__ } from "@chakra-ui/utils"
@@ -69,15 +67,14 @@ export const Editable = forwardRef<EditableProps, "div">((props, ref) => {
 
   return (
     <EditableProvider value={context}>
-      <StylesProvider value={styles}>
-        <chakra.div
-          ref={ref}
-          {...(htmlProps as HTMLChakraProps<"div">)}
-          className={_className}
-        >
-          {children}
-        </chakra.div>
-      </StylesProvider>
+      <chakra.div
+        ref={ref}
+        {...(htmlProps as HTMLChakraProps<"div">)}
+        className={_className}
+        __css={styles.__partStyles}
+      >
+        {children}
+      </chakra.div>
     </EditableProvider>
   )
 })
@@ -103,7 +100,6 @@ export interface EditablePreviewProps extends HTMLChakraProps<"div"> {}
 export const EditablePreview = forwardRef<EditablePreviewProps, "span">(
   (props, ref) => {
     const { getPreviewProps } = useEditableContext()
-    const styles = useStyles()
 
     const previewProps = getPreviewProps(props, ref) as HTMLChakraProps<"span">
     const _className = cx("chakra-editable__preview", props.className)
@@ -115,8 +111,8 @@ export const EditablePreview = forwardRef<EditablePreviewProps, "span">(
           cursor: "text",
           display: "inline-block",
           ...commonStyles,
-          ...styles.preview,
         }}
+        data-part="editable.preview"
         className={_className}
       />
     )
@@ -137,7 +133,6 @@ export interface EditableInputProps extends HTMLChakraProps<"input"> {}
 export const EditableInput = forwardRef<EditableInputProps, "input">(
   (props, ref) => {
     const { getInputProps } = useEditableContext()
-    const styles = useStyles()
 
     const inputProps = getInputProps(props, ref) as HTMLChakraProps<"input">
     const _className = cx("chakra-editable__input", props.className)
@@ -148,8 +143,8 @@ export const EditableInput = forwardRef<EditableInputProps, "input">(
         __css={{
           outline: 0,
           ...commonStyles,
-          ...styles.input,
         }}
+        data-part="editable.input"
         className={_className}
       />
     )

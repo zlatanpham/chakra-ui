@@ -11,9 +11,7 @@ import {
   chakra,
   forwardRef,
   omitThemingProps,
-  StylesProvider,
   useMultiStyleConfig,
-  useStyles,
 } from "@chakra-ui/system"
 import { cx, __DEV__ } from "@chakra-ui/utils"
 import * as React from "react"
@@ -76,8 +74,6 @@ export interface AvatarBadgeProps extends HTMLChakraProps<"div"> {}
  * or bottom-right corner of an avatar.
  */
 export const AvatarBadge = forwardRef<AvatarBadgeProps, "div">((props, ref) => {
-  const styles = useStyles()
-
   const badgeStyles: SystemStyleObject = {
     position: "absolute",
     display: "flex",
@@ -85,13 +81,13 @@ export const AvatarBadge = forwardRef<AvatarBadgeProps, "div">((props, ref) => {
     justifyContent: "center",
     insetEnd: "0",
     bottom: "0",
-    ...styles.badge,
   }
 
   return (
     <chakra.div
       ref={ref}
       {...props}
+      data-part="avatar.badge"
       className={cx("chakra-avatar__badge", props.className)}
       __css={badgeStyles}
     />
@@ -118,10 +114,9 @@ interface AvatarNameProps
  */
 const AvatarName: React.FC<AvatarNameProps> = (props) => {
   const { name, getInitials, ...rest } = props
-  const styles = useStyles()
 
   return (
-    <chakra.div role="img" aria-label={name} {...rest} __css={styles.label}>
+    <chakra.div role="img" aria-label={name} {...rest} data-part="avatar.label">
       {name ? getInitials?.(name) : null}
     </chakra.div>
   )
@@ -196,6 +191,7 @@ export const Avatar = forwardRef<AvatarProps, "span">((props, ref) => {
     borderWidth: showBorder ? "2px" : undefined,
     ...baseStyle,
     ...styles.container,
+    ...styles.__partStyles,
   }
 
   if (borderColor) {
@@ -209,19 +205,17 @@ export const Avatar = forwardRef<AvatarProps, "span">((props, ref) => {
       className={cx("chakra-avatar", props.className)}
       __css={avatarStyles}
     >
-      <StylesProvider value={styles}>
-        <AvatarImage
-          src={src}
-          loading={loading}
-          onError={onError}
-          getInitials={getInitials}
-          name={name}
-          borderRadius={borderRadius}
-          icon={icon}
-          iconLabel={iconLabel}
-        />
-        {children}
-      </StylesProvider>
+      <AvatarImage
+        src={src}
+        loading={loading}
+        onError={onError}
+        getInitials={getInitials}
+        name={name}
+        borderRadius={borderRadius}
+        icon={icon}
+        iconLabel={iconLabel}
+      />
+      {children}
     </chakra.span>
   )
 })

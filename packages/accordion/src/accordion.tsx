@@ -3,11 +3,9 @@ import {
   chakra,
   forwardRef,
   omitThemingProps,
-  StylesProvider,
   SystemStyleObject,
   ThemingProps,
   useMultiStyleConfig,
-  useStyles,
   HTMLChakraProps,
 } from "@chakra-ui/system"
 import { Collapse } from "@chakra-ui/transition"
@@ -61,15 +59,14 @@ export const Accordion = forwardRef<AccordionProps, "div">(
     return (
       <AccordionDescendantsProvider value={descendants}>
         <AccordionProvider value={ctx}>
-          <StylesProvider value={styles}>
-            <chakra.div
-              ref={ref}
-              {...htmlProps}
-              className={cx("chakra-accordion", props.className)}
-            >
-              {children}
-            </chakra.div>
-          </StylesProvider>
+          <chakra.div
+          ref={ref}
+          {...htmlProps}
+          __css={styles.__partStyles}
+          className={cx("chakra-accordion", props.className)}
+        >
+          {children}
+        </chakra.div>
         </AccordionProvider>
       </AccordionDescendantsProvider>
     )
@@ -115,9 +112,7 @@ export const AccordionItem = forwardRef<AccordionItemProps, "div">(
     const { children, className } = props
     const { htmlProps, ...context } = useAccordionItem(props)
 
-    const styles = useStyles()
     const containerStyles: SystemStyleObject = {
-      ...styles.container,
       overflowAnchor: "none",
     }
 
@@ -128,6 +123,7 @@ export const AccordionItem = forwardRef<AccordionItemProps, "div">(
         <chakra.div
           ref={ref}
           {...htmlProps}
+          data-part="accordion.item"
           className={cx("chakra-accordion__item", className)}
           __css={containerStyles}
         >
@@ -171,19 +167,18 @@ export const AccordionButton = forwardRef<AccordionButtonProps, "button">(
     const { getButtonProps } = useAccordionItemContext()
     const buttonProps = getButtonProps(props, ref)
 
-    const styles = useStyles()
     const buttonStyles: SystemStyleObject = {
       display: "flex",
       alignItems: "center",
       width: "100%",
       transition: "all 0.2s",
       outline: 0,
-      ...styles.button,
     }
 
     return (
       <chakra.button
         {...buttonProps}
+        data-part="accordion.button"
         className={cx("chakra-accordion__button", props.className)}
         __css={buttonStyles}
       />
@@ -216,14 +211,17 @@ export const AccordionPanel = forwardRef<AccordionPanelProps, "div">(
     const panelProps = getPanelProps(props, ref)
 
     const _className = cx("chakra-accordion__panel", props.className)
-    const styles = useStyles()
 
     if (!reduceMotion) {
       delete panelProps.hidden
     }
 
     const child = (
-      <chakra.div {...panelProps} __css={styles.panel} className={_className} />
+      <chakra.div
+        {...panelProps}
+        data-part="accordion.panel"
+        className={_className}
+      />
     )
 
     if (!reduceMotion) {
@@ -251,23 +249,22 @@ export const AccordionIcon: React.FC<IconProps> = (props) => {
   const { reduceMotion } = useAccordionContext()
 
   const _className = cx("chakra-accordion__icon", props.className)
-  const styles = useStyles()
 
   const iconStyles: SystemStyleObject = {
     opacity: isDisabled ? 0.4 : 1,
     transform: isOpen ? "rotate(-180deg)" : undefined,
     transition: reduceMotion ? undefined : "transform 0.2s",
     transformOrigin: "center",
-    ...styles.icon,
   }
 
   return (
     <Icon
       viewBox="0 0 24 24"
       aria-hidden
+      {...props}
+      data-part="accordion.icon"
       className={_className}
       __css={iconStyles}
-      {...props}
     >
       <path
         fill="currentColor"

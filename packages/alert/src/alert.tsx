@@ -2,11 +2,9 @@ import {
   chakra,
   forwardRef,
   omitThemingProps,
-  StylesProvider,
   SystemStyleObject,
   ThemingProps,
   useMultiStyleConfig,
-  useStyles,
   HTMLChakraProps,
 } from "@chakra-ui/system"
 import { cx } from "@chakra-ui/utils"
@@ -62,19 +60,18 @@ export const Alert = forwardRef<AlertProps, "div">((props, ref) => {
     position: "relative",
     overflow: "hidden",
     ...styles.container,
+    ...styles.__partStyles,
   }
 
   return (
     <AlertProvider value={{ status }}>
-      <StylesProvider value={styles}>
-        <chakra.div
-          role="alert"
-          ref={ref}
-          {...rest}
-          className={cx("chakra-alert", props.className)}
-          __css={alertStyles}
-        />
-      </StylesProvider>
+      <chakra.div
+        role="alert"
+        ref={ref}
+        {...rest}
+        className={cx("chakra-alert", props.className)}
+        __css={alertStyles}
+      />
     </AlertProvider>
   )
 })
@@ -82,14 +79,12 @@ export const Alert = forwardRef<AlertProps, "div">((props, ref) => {
 export interface AlertTitleProps extends HTMLChakraProps<"div"> {}
 
 export const AlertTitle = forwardRef<AlertTitleProps, "div">((props, ref) => {
-  const styles = useStyles()
-
   return (
     <chakra.div
       ref={ref}
       {...props}
+      data-part="alert.tile"
       className={cx("chakra-alert__title", props.className)}
-      __css={styles.title}
     />
   )
 })
@@ -98,16 +93,15 @@ export interface AlertDescriptionProps extends HTMLChakraProps<"div"> {}
 
 export const AlertDescription = forwardRef<AlertDescriptionProps, "div">(
   (props, ref) => {
-    const styles = useStyles()
     const descriptionStyles: SystemStyleObject = {
       display: "inline",
-      ...styles.description,
     }
 
     return (
       <chakra.div
         ref={ref}
         {...props}
+        data-part="alert.desc"
         className={cx("chakra-alert__desc", props.className)}
         __css={descriptionStyles}
       />
@@ -120,14 +114,12 @@ export interface AlertIconProps extends HTMLChakraProps<"span"> {}
 export const AlertIcon: React.FC<AlertIconProps> = (props) => {
   const { status } = useAlertContext()
   const { icon: BaseIcon } = STATUSES[status]
-  const styles = useStyles()
 
   return (
     <chakra.span
       display="inherit"
-      {...props}
+      data-part="alert.icon"
       className={cx("chakra-alert__icon", props.className)}
-      __css={styles.icon}
     >
       <BaseIcon w="100%" h="100%" />
     </chakra.span>

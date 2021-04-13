@@ -2,12 +2,10 @@ import {
   chakra,
   forwardRef,
   omitThemingProps,
-  StylesProvider,
   SystemProps,
   SystemStyleObject,
   ThemingProps,
   useMultiStyleConfig,
-  useStyles,
   HTMLChakraProps,
 } from "@chakra-ui/system"
 import { cx, __DEV__ } from "@chakra-ui/utils"
@@ -28,10 +26,8 @@ export const BreadcrumbSeparator = forwardRef<BreadcrumbSeparatorProps, "span">(
   (props, ref) => {
     const { spacing, ...rest } = props
 
-    const styles = useStyles()
     const separatorStyles: SystemStyleObject = {
       mx: spacing,
-      ...styles.separator,
     }
 
     return (
@@ -39,6 +35,7 @@ export const BreadcrumbSeparator = forwardRef<BreadcrumbSeparatorProps, "span">(
         ref={ref}
         role="presentation"
         {...rest}
+        data-part="breadcrumb.separator"
         __css={separatorStyles}
       />
     )
@@ -62,7 +59,6 @@ export interface BreadcrumbLinkProps extends HTMLChakraProps<"a"> {
 export const BreadcrumbLink = forwardRef<BreadcrumbLinkProps, "a">(
   (props, ref) => {
     const { isCurrentPage, as, className, ...rest } = props
-    const styles = useStyles()
 
     const sharedProps = {
       ref,
@@ -73,11 +69,15 @@ export const BreadcrumbLink = forwardRef<BreadcrumbLinkProps, "a">(
 
     if (isCurrentPage) {
       return (
-        <chakra.span aria-current="page" __css={styles.link} {...sharedProps} />
+        <chakra.span
+          aria-current="page"
+          data-part="breadcrumb.link"
+          {...sharedProps}
+        />
       )
     }
 
-    return <chakra.a __css={styles.link} {...sharedProps} />
+    return <chakra.a data-part="breadcrumb.link" {...sharedProps} />
   },
 )
 
@@ -131,17 +131,21 @@ export const BreadcrumbItem = forwardRef<BreadcrumbItemProps, "li">(
       return child
     })
 
-    const styles = useStyles()
     const itemStyles: SystemStyleObject = {
       display: "inline-flex",
       alignItems: "center",
-      ...styles.item,
     }
 
     const _className = cx("chakra-breadcrumb__list-item", className)
 
     return (
-      <chakra.li ref={ref} className={_className} {...rest} __css={itemStyles}>
+      <chakra.li
+        ref={ref}
+        className={_className}
+        {...rest}
+        data-part="editable.list-item"
+        __css={itemStyles}
+      >
         {clones}
         {!isLastChild && (
           <BreadcrumbSeparator spacing={spacing}>
@@ -211,12 +215,10 @@ export const Breadcrumb = forwardRef<BreadcrumbProps, "nav">((props, ref) => {
       ref={ref}
       aria-label="breadcrumb"
       className={_className}
-      __css={styles.container}
+      __css={{ ...styles.container, ...styles.__partStyles }}
       {...rest}
     >
-      <StylesProvider value={styles}>
-        <chakra.ol className="chakra-breadcrumb__list">{clones}</chakra.ol>
-      </StylesProvider>
+      <chakra.ol className="chakra-breadcrumb__list">{clones}</chakra.ol>
     </chakra.nav>
   )
 })
