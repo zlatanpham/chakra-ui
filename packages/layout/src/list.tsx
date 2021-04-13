@@ -7,8 +7,6 @@ import {
   omitThemingProps,
   ThemingProps,
   useMultiStyleConfig,
-  StylesProvider,
-  useStyles,
 } from "@chakra-ui/system"
 import { __DEV__ } from "@chakra-ui/utils"
 import { getValidChildren } from "@chakra-ui/react-utils"
@@ -59,22 +57,20 @@ export const List = forwardRef<ListProps, "ul">((props, ref) => {
   const spacingStyle = spacing ? { [selector]: { mt: spacing } } : {}
 
   return (
-    <StylesProvider value={styles}>
-      <chakra.ul
-        ref={ref}
-        listStyleType={styleType}
-        listStylePosition={stylePosition}
-        /**
-         * We added this role to fix the Safari accessibility issue with list-style-type: none
-         * @see https://www.scottohara.me/blog/2019/01/12/lists-and-safari.html
-         */
-        role="list"
-        __css={{ ...styles.container, ...spacingStyle }}
-        {...rest}
-      >
-        {validChildren}
-      </chakra.ul>
-    </StylesProvider>
+    <chakra.ul
+      ref={ref}
+      listStyleType={styleType}
+      listStylePosition={stylePosition}
+      /**
+       * We added this role to fix the Safari accessibility issue with list-style-type: none
+       * @see https://www.scottohara.me/blog/2019/01/12/lists-and-safari.html
+       */
+      role="list"
+      __css={{ ...styles.container, ...spacingStyle, ...styles.__partStyles }}
+      {...rest}
+    >
+      {validChildren}
+    </chakra.ul>
   )
 })
 

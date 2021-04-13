@@ -91,7 +91,7 @@ export const NumberInput = forwardRef<NumberInputProps, "div">((props, ref) => {
           __css={{
             position: "relative",
             zIndex: 0,
-            ...styles.root,
+            ...styles.__partStyles,
           }}
         />
       </StylesProvider>

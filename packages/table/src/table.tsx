@@ -42,9 +42,10 @@ export const Table = forwardRef<TableProps, "table">((props, ref) => {
 
   return (
     <chakra.table
+      data-part="table.table"
       role="table"
       ref={ref}
-      __css={{ ...styles.root, ...styles.table }}
+      __css={{ ...styles.__partStyles, ...styles.table }}
       className={cx("chakra-table", className)}
       {...tableProps}
     />

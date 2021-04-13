@@ -65,7 +65,7 @@ export const Tabs = forwardRef<TabsProps, "div">((props, ref) => {
           className={cx("chakra-tabs", className)}
           ref={ref}
           {...rootProps}
-          __css={styles.root}
+          __css={styles.__partStyles}
         >
           {children}
         </chakra.div>
