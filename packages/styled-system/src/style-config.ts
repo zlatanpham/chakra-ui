@@ -200,11 +200,10 @@ export function normalizeStyleConfig(
   const { baseStyle, variants, sizes, defaultVariants, ...rest } = styleConfig
   return {
     ...baseStyle,
-    defaultVariants: {
-      ...defaultVariants,
+    defaultVariants: mergeWith({}, defaultVariants, {
       variant: variants,
       size: sizes,
-    },
+    }),
     ...rest,
   }
 }

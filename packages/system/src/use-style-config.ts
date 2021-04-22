@@ -16,7 +16,7 @@ export function useStyleConfig(
   themeKey: string,
   props: ThemingProps & Dict,
   /**
-   * @deprecated option `isMultiPart` is unused
+   * @deprecated option `isMultiPart` is removed in favor of `isArray(styleConfig.parts)`
    */
   opts: { isMultiPart: true },
 ): Record<string, SystemStyleObject>
@@ -25,7 +25,7 @@ export function useStyleConfig(
   themeKey: string,
   props?: ThemingProps & Dict,
   /**
-   * @deprecated option `isMultiPart` is unused
+   * @deprecated option `isMultiPart` is removed in favor of `isArray(styleConfig.parts)`
    */
   opts?: { isMultiPart?: boolean },
 ): SystemStyleObject
