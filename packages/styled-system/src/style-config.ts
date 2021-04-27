@@ -6,13 +6,11 @@ import {
   isNumeric,
   isObject,
   mergeWith,
-  objectFilter,
   runIfFn,
 } from "@chakra-ui/utils"
 import { CSSObject, StyleObjectOrFn } from "./types"
 import { ResponsiveValue } from "./utils"
 import { ColorMode } from "@chakra-ui/color-mode"
-import { isStyleProp } from "./system"
 
 type Thunk<T, Args extends any[] = []> = T | ((...args: Args) => T)
 
@@ -27,18 +25,18 @@ export interface StyleConfigThemingProps extends Dict {
   children?: unknown
 }
 
-export type DefaultVariantConfig = Record<
+export type VariantConfig = Record<
   string,
   Thunk<StyleObjectOrFn, [StyleConfigThemingProps]>
 >
 
-export type DefaultVariants = Partial<
-  Record<"variant" | "size" | (string & {}), DefaultVariantConfig>
+export type Variants = Partial<
+  Record<"variant" | "size" | (string & {}), VariantConfig>
 >
 
 export type StyleConfigOptions = CSSObject & {
   parts?: string[]
-  defaultVariants?: DefaultVariants
+  defaultVariants?: Variants
   defaultProps?: Dict
 }
 
@@ -47,7 +45,7 @@ type StyleConfigInterpreterOptions = { isComponentMultiStyleConfig?: boolean }
 type BreakpointDetail = NonNullable<AnalyzeBreakpointsReturn>["details"]
 
 function getResponsiveVariantStyles(
-  variantConfig: DefaultVariantConfig,
+  variantConfig: VariantConfig,
   responsiveName: ResponsiveValue<string>,
   props: StyleConfigThemingProps,
   { isComponentMultiStyleConfig }: StyleConfigInterpreterOptions,
@@ -84,24 +82,17 @@ function getResponsiveVariantStyles(
     const mediaQueryStyles = runIfFn(variantConfig[value], props)
     const mediaQuery = isLast ? breakpoint.minWQuery : breakpoint.minMaxQuery
 
-    // extract the style props and spread them into every media-query
-    // to allow in-place overrides of variants
-    const styleProps = objectFilter(props, (_, prop) => isStyleProp(prop))
-
     if (isComponentMultiStyleConfig && mediaQueryStyles) {
       return Object.fromEntries(
         Object.entries(mediaQueryStyles).map(
           ([partName, partStyles]) =>
-            [
-              partName,
-              { [mediaQuery]: mergeWith({}, partStyles, styleProps) },
-            ] as const,
+            [partName, { [mediaQuery]: mergeWith({}, partStyles) }] as const,
         ),
       )
     }
 
     return {
-      [mediaQuery]: mergeWith({}, mediaQueryStyles, styleProps),
+      [mediaQuery]: mergeWith({}, mediaQueryStyles),
     }
   })
 
@@ -109,11 +100,11 @@ function getResponsiveVariantStyles(
 }
 
 function getAllVariantStyles(
-  defaultVariants: DefaultVariants,
+  variants: Variants,
   props: StyleConfigThemingProps,
   options: StyleConfigInterpreterOptions,
 ) {
-  return Object.entries(defaultVariants)
+  return Object.entries(variants)
     .map(
       ([
         /** @example `size` or `variant` */
@@ -142,7 +133,6 @@ function getAllVariantStyles(
     .filter(isDefined)
 }
 
-// TODO: mark updated object structure config as deprecated
 export function interpretStyleConfig(
   colorMode: ColorMode,
   theme: Dict,
@@ -169,41 +159,12 @@ export function interpretStyleConfig(
       filterUndefined(props),
     )
 
-    const allDefaultVariantStyles = getAllVariantStyles(
+    const allVariantStyles = getAllVariantStyles(
       defaultVariants ?? {},
       mergedProps,
       { isComponentMultiStyleConfig },
     )
 
-    const maybeMultiPartEmptyStyles = isComponentMultiStyleConfig
-      ? Object.fromEntries(parts!.map((key) => [key, {}]))
-      : {}
-
-    return mergeWith(
-      {},
-      maybeMultiPartEmptyStyles,
-      ...allDefaultVariantStyles,
-      restConfig,
-    )
-  }
-}
-
-type OldStyleConfig = StyleConfigOptions & {
-  baseStyle?: Dict
-  variants?: Dict
-  sizes?: Dict
-}
-
-export function normalizeStyleConfig(
-  styleConfig: OldStyleConfig,
-): StyleConfigOptions {
-  const { baseStyle, variants, sizes, defaultVariants, ...rest } = styleConfig
-  return {
-    ...baseStyle,
-    defaultVariants: mergeWith({}, defaultVariants, {
-      variant: variants,
-      size: sizes,
-    }),
-    ...rest,
+    return mergeWith({}, restConfig, ...allVariantStyles)
   }
 }
