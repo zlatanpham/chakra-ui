@@ -30,17 +30,22 @@ export type VariantConfig = Record<
   Thunk<StyleObjectOrFn, [StyleConfigThemingProps]>
 >
 
-export type Variants = Partial<
-  Record<"variant" | "size" | (string & {}), VariantConfig>
+export type Variants = Partial<Record<string & {}, VariantConfig>>
+
+export type RightJoin<Left extends object, Right extends object> = Omit<
+  Left,
+  keyof Right
+> &
+  Right
+
+export type StyleConfigOptions = RightJoin<
+  CSSObject,
+  {
+    baseStyle?: StyleObjectOrFn
+    variants?: Variants
+    defaultVariants?: Record<keyof Variants, string>
+  }
 >
-
-export type StyleConfigOptions = CSSObject & {
-  parts?: string[]
-  defaultVariants?: Variants
-  defaultProps?: Dict
-}
-
-type StyleConfigInterpreterOptions = { isComponentMultiStyleConfig?: boolean }
 
 type BreakpointDetail = NonNullable<AnalyzeBreakpointsReturn>["details"]
 
@@ -48,7 +53,6 @@ function getResponsiveVariantStyles(
   variantConfig: VariantConfig,
   responsiveName: ResponsiveValue<string>,
   props: StyleConfigThemingProps,
-  { isComponentMultiStyleConfig }: StyleConfigInterpreterOptions,
 ) {
   const breakpointDetails: BreakpointDetail = props.theme.__breakpoints?.details
   if (!breakpointDetails) {
@@ -82,15 +86,6 @@ function getResponsiveVariantStyles(
     const mediaQueryStyles = runIfFn(variantConfig[value], props)
     const mediaQuery = isLast ? breakpoint.minWQuery : breakpoint.minMaxQuery
 
-    if (isComponentMultiStyleConfig && mediaQueryStyles) {
-      return Object.fromEntries(
-        Object.entries(mediaQueryStyles).map(
-          ([partName, partStyles]) =>
-            [partName, { [mediaQuery]: mergeWith({}, partStyles) }] as const,
-        ),
-      )
-    }
-
     return {
       [mediaQuery]: mergeWith({}, mediaQueryStyles),
     }
@@ -102,7 +97,6 @@ function getResponsiveVariantStyles(
 function getAllVariantStyles(
   variants: Variants,
   props: StyleConfigThemingProps,
-  options: StyleConfigInterpreterOptions,
 ) {
   return Object.entries(variants)
     .map(
@@ -123,10 +117,9 @@ function getAllVariantStyles(
         }
 
         return getResponsiveVariantStyles(
-          typeConfig,
+          typeConfig as VariantConfig,
           referencingProp,
           props,
-          options,
         )
       },
     )
@@ -144,27 +137,22 @@ export function interpretStyleConfig(
     }
 
     const {
-      defaultVariants,
-      defaultProps = {},
-      parts,
+      defaultVariants = {},
+      variants,
+      baseStyle,
       ...restConfig
     } = styleConfig
 
-    const isComponentMultiStyleConfig = Array.isArray(parts)
-
     const mergedProps: StyleConfigThemingProps = mergeWith(
       { theme, colorMode },
-      defaultProps,
+      defaultVariants,
       props,
       filterUndefined(props),
     )
 
-    const allVariantStyles = getAllVariantStyles(
-      defaultVariants ?? {},
-      mergedProps,
-      { isComponentMultiStyleConfig },
-    )
+    const resolvedBaseStyle = runIfFn(baseStyle, mergedProps)
+    const allVariantStyles = getAllVariantStyles(variants ?? {}, mergedProps)
 
-    return mergeWith({}, restConfig, ...allVariantStyles)
+    return mergeWith({}, resolvedBaseStyle, restConfig, ...allVariantStyles)
   }
 }

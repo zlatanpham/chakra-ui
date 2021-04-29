@@ -5,7 +5,7 @@ import {
   SystemProps,
   SystemStyleObject,
   ThemingProps,
-  useMultiStyleConfig,
+  useStyleConfig,
   HTMLChakraProps,
 } from "@chakra-ui/system"
 import { cx, __DEV__ } from "@chakra-ui/utils"
@@ -186,7 +186,7 @@ export interface BreadcrumbProps
  * @see Docs https://chakra-ui.com/docs/components/breadcrumbs
  */
 export const Breadcrumb = forwardRef<BreadcrumbProps, "nav">((props, ref) => {
-  const styles = useMultiStyleConfig("Breadcrumb", props)
+  const styles = useStyleConfig("Breadcrumb", props)
   const ownProps = omitThemingProps(props)
 
   const {
@@ -215,7 +215,7 @@ export const Breadcrumb = forwardRef<BreadcrumbProps, "nav">((props, ref) => {
       ref={ref}
       aria-label="breadcrumb"
       className={_className}
-      __css={{ ...styles.container, ...styles.__partStyles }}
+      __css={styles}
       {...rest}
     >
       <chakra.ol className="chakra-breadcrumb__list">{clones}</chakra.ol>

@@ -11,7 +11,7 @@ import {
   chakra,
   forwardRef,
   omitThemingProps,
-  useMultiStyleConfig,
+  useStyleConfig,
 } from "@chakra-ui/system"
 import { cx, __DEV__ } from "@chakra-ui/utils"
 import * as React from "react"
@@ -169,7 +169,7 @@ export interface AvatarProps
  * support for fallback avatar and name-only avatars
  */
 export const Avatar = forwardRef<AvatarProps, "span">((props, ref) => {
-  const styles = useMultiStyleConfig("Avatar", props)
+  const styles = useStyleConfig("Avatar", props)
 
   const {
     src,
@@ -190,8 +190,7 @@ export const Avatar = forwardRef<AvatarProps, "span">((props, ref) => {
     borderRadius,
     borderWidth: showBorder ? "2px" : undefined,
     ...baseStyle,
-    ...styles.container,
-    ...styles.__partStyles,
+    ...styles,
   }
 
   if (borderColor) {

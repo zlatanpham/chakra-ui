@@ -1,7 +1,4 @@
-import { mode } from "@chakra-ui/theme-tools"
-import Modal from "./modal"
-
-const parts = Modal.parts
+import { mode, part } from "@chakra-ui/theme-tools"
 
 /**
  * Since the `maxWidth` prop references theme.sizes internally,
@@ -9,9 +6,9 @@ const parts = Modal.parts
  */
 function getSize(value: string) {
   if (value === "full") {
-    return { dialog: { maxW: "100vw", h: "100vh" } }
+    return { [part("Drawer", "dialog")]: { maxW: "100vw", h: "100vh" } }
   }
-  return { dialog: { maxW: value } }
+  return { [part("Drawer", "dialog")]: { maxW: value } }
 }
 
 const baseStyleOverlay = {
@@ -64,16 +61,16 @@ const baseStyleFooter = {
 }
 
 const baseStyle = (props: Record<string, any>) => ({
-  overlay: baseStyleOverlay,
-  dialogContainer: baseStyleDialogContainer,
-  dialog: baseStyleDialog(props),
-  header: baseStyleHeader,
-  closeButton: baseStyleCloseButton,
-  body: baseStyleBody,
-  footer: baseStyleFooter,
+  [part("Drawer", "overlay")]: baseStyleOverlay,
+  [part("Drawer", "dialogContainer")]: baseStyleDialogContainer,
+  [part("Drawer", "dialog")]: baseStyleDialog(props),
+  [part("Drawer", "header")]: baseStyleHeader,
+  [part("Drawer", "closeButton")]: baseStyleCloseButton,
+  [part("Drawer", "body")]: baseStyleBody,
+  [part("Drawer", "footer")]: baseStyleFooter,
 })
 
-const sizes = {
+const size = {
   xs: getSize("xs"),
   sm: getSize("md"),
   md: getSize("lg"),
@@ -82,13 +79,14 @@ const sizes = {
   full: getSize("full"),
 }
 
-const defaultProps = {
+const defaultVariants = {
   size: "xs",
 }
 
 export default {
-  parts,
-  baseStyle,
-  sizes,
-  defaultProps,
+  ...baseStyle,
+  variants: {
+    size,
+  },
+  defaultVariants,
 }

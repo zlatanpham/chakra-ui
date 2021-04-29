@@ -3,7 +3,7 @@ const baseStyle = {
   height: "var(--spinner-size)",
 }
 
-const sizes = {
+const size = {
   xs: {
     "--spinner-size": "0.75rem",
   },
@@ -21,12 +21,12 @@ const sizes = {
   },
 }
 
-const defaultProps = {
+const defaultVariants = {
   size: "md",
 }
 
 export default {
   baseStyle,
-  sizes,
-  defaultProps,
+  variants: { size },
+  defaultVariants,
 }

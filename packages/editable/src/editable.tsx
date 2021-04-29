@@ -4,7 +4,7 @@ import {
   omitThemingProps,
   SystemStyleObject,
   ThemingProps,
-  useMultiStyleConfig,
+  useStyleConfig,
   HTMLChakraProps,
 } from "@chakra-ui/system"
 import { cx, runIfFn, __DEV__ } from "@chakra-ui/utils"
@@ -49,7 +49,7 @@ export interface EditableProps
  * components. It renders a `div`
  */
 export const Editable = forwardRef<EditableProps, "div">((props, ref) => {
-  const styles = useMultiStyleConfig("Editable", props)
+  const styles = useStyleConfig("Editable", props)
 
   const ownProps = omitThemingProps(props)
   const { htmlProps, ...context } = useEditable(ownProps)
@@ -71,7 +71,7 @@ export const Editable = forwardRef<EditableProps, "div">((props, ref) => {
         ref={ref}
         {...(htmlProps as HTMLChakraProps<"div">)}
         className={_className}
-        __css={styles.__partStyles}
+        __css={styles}
       >
         {children}
       </chakra.div>

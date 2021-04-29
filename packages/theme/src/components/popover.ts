@@ -1,6 +1,4 @@
-import { mode } from "@chakra-ui/theme-tools"
-
-const parts = ["popper", "content", "header", "body", "footer", "arrow"]
+import { mode, part } from "@chakra-ui/theme-tools"
 
 type Dict = Record<string, any>
 
@@ -47,15 +45,14 @@ const baseStyleFooter = {
 }
 
 const baseStyle = (props: Dict) => ({
-  popper: baseStylePopper,
-  content: baseStyleContent(props),
-  header: baseStyleHeader,
-  body: baseStyleBody,
-  footer: baseStyleFooter,
-  arrow: {},
+  [part("Popover", "popper")]: baseStylePopper,
+  [part("Popover", "content")]: baseStyleContent(props),
+  [part("Popover", "header")]: baseStyleHeader,
+  [part("Popover", "body")]: baseStyleBody,
+  [part("Popover", "footer")]: baseStyleFooter,
+  [part("Popover", "arrow")]: {},
 })
 
 export default {
-  parts,
   baseStyle,
 }

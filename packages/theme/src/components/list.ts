@@ -1,4 +1,4 @@
-const parts = ["container", "item", "icon"]
+import { part } from "@chakra-ui/theme-tools"
 
 const baseStyleContainer = {}
 
@@ -11,12 +11,11 @@ const baseStyleIcon = {
 }
 
 const baseStyle = {
-  container: baseStyleContainer,
-  item: baseStyleItem,
-  icon: baseStyleIcon,
+  [part("List", "container")]: baseStyleContainer,
+  [part("List", "item")]: baseStyleItem,
+  [part("List", "icon")]: baseStyleIcon,
 }
 
 export default {
-  parts,
-  baseStyle,
+  ...baseStyle,
 }

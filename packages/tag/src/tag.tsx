@@ -3,11 +3,9 @@ import {
   chakra,
   forwardRef,
   omitThemingProps,
-  StylesProvider,
   SystemStyleObject,
   ThemingProps,
-  useMultiStyleConfig,
-  useStyles,
+  useStyleConfig,
   HTMLChakraProps,
 } from "@chakra-ui/system"
 import { __DEV__ } from "@chakra-ui/utils"
@@ -23,7 +21,7 @@ export interface TagProps
  * @see Docs https://chakra-ui.com/docs/data-display/tag
  */
 export const Tag = forwardRef<TagProps, "span">((props, ref) => {
-  const styles = useMultiStyleConfig("Tag", props)
+  const styles = useStyleConfig("Tag", props)
   const ownProps = omitThemingProps(props)
 
   const containerStyles: SystemStyleObject = {
@@ -31,13 +29,16 @@ export const Tag = forwardRef<TagProps, "span">((props, ref) => {
     verticalAlign: "top",
     alignItems: "center",
     maxWidth: "100%",
-    ...styles.container,
+    ...styles,
   }
 
   return (
-    <StylesProvider value={styles}>
-      <chakra.span ref={ref} {...ownProps} __css={containerStyles} />
-    </StylesProvider>
+    <chakra.span
+      ref={ref}
+      {...ownProps}
+      __css={containerStyles}
+      data-part="tag.container"
+    />
   )
 })
 
@@ -48,8 +49,7 @@ if (__DEV__) {
 export interface TagLabelProps extends HTMLChakraProps<"span"> {}
 
 export const TagLabel = forwardRef<TagLabelProps, "span">((props, ref) => {
-  const styles = useStyles()
-  return <chakra.span ref={ref} isTruncated {...props} __css={styles.label} />
+  return <chakra.span ref={ref} isTruncated {...props} data-part="tag.label" />
 })
 
 if (__DEV__) {
@@ -97,15 +97,12 @@ export interface TagCloseButtonProps
 export const TagCloseButton: React.FC<TagCloseButtonProps> = (props) => {
   const { isDisabled, children, ...rest } = props
 
-  const styles = useStyles()
-
   const btnStyles: SystemStyleObject = {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
     outline: "0",
     transition: "all 0.2s",
-    ...styles.closeButton,
   }
 
   return (
@@ -115,6 +112,7 @@ export const TagCloseButton: React.FC<TagCloseButtonProps> = (props) => {
       aria-label="close"
       disabled={isDisabled}
       __css={btnStyles}
+      data-part="tag.closeButton"
     >
       {children || <TagCloseIcon />}
     </chakra.button>

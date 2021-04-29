@@ -4,10 +4,8 @@ import {
   forwardRef,
   HTMLChakraProps,
   omitThemingProps,
-  StylesProvider,
   ThemingProps,
-  useMultiStyleConfig,
-  useStyles,
+  useStyleConfig,
 } from "@chakra-ui/system"
 import { cx, __DEV__ } from "@chakra-ui/utils"
 import * as React from "react"
@@ -23,24 +21,23 @@ export interface FormErrorMessageProps
  */
 export const FormErrorMessage = forwardRef<FormErrorMessageProps, "div">(
   (props, ref) => {
-    const styles = useMultiStyleConfig("FormError", props)
+    const styles = useStyleConfig("FormError", props)
     const ownProps = omitThemingProps(props)
     const field = useFormControlContext()
 
     if (!field?.isInvalid) return null
 
     return (
-      <StylesProvider value={styles}>
-        <chakra.div
-          {...field?.getErrorMessageProps(ownProps, ref)}
-          className={cx("chakra-form__error-message", props.className)}
-          __css={{
-            display: "flex",
-            alignItems: "center",
-            ...styles.text,
-          }}
-        />
-      </StylesProvider>
+      <chakra.div
+        {...field?.getErrorMessageProps(ownProps, ref)}
+        className={cx("chakra-form__error-message", props.className)}
+        data-part="formerror.message"
+        __css={{
+          display: "flex",
+          alignItems: "center",
+          ...styles,
+        }}
+      />
     )
   },
 )
@@ -54,7 +51,6 @@ if (__DEV__) {
  * a field has incorrect values.
  */
 export const FormErrorIcon = forwardRef<IconProps, "svg">((props, ref) => {
-  const styles = useStyles()
   const field = useFormControlContext()
 
   if (!field?.isInvalid) return null
@@ -66,8 +62,8 @@ export const FormErrorIcon = forwardRef<IconProps, "svg">((props, ref) => {
       ref={ref}
       aria-hidden
       {...props}
-      __css={styles.icon}
       className={_className}
+      data-part="formerror.icon"
     >
       <path
         fill="currentColor"

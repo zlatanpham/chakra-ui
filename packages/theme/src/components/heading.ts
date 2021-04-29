@@ -3,7 +3,7 @@ const baseStyle = {
   fontWeight: "bold",
 }
 
-const sizes = {
+const size = {
   "4xl": {
     fontSize: ["6xl", null, "7xl"],
     lineHeight: 1,
@@ -29,12 +29,14 @@ const sizes = {
   xs: { fontSize: "sm", lineHeight: 1.2 },
 }
 
-const defaultProps = {
+const defaultVariants = {
   size: "xl",
 }
 
 export default {
-  baseStyle,
-  sizes,
-  defaultProps,
+  ...baseStyle,
+  variants: {
+    size,
+  },
+  defaultVariants,
 }

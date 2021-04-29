@@ -1,4 +1,4 @@
-const baseStyle = {
+export default {
   fontSize: "md",
   marginEnd: 3,
   mb: 2,
@@ -8,8 +8,4 @@ const baseStyle = {
   _disabled: {
     opacity: 0.4,
   },
-}
-
-export default {
-  baseStyle,
 }

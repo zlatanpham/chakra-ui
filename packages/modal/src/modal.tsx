@@ -6,11 +6,9 @@ import {
   ChakraProps,
   forwardRef,
   HTMLChakraProps,
-  StylesProvider,
   SystemStyleObject,
   ThemingProps,
-  useMultiStyleConfig,
-  useStyles,
+  useStyleConfig,
 } from "@chakra-ui/system"
 import { fadeConfig } from "@chakra-ui/transition"
 import {
@@ -155,7 +153,7 @@ export const Modal: React.FC<ModalProps> = (props) => {
     lockFocusAcrossFrames,
   } = props
 
-  const styles = useMultiStyleConfig("Modal", props)
+  const styles = useStyleConfig("Modal", props)
   const modal = useModal(props)
 
   const context = {
@@ -174,11 +172,9 @@ export const Modal: React.FC<ModalProps> = (props) => {
 
   return (
     <ModalContextProvider value={context}>
-      <StylesProvider value={styles}>
-        <AnimatePresence>
-          {context.isOpen && <Portal {...portalProps}>{children}</Portal>}
-        </AnimatePresence>
-      </StylesProvider>
+      <AnimatePresence>
+        {context.isOpen && <Portal {...portalProps}>{children}</Portal>}
+      </AnimatePresence>
     </ModalContextProvider>
   )
 }
@@ -222,15 +218,12 @@ export const ModalContent = forwardRef<ModalContentProps, "section">(
 
     const _className = cx("chakra-modal__content", className)
 
-    const styles = useStyles()
-
     const dialogStyles: SystemStyleObject = {
       display: "flex",
       flexDirection: "column",
       position: "relative",
       width: "100%",
       outline: 0,
-      ...styles.dialog,
     }
 
     const dialogContainerStyles: SystemStyleObject = {
@@ -243,7 +236,6 @@ export const ModalContent = forwardRef<ModalContentProps, "section">(
       position: "fixed",
       left: 0,
       top: 0,
-      ...styles.dialogContainer,
     }
 
     const { motionPreset } = useModalContext()
@@ -254,12 +246,14 @@ export const ModalContent = forwardRef<ModalContentProps, "section">(
           {...containerProps}
           className="chakra-modal__content-container"
           __css={dialogContainerStyles}
+          data-part="modal.dialogContainer"
         >
           <ModalTransition
             preset={motionPreset}
             className={_className}
             {...dialogProps}
             __css={dialogStyles}
+            data-part="modal.dialog"
           >
             {children}
           </ModalTransition>
@@ -341,14 +335,12 @@ export const ModalOverlay = forwardRef<ModalOverlayProps, "div">(
     const { className, transition, ...rest } = props
     const _className = cx("chakra-modal__overlay", className)
 
-    const styles = useStyles()
     const overlayStyle: SystemStyleObject = {
       pos: "fixed",
       left: "0",
       top: "0",
       w: "100vw",
       h: "100vh",
-      ...styles.overlay,
     }
 
     const { motionPreset } = useModalContext()
@@ -360,6 +352,7 @@ export const ModalOverlay = forwardRef<ModalOverlayProps, "div">(
         __css={overlayStyle}
         ref={ref}
         className={_className}
+        data-part="modal.overlay"
         {...rest}
       />
     )
@@ -396,10 +389,8 @@ export const ModalHeader = forwardRef<ModalHeaderProps, "header">(
 
     const _className = cx("chakra-modal__header", className)
 
-    const styles = useStyles()
     const headerStyles: SystemStyleObject = {
       flex: 0,
-      ...styles.header,
     }
 
     return (
@@ -409,6 +400,7 @@ export const ModalHeader = forwardRef<ModalHeaderProps, "header">(
         id={headerId}
         {...rest}
         __css={headerStyles}
+        data-part="modal.header"
       />
     )
   },
@@ -441,7 +433,6 @@ export const ModalBody = forwardRef<ModalBodyProps, "div">((props, ref) => {
   }, [setBodyMounted])
 
   const _className = cx("chakra-modal__body", className)
-  const styles = useStyles()
 
   return (
     <chakra.div
@@ -449,7 +440,7 @@ export const ModalBody = forwardRef<ModalBodyProps, "div">((props, ref) => {
       className={_className}
       id={bodyId}
       {...rest}
-      __css={styles.body}
+      data-part="modal.body"
     />
   )
 })
@@ -469,12 +460,10 @@ export const ModalFooter = forwardRef<ModalFooterProps, "footer">(
     const { className, ...rest } = props
     const _className = cx("chakra-modal__footer", className)
 
-    const styles = useStyles()
     const footerStyles: SystemStyleObject = {
       display: "flex",
       alignItems: "center",
       justifyContent: "flex-end",
-      ...styles.footer,
     }
 
     return (
@@ -483,6 +472,7 @@ export const ModalFooter = forwardRef<ModalFooterProps, "footer">(
         {...rest}
         __css={footerStyles}
         className={_className}
+        data-part="modal.footer"
       />
     )
   },
@@ -505,12 +495,10 @@ export const ModalCloseButton = forwardRef<CloseButtonProps, "button">(
 
     const _className = cx("chakra-modal__close-btn", className)
 
-    const styles = useStyles()
-
     return (
       <CloseButton
         ref={ref}
-        __css={styles.closeButton}
+        data-part="modal.closeButton"
         className={_className}
         onClick={callAllHandlers(onClick, (event: MouseEvent) => {
           event.stopPropagation()

@@ -1,9 +1,7 @@
-import { getColor, mode } from "@chakra-ui/theme-tools"
-
-const parts = ["field", "addon"]
+import { getColor, mode, part } from "@chakra-ui/theme-tools"
 
 const baseStyle = {
-  field: {
+  [part("Input", "field")]: {
     width: "100%",
     minWidth: 0,
     outline: 0,
@@ -75,7 +73,7 @@ function variantOutline(props: Record<string, any>) {
   const { focusBorderColor: fc, errorBorderColor: ec } = getDefaults(props)
 
   return {
-    field: {
+    [part("Input", "field")]: {
       border: "1px solid",
       borderColor: "inherit",
       bg: "inherit",
@@ -100,7 +98,7 @@ function variantOutline(props: Record<string, any>) {
         boxShadow: `0 0 0 1px ${getColor(theme, fc)}`,
       },
     },
-    addon: {
+    [part("Input", "addon")]: {
       border: "1px solid",
       borderColor: mode("inherit", "whiteAlpha.50")(props),
       bg: mode("gray.100", "whiteAlpha.300")(props),
@@ -113,7 +111,7 @@ function variantFilled(props: Record<string, any>) {
   const { focusBorderColor: fc, errorBorderColor: ec } = getDefaults(props)
 
   return {
-    field: {
+    [part("Input", "field")]: {
       border: "2px solid",
       borderColor: "transparent",
       bg: mode("gray.100", "whiteAlpha.50")(props),
@@ -136,7 +134,7 @@ function variantFilled(props: Record<string, any>) {
         borderColor: getColor(theme, fc),
       },
     },
-    addon: {
+    [part("Input", "addon")]: {
       border: "2px solid",
       borderColor: "transparent",
       bg: mode("gray.100", "whiteAlpha.50")(props),
@@ -149,7 +147,7 @@ function variantFlushed(props: Record<string, any>) {
   const { focusBorderColor: fc, errorBorderColor: ec } = getDefaults(props)
 
   return {
-    field: {
+    [part("Input", "field")]: {
       borderBottom: "1px solid",
       borderColor: "inherit",
       borderRadius: 0,
@@ -168,7 +166,7 @@ function variantFlushed(props: Record<string, any>) {
         boxShadow: `0px 1px 0px 0px ${getColor(theme, fc)}`,
       },
     },
-    addon: {
+    [part("Input", "addon")]: {
       borderBottom: "2px solid",
       borderColor: "inherit",
       borderRadius: 0,
@@ -179,34 +177,32 @@ function variantFlushed(props: Record<string, any>) {
 }
 
 const variantUnstyled = {
-  field: {
+  [part("Input", "field")]: {
     bg: "transparent",
     px: 0,
     height: "auto",
   },
-  addon: {
+  [part("Input", "addon")]: {
     bg: "transparent",
     px: 0,
     height: "auto",
   },
 }
 
-const variants = {
+const variant = {
   outline: variantOutline,
   filled: variantFilled,
   flushed: variantFlushed,
   unstyled: variantUnstyled,
 }
 
-const defaultProps = {
+const defaultVariants = {
   size: "md",
   variant: "outline",
 }
 
 export default {
-  parts,
-  baseStyle,
-  sizes,
-  variants,
-  defaultProps,
+  ...baseStyle,
+  variants: { variant, size },
+  defaultVariants,
 }

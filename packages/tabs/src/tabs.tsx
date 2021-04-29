@@ -2,11 +2,9 @@ import {
   chakra,
   forwardRef,
   omitThemingProps,
-  StylesProvider,
   SystemStyleObject,
   ThemingProps,
-  useMultiStyleConfig,
-  useStyles,
+  useStyleConfig,
   HTMLChakraProps,
 } from "@chakra-ui/system"
 import { cx, omit, __DEV__ } from "@chakra-ui/utils"
@@ -51,7 +49,7 @@ export interface TabsProps
  * any DOM node.
  */
 export const Tabs = forwardRef<TabsProps, "div">((props, ref) => {
-  const styles = useMultiStyleConfig("Tabs", props)
+  const styles = useStyleConfig("Tabs", props)
   const { children, className, ...rest } = omitThemingProps(props)
 
   const { htmlProps, descendants, ...ctx } = useTabs(rest)
@@ -62,16 +60,14 @@ export const Tabs = forwardRef<TabsProps, "div">((props, ref) => {
   return (
     <TabsDescendantsProvider value={descendants}>
       <TabsProvider value={context}>
-        <StylesProvider value={styles}>
-          <chakra.div
-            className={cx("chakra-tabs", className)}
-            ref={ref}
-            {...rootProps}
-            __css={styles.__partStyles}
-          >
-            {children}
-          </chakra.div>
-        </StylesProvider>
+        <chakra.div
+          className={cx("chakra-tabs", className)}
+          ref={ref}
+          {...rootProps}
+          __css={styles}
+        >
+          {children}
+        </chakra.div>
       </TabsProvider>
     </TabsDescendantsProvider>
   )
@@ -88,7 +84,6 @@ export interface TabProps extends UseTabOptions, HTMLChakraProps<"button"> {}
  * and is responsible for automatic and manual selection modes.
  */
 export const Tab = forwardRef<TabProps, "button">((props, ref) => {
-  const styles = useStyles()
   const tabProps = useTab({ ...props, ref })
 
   const tabStyles: SystemStyleObject = {
@@ -96,7 +91,6 @@ export const Tab = forwardRef<TabProps, "button">((props, ref) => {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    ...styles.tab,
   }
 
   return (
@@ -104,6 +98,7 @@ export const Tab = forwardRef<TabProps, "button">((props, ref) => {
       {...tabProps}
       className={cx("chakra-tabs__tab", props.className)}
       __css={tabStyles}
+      data-part="tab.tab"
     />
   )
 })
@@ -123,11 +118,8 @@ export interface TabListProps
 export const TabList = forwardRef<TabListProps, "div">((props, ref) => {
   const tablistProps = useTabList({ ...props, ref })
 
-  const styles = useStyles()
-
   const tablistStyles: SystemStyleObject = {
     display: "flex",
-    ...styles.tablist,
   }
 
   return (
@@ -135,6 +127,7 @@ export const TabList = forwardRef<TabListProps, "div">((props, ref) => {
       {...tablistProps}
       className={cx("chakra-tabs__tablist", props.className)}
       __css={tablistStyles}
+      data-part="tab.tablist"
     />
   )
 })
@@ -151,14 +144,13 @@ export interface TabPanelProps extends HTMLChakraProps<"div"> {}
  */
 export const TabPanel = forwardRef<TabPanelProps, "div">((props, ref) => {
   const panelProps = useTabPanel({ ...props, ref })
-  const styles = useStyles()
 
   return (
     <chakra.div
       outline="0"
       {...panelProps}
       className={cx("chakra-tabs__tab-panel", props.className)}
-      __css={styles.tabpanel}
+      data-part="tab.tabpanel"
     />
   )
 })
@@ -179,7 +171,6 @@ export interface TabPanelsProps extends HTMLChakraProps<"div"> {}
  */
 export const TabPanels = forwardRef<TabPanelsProps, "div">((props, ref) => {
   const panelsProps = useTabPanels(props)
-  const styles = useStyles()
 
   return (
     <chakra.div
@@ -187,7 +178,7 @@ export const TabPanels = forwardRef<TabPanelsProps, "div">((props, ref) => {
       width="100%"
       ref={ref}
       className={cx("chakra-tabs__tab-panels", props.className)}
-      __css={styles.tabpanels}
+      data-part="tab.tabpanels"
     />
   )
 })
@@ -212,15 +203,13 @@ export const TabIndicator = forwardRef<TabIndicatorProps, "div">(
       ...indicatorStyle,
     }
 
-    const styles = useStyles()
-
     return (
       <chakra.div
         ref={ref}
         {...props}
         className={cx("chakra-tabs__tab-indicator", props.className)}
         style={style}
-        __css={styles.indicator}
+        data-part="tab.indicator"
       />
     )
   },

@@ -1,6 +1,8 @@
 import Color from "tinycolor2"
 import { memoizedGet as get, Dict, isEmptyObject } from "@chakra-ui/utils"
 
+export type Breakpoints<T extends object> = T
+
 /**
  * Get the color raw value from theme
  * @param theme - the theme object

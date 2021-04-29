@@ -1,10 +1,8 @@
-import { mode } from "@chakra-ui/theme-tools"
+import { mode, part } from "@chakra-ui/theme-tools"
 import Input from "./input"
 import typography from "../foundations/typography"
 
-const parts = ["root", "field", "stepper", "stepperGroup"]
-
-const { variants, defaultProps } = Input
+const { variants, defaultVariants } = Input
 
 const baseStyleRoot = {
   "--number-input-stepper-width": "24px",
@@ -12,7 +10,8 @@ const baseStyleRoot = {
     "calc(var(--number-input-stepper-width) + 0.5rem)",
 }
 
-const baseStyleField = Input.baseStyle?.field
+const inputFieldPart = part("Input", "field")
+const baseStyleField = Input[inputFieldPart]
 
 const baseStyleStepperGroup = {
   width: "var(--number-input-stepper-width)",
@@ -34,14 +33,14 @@ function baseStyleStepper(props: Record<string, any>) {
 }
 
 const baseStyle = (props: Record<string, any>) => ({
-  root: baseStyleRoot,
-  field: baseStyleField,
-  stepperGroup: baseStyleStepperGroup,
-  stepper: baseStyleStepper(props),
+  ...baseStyleRoot,
+  [part("NumberInput", "field")]: baseStyleField,
+  [part("NumberInput", "stepperGroup")]: baseStyleStepperGroup,
+  [part("NumberInput", "stepper")]: baseStyleStepper(props),
 })
 
 function getSize(size: "xs" | "sm" | "md" | "lg") {
-  const sizeStyle = Input.sizes[size]
+  const sizeStyle = Input.variants.size[size]
 
   const radius = {
     lg: "md",
@@ -49,16 +48,16 @@ function getSize(size: "xs" | "sm" | "md" | "lg") {
     sm: "sm",
     xs: "sm",
   }
-
-  const resolvedFontSize = typography.fontSizes[sizeStyle.field.fontSize]
+  console.log(sizeStyle)
+  const resolvedFontSize = typography.fontSizes[sizeStyle.fontSize]
 
   return {
-    field: {
-      ...sizeStyle.field,
+    [part("NumberInput", "field")]: {
+      ...sizeStyle[inputFieldPart],
       paddingInlineEnd: "var(--number-input-field-padding)",
       verticalAlign: "top",
     },
-    stepper: {
+    [part("NumberInput", "stepper")]: {
       fontSize: `calc(${resolvedFontSize} * 0.75)`,
       _first: {
         borderTopEndRadius: radius[size],
@@ -72,7 +71,7 @@ function getSize(size: "xs" | "sm" | "md" | "lg") {
   }
 }
 
-const sizes = {
+const size = {
   xs: getSize("xs"),
   sm: getSize("sm"),
   md: getSize("md"),
@@ -80,9 +79,7 @@ const sizes = {
 }
 
 export default {
-  parts,
   baseStyle,
-  sizes,
-  variants,
-  defaultProps,
+  variants: { ...variants, size },
+  defaultVariants,
 }

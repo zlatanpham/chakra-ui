@@ -44,13 +44,15 @@ const variants = {
   outline: variantOutline,
 }
 
-const defaultProps = {
+const defaultVariants = {
   variant: "subtle",
   colorScheme: "gray",
 }
 
 export default {
-  baseStyle,
-  variants,
-  defaultProps,
+  ...baseStyle,
+  variants: {
+    variant: variants,
+  },
+  defaultVariants,
 }

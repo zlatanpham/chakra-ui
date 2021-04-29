@@ -1,6 +1,4 @@
-import { mode } from "@chakra-ui/theme-tools"
-
-const parts = ["container", "track", "thumb"]
+import { mode, part } from "@chakra-ui/theme-tools"
 
 function baseStyleTrack(props: Record<string, any>) {
   const { colorScheme: c } = props
@@ -37,7 +35,7 @@ const baseStyleThumb = {
 }
 
 const baseStyle = (props: Record<string, any>) => ({
-  container: {
+  [part("Switch", "container")]: {
     "--slider-track-diff":
       "calc(var(--slider-track-width) - var(--slider-track-height))",
     "--slider-thumb-x": "var(--slider-track-diff)",
@@ -45,39 +43,38 @@ const baseStyle = (props: Record<string, any>) => ({
       "--slider-thumb-x": "calc(-1 * var(--slider-track-diff))",
     },
   },
-  track: baseStyleTrack(props),
-  thumb: baseStyleThumb,
+  [part("Switch", "track")]: baseStyleTrack(props),
+  [part("Switch", "thumb")]: baseStyleThumb,
 })
 
-const sizes = {
+const size = {
   sm: {
-    container: {
+    [part("Switch", "container")]: {
       "--slider-track-width": "1.375rem",
       "--slider-track-height": "0.75rem",
     },
   },
   md: {
-    container: {
+    [part("Switch", "container")]: {
       "--slider-track-width": "1.875rem",
       "--slider-track-height": "1rem",
     },
   },
   lg: {
-    container: {
+    [part("Switch", "container")]: {
       "--slider-track-width": "2.875rem",
       "--slider-track-height": "1.5rem",
     },
   },
 }
 
-const defaultProps = {
+const defaultVariants = {
   size: "md",
   colorScheme: "blue",
 }
 
 export default {
-  parts,
   baseStyle,
-  sizes,
-  defaultProps,
+  variants: { size },
+  defaultVariants,
 }

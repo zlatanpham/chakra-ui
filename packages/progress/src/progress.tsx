@@ -2,11 +2,9 @@ import {
   chakra,
   Interpolation,
   omitThemingProps,
-  StylesProvider,
   SystemStyleObject,
   ThemingProps,
-  useMultiStyleConfig,
-  useStyles,
+  useStyleConfig,
   HTMLChakraProps,
 } from "@chakra-ui/system"
 import { __DEV__ } from "@chakra-ui/utils"
@@ -25,7 +23,6 @@ export interface ProgressLabelProps extends HTMLChakraProps<"div"> {}
  * @see Docs https://chakra-ui.com/docs/feedback/progress
  */
 export const ProgressLabel: React.FC<ProgressLabelProps> = (props) => {
-  const styles = useStyles()
   const labelStyles: SystemStyleObject = {
     top: "50%",
     left: "50%",
@@ -33,9 +30,10 @@ export const ProgressLabel: React.FC<ProgressLabelProps> = (props) => {
     textAlign: "center",
     position: "absolute",
     transform: "translate(-50%, -50%)",
-    ...styles.label,
   }
-  return <chakra.div {...props} __css={labelStyles} />
+  return (
+    <chakra.div {...props} __css={labelStyles} data-part="progress.label" />
+  )
 }
 
 if (__DEV__) {
@@ -58,10 +56,8 @@ const ProgressFilledTrack: React.FC<ProgressFilledTrackProps> = (props) => {
   const { min, max, value, isIndeterminate, ...rest } = props
   const progress = getProgressProps({ value, min, max, isIndeterminate })
 
-  const styles = useStyles()
   const trackStyles = {
     height: "100%",
-    ...styles.filledTrack,
   }
 
   return (
@@ -73,6 +69,7 @@ const ProgressFilledTrack: React.FC<ProgressFilledTrackProps> = (props) => {
       {...progress.bind}
       {...rest}
       __css={trackStyles}
+      data-part="progress.filledTrack"
     />
   )
 }
@@ -139,7 +136,7 @@ export const Progress: React.FC<ProgressProps> = (props) => {
     ...rest
   } = omitThemingProps(props)
 
-  const styles = useMultiStyleConfig("Progress", props)
+  const styles = useStyleConfig("Progress", props)
 
   const borderRadius =
     propBorderRadius ??
@@ -170,24 +167,22 @@ export const Progress: React.FC<ProgressProps> = (props) => {
   const trackStyles: SystemStyleObject = {
     overflow: "hidden",
     position: "relative",
-    ...styles.track,
+    ...styles,
   }
 
   return (
     <chakra.div borderRadius={borderRadius} __css={trackStyles} {...rest}>
-      <StylesProvider value={styles}>
-        <ProgressFilledTrack
-          aria-label={ariaLabel}
-          aria-labelledby={ariaLabelledBy}
-          min={min}
-          max={max}
-          value={value}
-          isIndeterminate={isIndeterminate}
-          css={css}
-          borderRadius={borderRadius}
-        />
-        {children}
-      </StylesProvider>
+      <ProgressFilledTrack
+        aria-label={ariaLabel}
+        aria-labelledby={ariaLabelledBy}
+        min={min}
+        max={max}
+        value={value}
+        isIndeterminate={isIndeterminate}
+        css={css}
+        borderRadius={borderRadius}
+      />
+      {children}
     </chakra.div>
   )
 }

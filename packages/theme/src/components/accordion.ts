@@ -1,4 +1,4 @@
-const parts = ["container", "button", "panel", "icon"]
+import { part } from "@chakra-ui/theme-tools"
 
 const baseStyleContainer = {
   borderTopWidth: "1px",
@@ -34,14 +34,9 @@ const baseStyleIcon = {
   fontSize: "1.25em",
 }
 
-const baseStyle = {
-  container: baseStyleContainer,
-  button: baseStyleButton,
-  panel: baseStylePanel,
-  icon: baseStyleIcon,
-}
-
 export default {
-  parts,
-  baseStyle,
+  [part("Accordion", "item")]: baseStyleContainer,
+  [part("Accordion", "button")]: baseStyleButton,
+  [part("Accordion", "panel")]: baseStylePanel,
+  [part("Accordion", "icon")]: baseStyleIcon,
 }

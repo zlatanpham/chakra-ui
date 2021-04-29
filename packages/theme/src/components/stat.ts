@@ -1,4 +1,4 @@
-const parts = ["label", "number", "icon", "helpText"]
+import { part } from "@chakra-ui/theme-tools"
 
 const baseStyleLabel = {
   fontWeight: "medium",
@@ -22,27 +22,26 @@ const baseStyleIcon = {
 }
 
 const baseStyle = {
-  label: baseStyleLabel,
-  helpText: baseStyleHelpText,
-  number: baseStyleNumber,
-  icon: baseStyleIcon,
+  [part("Stat", "label")]: baseStyleLabel,
+  [part("Stat", "helpText")]: baseStyleHelpText,
+  [part("Stat", "number")]: baseStyleNumber,
+  [part("Stat", "icon")]: baseStyleIcon,
 }
 
-const sizes = {
+const size = {
   md: {
-    label: { fontSize: "sm" },
-    helpText: { fontSize: "sm" },
-    number: { fontSize: "2xl" },
+    [part("Stat", "label")]: { fontSize: "sm" },
+    [part("Stat", "helpText")]: { fontSize: "sm" },
+    [part("Stat", "number")]: { fontSize: "2xl" },
   },
 }
 
-const defaultProps = {
+const defaultVariants = {
   size: "md",
 }
 
 export default {
-  parts,
   baseStyle,
-  sizes,
-  defaultProps,
+  variants: { size },
+  defaultVariants,
 }

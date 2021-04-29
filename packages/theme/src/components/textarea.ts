@@ -1,36 +1,43 @@
 import Input from "./input"
+import { part } from "@chakra-ui/theme-tools"
+import { ThemeComponentProps } from "../theme.types"
 
-type Dict = Record<string, any>
+const inputFieldPart = part("Input", "field")
 
 const baseStyle = {
-  ...Input.baseStyle.field,
+  ...Input[inputFieldPart],
   paddingY: "8px",
   minHeight: "80px",
   lineHeight: "short",
 }
 
-const variants = {
-  outline: (props: Dict) => Input.variants.outline(props).field,
-  flushed: (props: Dict) => Input.variants.flushed(props).field,
-  filled: (props: Dict) => Input.variants.filled(props).field,
-  unstyled: Input.variants.unstyled.field,
+const variant = {
+  outline: (props: ThemeComponentProps) =>
+    Input.variants.variant.outline(props)[inputFieldPart],
+  flushed: (props: ThemeComponentProps) =>
+    Input.variants.variant.flushed(props)[inputFieldPart],
+  filled: (props: ThemeComponentProps) =>
+    Input.variants.variant.filled(props)[inputFieldPart],
+  unstyled: Input.variants.variant.unstyled[inputFieldPart],
 }
 
-const sizes = {
-  xs: Input.sizes.xs.field,
-  sm: Input.sizes.sm.field,
-  md: Input.sizes.md.field,
-  lg: Input.sizes.lg.field,
+const size = {
+  xs: Input.variants.size.xs[inputFieldPart],
+  sm: Input.variants.size.sm[inputFieldPart],
+  md: Input.variants.size.md[inputFieldPart],
+  lg: Input.variants.size.lg[inputFieldPart],
 }
 
-const defaultProps = {
+const defaultVariants = {
   size: "md",
   variant: "outline",
 }
 
 export default {
-  baseStyle,
-  sizes,
-  variants,
-  defaultProps,
+  ...baseStyle,
+  variants: {
+    variant,
+    size,
+  },
+  defaultVariants,
 }

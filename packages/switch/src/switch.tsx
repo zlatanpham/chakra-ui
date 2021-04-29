@@ -5,7 +5,7 @@ import {
   omitThemingProps,
   SystemStyleObject,
   ThemingProps,
-  useMultiStyleConfig,
+  useStyleConfig,
   HTMLChakraProps,
   SystemProps,
 } from "@chakra-ui/system"
@@ -25,7 +25,7 @@ export interface SwitchProps
 }
 
 export const Switch = forwardRef<SwitchProps, "input">((props, ref) => {
-  const styles = useMultiStyleConfig("Switch", props)
+  const styles = useStyleConfig("Switch", props)
 
   const { spacing = "0.5rem", children, ...ownProps } = omitThemingProps(props)
 
@@ -42,9 +42,9 @@ export const Switch = forwardRef<SwitchProps, "input">((props, ref) => {
       display: "inline-block",
       verticalAlign: "middle",
       lineHeight: "normal",
-      ...styles.container,
+      ...styles,
     }),
-    [styles.container],
+    [styles],
   )
 
   const trackStyles: SystemStyleObject = React.useMemo(
@@ -54,35 +54,40 @@ export const Switch = forwardRef<SwitchProps, "input">((props, ref) => {
       justifyContent: "flex-start",
       boxSizing: "content-box",
       cursor: "pointer",
-      ...styles.track,
     }),
-    [styles.track],
+    [],
   )
 
   const labelStyles: SystemStyleObject = React.useMemo(
     () => ({
       userSelect: "none",
       marginStart: spacing,
-      ...styles.label,
     }),
-    [spacing, styles.label],
+    [spacing],
   )
 
   return (
     <chakra.label
       {...getRootProps()}
       className={cx("chakra-switch", props.className)}
+      data-part="switch.container"
       __css={containerStyles}
     >
-      <input className="chakra-switch__input" {...getInputProps({}, ref)} />
+      <input
+        className="chakra-switch__input"
+        data-part="switch.input"
+        {...getInputProps({}, ref)}
+      />
       <chakra.span
         {...getCheckboxProps()}
         className="chakra-switch__track"
+        data-part="switch.track"
         __css={trackStyles}
       >
         <chakra.span
           __css={styles.thumb}
           className="chakra-switch__thumb"
+          data-part="switch.thumb"
           data-checked={dataAttr(state.isChecked)}
           data-hover={dataAttr(state.isHovered)}
         />
@@ -90,6 +95,7 @@ export const Switch = forwardRef<SwitchProps, "input">((props, ref) => {
       {children && (
         <chakra.span
           className="chakra-switch__label"
+          data-part="switch.label"
           {...getLabelProps()}
           __css={labelStyles}
         >

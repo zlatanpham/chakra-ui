@@ -1,14 +1,6 @@
 import { isDark, mode, part, randomColor } from "@chakra-ui/theme-tools"
 import themeSizes from "../foundations/sizes"
-
-function baseStyleBadge(props: Record<string, any>) {
-  return {
-    transform: "translate(25%, 25%)",
-    borderRadius: "full",
-    border: "0.2em solid",
-    borderColor: mode("white", "gray.800")(props),
-  }
-}
+import { get } from "@chakra-ui/utils"
 
 function baseStyleExcessLabel(props: Record<string, any>) {
   return {
@@ -16,36 +8,17 @@ function baseStyleExcessLabel(props: Record<string, any>) {
   }
 }
 
-function baseStyleContainer(props: Record<string, any>) {
-  const { name, theme } = props
-  const bg = name ? randomColor({ string: name }) : "gray.400"
-  const isBgDark = isDark(bg)(theme)
-
-  let color = "white"
-  if (!isBgDark) color = "gray.800"
-
-  const borderColor = mode("white", "gray.800")(props)
-
-  return {
-    bg,
-    color,
-    borderColor,
-    verticalAlign: "top",
-  }
-}
-
 const baseStyle = (props: Record<string, any>) => ({
-  ...baseStyleContainer(props),
-  [part("Avatar", "badge")]: baseStyleBadge(props),
   [part("Avatar", "excessLabel")]: baseStyleExcessLabel(props),
 })
 
 function getSize(size: string) {
-  const themeSize = themeSizes[size]
+  const themeSize = get(themeSizes, size)
   return {
-    width: size,
-    height: size,
-    fontSize: `calc(${themeSize ?? size} / 2.5)`,
+    [part("Avatar", "excessLabel")]: {
+      width: size,
+      height: size,
+    },
     [part("Avatar", "label")]: {
       fontSize: `calc(${themeSize ?? size} / 2.5)`,
       lineHeight: size !== "100%" ? themeSize ?? size : undefined,

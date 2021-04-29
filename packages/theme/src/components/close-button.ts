@@ -20,7 +20,7 @@ function baseStyle(props: Record<string, any>) {
   }
 }
 
-const sizes = {
+const size = {
   lg: {
     w: "40px",
     h: "40px",
@@ -38,12 +38,14 @@ const sizes = {
   },
 }
 
-const defaultProps = {
+const defaultVariants = {
   size: "md",
 }
 
 export default {
-  baseStyle,
-  sizes,
-  defaultProps,
+  ...baseStyle,
+  variants: {
+    size,
+  },
+  defaultVariants,
 }

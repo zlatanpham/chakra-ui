@@ -1,6 +1,6 @@
 import Badge from "./badge"
 
-const { variants, defaultProps } = Badge
+const { variants, defaultVariants } = Badge
 
 const baseStyle = {
   fontFamily: "mono",
@@ -10,7 +10,7 @@ const baseStyle = {
 }
 
 export default {
-  baseStyle,
+  ...baseStyle,
   variants,
-  defaultProps,
+  defaultVariants,
 }

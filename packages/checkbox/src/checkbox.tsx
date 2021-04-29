@@ -7,7 +7,7 @@ import {
   SystemProps,
   SystemStyleObject,
   ThemingProps,
-  useMultiStyleConfig,
+  useStyleConfig,
 } from "@chakra-ui/system"
 import { callAll, cx, Omit, __DEV__ } from "@chakra-ui/utils"
 import * as React from "react"
@@ -86,7 +86,7 @@ export const Checkbox = forwardRef<CheckboxProps, "input">((props, ref) => {
   const group = useCheckboxGroupContext()
 
   const mergedProps = { ...group, ...props } as CheckboxProps
-  const styles = useMultiStyleConfig("Checkbox", mergedProps)
+  const styles = useStyleConfig("Checkbox", mergedProps)
 
   const ownProps = omitThemingProps(props)
 
@@ -134,27 +134,31 @@ export const Checkbox = forwardRef<CheckboxProps, "input">((props, ref) => {
       transition: "transform 200ms",
       fontSize: iconSize,
       color: iconColor,
-      ...styles.icon,
     }),
-    [iconColor, iconSize, state.isChecked, state.isIndeterminate, styles.icon],
+    [iconColor, iconSize, state.isChecked, state.isIndeterminate],
   )
 
   const clonedIcon = React.cloneElement(icon, {
     __css: iconStyles,
+    "data-part": "checkbox.icon",
     isIndeterminate: state.isIndeterminate,
     isChecked: state.isChecked,
   })
 
   return (
     <Label
-      __css={styles.container}
+      __css={styles}
       className={cx("chakra-checkbox", className)}
       {...getRootProps()}
     >
-      <input className="chakra-checkbox__input" {...getInputProps({}, ref)} />
+      <input
+        className="chakra-checkbox__input"
+        data-part="checkbox.input"
+        {...getInputProps({}, ref)}
+      />
       <CheckboxControl
-        __css={styles.control}
         className="chakra-checkbox__control"
+        data-part="checkbox.control"
         {...getCheckboxProps()}
       >
         {clonedIcon}
@@ -162,11 +166,9 @@ export const Checkbox = forwardRef<CheckboxProps, "input">((props, ref) => {
       {children && (
         <chakra.span
           className="chakra-checkbox__label"
+          data-part="checkbox.label"
           {...getLabelProps()}
-          __css={{
-            marginStart: spacing,
-            ...styles.label,
-          }}
+          __css={{ marginStart: spacing }}
         >
           {children}
         </chakra.span>

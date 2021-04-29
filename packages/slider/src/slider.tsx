@@ -2,11 +2,9 @@ import {
   chakra,
   forwardRef,
   omitThemingProps,
-  StylesProvider,
   SystemStyleObject,
   ThemingProps,
-  useMultiStyleConfig,
-  useStyles,
+  useStyleConfig,
   HTMLChakraProps,
 } from "@chakra-ui/system"
 import { cx, __DEV__ } from "@chakra-ui/utils"
@@ -39,7 +37,7 @@ export interface SliderProps
  * @see WAI-ARIA https://www.w3.org/TR/wai-aria-practices/#slider
  */
 export const Slider = forwardRef<SliderProps, "div">((props, ref) => {
-  const styles = useMultiStyleConfig("Slider", props)
+  const styles = useStyleConfig("Slider", props)
   const ownProps = omitThemingProps(props)
 
   const { getInputProps, getRootProps, ...context } = useSlider(ownProps)
@@ -51,17 +49,15 @@ export const Slider = forwardRef<SliderProps, "div">((props, ref) => {
     display: "inline-block",
     position: "relative",
     cursor: "pointer",
-    ...styles.container,
+    ...styles,
   }
 
   return (
     <SliderProvider value={context}>
-      <StylesProvider value={styles}>
-        <chakra.div {...rootProps} className="chakra-slider" __css={rootStyles}>
-          {props.children}
-          <input {...inputProps} />
-        </chakra.div>
-      </StylesProvider>
+      <chakra.div {...rootProps} className="chakra-slider" __css={rootStyles}>
+        {props.children}
+        <input {...inputProps} />
+      </chakra.div>
     </SliderProvider>
   )
 })
@@ -83,15 +79,12 @@ export interface SliderThumbProps extends HTMLChakraProps<"div"> {}
 export const SliderThumb = forwardRef<SliderThumbProps, "div">((props, ref) => {
   const { getThumbProps } = useSliderContext()
 
-  const styles = useStyles()
-
   const thumbStyles: SystemStyleObject = {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
     position: "absolute",
     outline: 0,
-    ...styles.thumb,
   }
 
   const thumbProps = getThumbProps(props, ref)
@@ -101,6 +94,7 @@ export const SliderThumb = forwardRef<SliderThumbProps, "div">((props, ref) => {
       {...thumbProps}
       className={cx("chakra-slider__thumb", props.className)}
       __css={thumbStyles}
+      data-part="slider.thumb"
     />
   )
 })
@@ -114,10 +108,8 @@ export interface SliderTrackProps extends HTMLChakraProps<"div"> {}
 export const SliderTrack = forwardRef<SliderTrackProps, "div">((props, ref) => {
   const { getTrackProps } = useSliderContext()
 
-  const styles = useStyles()
   const trackStyles = {
     overflow: "hidden",
-    ...styles.track,
   }
 
   const trackProps = getTrackProps(props, ref)
@@ -126,6 +118,7 @@ export const SliderTrack = forwardRef<SliderTrackProps, "div">((props, ref) => {
     <chakra.div
       {...trackProps}
       className={cx("chakra-slider__track", props.className)}
+      data-part="slider.track"
       __css={trackStyles}
     />
   )
@@ -141,11 +134,9 @@ export const SliderFilledTrack = forwardRef<SliderInnerTrackProps, "div">(
   (props, ref) => {
     const { getInnerTrackProps } = useSliderContext()
 
-    const styles = useStyles()
     const trackStyles = {
       width: "inherit",
       height: "inherit",
-      ...styles.filledTrack,
     }
 
     const trackProps = getInnerTrackProps(props, ref)
@@ -154,6 +145,7 @@ export const SliderFilledTrack = forwardRef<SliderInnerTrackProps, "div">(
       <chakra.div
         {...trackProps}
         className="chakra-slider__filled-track"
+        data-part="slider.filledTrack"
         __css={trackStyles}
       />
     )

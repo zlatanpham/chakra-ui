@@ -1,26 +1,24 @@
-import { mode } from "@chakra-ui/theme-tools"
-
-const parts = ["table", "thead", "tbody", "tr", "th", "td", "caption"]
+import { mode, part } from "@chakra-ui/theme-tools"
 
 type Dict = Record<string, any>
 
 const baseStyle = {
-  table: {
+  [part("Table", "table")]: {
     fontVariantNumeric: "lining-nums tabular-nums",
     borderCollapse: "collapse",
     width: "full",
   },
-  th: {
+  [part("Table", "th")]: {
     fontFamily: "heading",
     fontWeight: "bold",
     textTransform: "uppercase",
     letterSpacing: "wider",
     textAlign: "start",
   },
-  td: {
+  [part("Table", "td")]: {
     textAlign: "start",
   },
-  caption: {
+  [part("Table", "caption")]: {
     mt: 4,
     fontFamily: "heading",
     textAlign: "center",
@@ -38,21 +36,21 @@ const simpleVariant = (props: Dict) => {
   const { colorScheme: c } = props
 
   return {
-    th: {
+    [part("Table", "th")]: {
       color: mode(`gray.600`, `gray.400`)(props),
       borderBottom: "1px",
       borderColor: mode(`${c}.100`, `${c}.700`)(props),
       ...numericStyles,
     },
-    td: {
+    [part("Table", "td")]: {
       borderBottom: "1px",
       borderColor: mode(`${c}.100`, `${c}.700`)(props),
       ...numericStyles,
     },
-    caption: {
+    [part("Table", "caption")]: {
       color: mode(`gray.600`, `gray.100`)(props),
     },
-    tfoot: {
+    [part("Table", "tfoot")]: {
       tr: {
         "&:last-of-type": {
           th: { borderBottomWidth: 0 },
@@ -66,21 +64,21 @@ const stripedVariant = (props: Dict) => {
   const { colorScheme: c } = props
 
   return {
-    th: {
+    [part("Table", "th")]: {
       color: mode(`gray.600`, `gray.400`)(props),
       borderBottom: "1px",
       borderColor: mode(`${c}.100`, `${c}.700`)(props),
       ...numericStyles,
     },
-    td: {
+    [part("Table", "td")]: {
       borderBottom: "1px",
       borderColor: mode(`${c}.100`, `${c}.700`)(props),
       ...numericStyles,
     },
-    caption: {
+    [part("Table", "caption")]: {
       color: mode(`gray.600`, `gray.100`)(props),
     },
-    tbody: {
+    [part("Table", "tbody")]: {
       tr: {
         "&:nth-of-type(odd)": {
           "th, td": {
@@ -93,7 +91,7 @@ const stripedVariant = (props: Dict) => {
         },
       },
     },
-    tfoot: {
+    [part("Table", "tfoot")]: {
       tr: {
         "&:last-of-type": {
           th: { borderBottomWidth: 0 },
@@ -103,63 +101,63 @@ const stripedVariant = (props: Dict) => {
   }
 }
 
-const variants = {
+const variant = {
   simple: simpleVariant,
   striped: stripedVariant,
   unstyled: {},
 }
 
-const sizes = {
+const size = {
   sm: {
-    th: {
+    [part("Table", "th")]: {
       px: "4",
       py: "1",
       lineHeight: "4",
       fontSize: "xs",
     },
-    td: {
+    [part("Table", "td")]: {
       px: "4",
       py: "2",
       fontSize: "sm",
       lineHeight: "4",
     },
-    caption: {
+    [part("Table", "caption")]: {
       px: "4",
       py: "2",
       fontSize: "xs",
     },
   },
   md: {
-    th: {
+    [part("Table", "th")]: {
       px: "6",
       py: "3",
       lineHeight: "4",
       fontSize: "xs",
     },
-    td: {
+    [part("Table", "td")]: {
       px: "6",
       py: "4",
       lineHeight: "5",
     },
-    caption: {
+    [part("Table", "caption")]: {
       px: "6",
       py: "2",
       fontSize: "sm",
     },
   },
   lg: {
-    th: {
+    [part("Table", "th")]: {
       px: "8",
       py: "4",
       lineHeight: "5",
       fontSize: "sm",
     },
-    td: {
+    [part("Table", "td")]: {
       px: "8",
       py: "5",
       lineHeight: "6",
     },
-    caption: {
+    [part("Table", "caption")]: {
       px: "6",
       py: "2",
       fontSize: "md",
@@ -167,16 +165,14 @@ const sizes = {
   },
 }
 
-const defaultProps = {
+const defaultVariants = {
   variant: "simple",
   size: "md",
   colorScheme: "gray",
 }
 
 export default {
-  parts,
-  baseStyle,
-  variants,
-  sizes,
-  defaultProps,
+  ...baseStyle,
+  variants: { variant, size },
+  defaultVariants,
 }

@@ -1,23 +1,18 @@
-import { getColor, mode, transparentize } from "@chakra-ui/theme-tools"
-
-type Dict = Record<string, any>
-
-const parts = ["container", "title", "description", "icon"]
+import { getColor, mode, part, transparentize } from "@chakra-ui/theme-tools"
+import { ThemeComponentProps } from "../theme.types"
 
 const baseStyle = {
-  container: {
-    px: 4,
-    py: 3,
-  },
-  title: {
+  px: 4,
+  py: 3,
+  [part("Alert", "title")]: {
     fontWeight: "bold",
     lineHeight: 6,
     marginEnd: 2,
   },
-  description: {
+  [part("Alert", "description")]: {
     lineHeight: 6,
   },
-  icon: {
+  [part("Alert", "icon")]: {
     flexShrink: 0,
     marginEnd: 3,
     w: 5,
@@ -25,76 +20,71 @@ const baseStyle = {
   },
 }
 
-function getBg(props: Dict) {
+function getBg(props: ThemeComponentProps) {
   const { theme, colorScheme: c } = props
   const lightBg = getColor(theme, `${c}.100`, c)
   const darkBg = transparentize(`${c}.200`, 0.16)(theme)
   return mode(lightBg, darkBg)(props)
 }
 
-function variantSubtle(props: Dict) {
+function variantSubtle(props: ThemeComponentProps) {
   const { colorScheme: c } = props
   return {
-    container: { bg: getBg(props) },
-    icon: { color: mode(`${c}.500`, `${c}.200`)(props) },
+    bg: getBg(props),
+    [part("Alert", "icon")]: { color: mode(`${c}.500`, `${c}.200`)(props) },
   }
 }
 
-function variantLeftAccent(props: Dict) {
+function variantLeftAccent(props: ThemeComponentProps) {
   const { colorScheme: c } = props
   return {
-    container: {
-      paddingStart: 3,
-      borderStartWidth: "4px",
-      borderStartColor: mode(`${c}.500`, `${c}.200`)(props),
-      bg: getBg(props),
-    },
-    icon: {
+    paddingStart: 3,
+    borderStartWidth: "4px",
+    borderStartColor: mode(`${c}.500`, `${c}.200`)(props),
+    bg: getBg(props),
+    [part("Alert", "icon")]: {
       color: mode(`${c}.500`, `${c}.200`)(props),
     },
   }
 }
 
-function variantTopAccent(props: Dict) {
+function variantTopAccent(props: ThemeComponentProps) {
   const { colorScheme: c } = props
   return {
-    container: {
-      pt: 2,
-      borderTopWidth: "4px",
-      borderTopColor: mode(`${c}.500`, `${c}.200`)(props),
-      bg: getBg(props),
-    },
-    icon: {
+    pt: 2,
+    borderTopWidth: "4px",
+    borderTopColor: mode(`${c}.500`, `${c}.200`)(props),
+    bg: getBg(props),
+    [part("Alert", "icon")]: {
       color: mode(`${c}.500`, `${c}.200`)(props),
     },
   }
 }
 
-function variantSolid(props: Dict) {
+function variantSolid(props: ThemeComponentProps) {
   const { colorScheme: c } = props
   return {
-    container: {
-      bg: mode(`${c}.500`, `${c}.200`)(props),
-      color: mode(`white`, `gray.900`)(props),
-    },
+    bg: mode(`${c}.500`, `${c}.200`)(props),
+    color: mode(`white`, `gray.900`)(props),
   }
 }
 
-const variants = {
+const variant = {
   subtle: variantSubtle,
   "left-accent": variantLeftAccent,
   "top-accent": variantTopAccent,
   solid: variantSolid,
 }
 
-const defaultProps = {
+const defaultVariants = {
   variant: "subtle",
   colorScheme: "blue",
 }
 
 export default {
-  parts,
-  baseStyle,
-  variants,
-  defaultProps,
+  ...baseStyle,
+  variants: {
+    variant,
+  },
+  defaultVariants,
 }

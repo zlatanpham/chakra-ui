@@ -351,8 +351,6 @@ test("padding shorthand does not collide with nested p selector", () => {
 })
 
 // test.skip("ignores array values longer than breakpoints", () => {
-//   // intentionally not using createBreakpoints here
-//   // because you cant just slice off it
 //   const customBreakpoints: any = ["0em", "32em", "40em"]
 //   customBreakpoints.base = customBreakpoints[0]
 //   customBreakpoints.sm = customBreakpoints[1]

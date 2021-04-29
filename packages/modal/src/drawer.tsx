@@ -2,7 +2,6 @@ import {
   chakra,
   forwardRef,
   SystemStyleObject,
-  useStyles,
   useTheme,
   HTMLChakraProps,
 } from "@chakra-ui/system"
@@ -81,15 +80,12 @@ export const DrawerContent = forwardRef<DrawerContentProps, "section">(
 
     const _className = cx("chakra-modal__content", className)
 
-    const styles = useStyles()
-
     const dialogStyles: SystemStyleObject = {
       display: "flex",
       flexDirection: "column",
       position: "relative",
       width: "100%",
       outline: 0,
-      ...styles.dialog,
     }
 
     const dialogContainerStyles: SystemStyleObject = {
@@ -99,7 +95,6 @@ export const DrawerContent = forwardRef<DrawerContentProps, "section">(
       position: "fixed",
       left: 0,
       top: 0,
-      ...styles.dialogContainer,
     }
 
     const { placement } = useDrawerContext()
@@ -109,6 +104,7 @@ export const DrawerContent = forwardRef<DrawerContentProps, "section">(
         {...containerProps}
         className="chakra-modal__content-container"
         __css={dialogContainerStyles}
+        data-part="modal.dialogContainer"
       >
         <ModalFocusScope>
           <StyleSlide
@@ -117,6 +113,7 @@ export const DrawerContent = forwardRef<DrawerContentProps, "section">(
             className={_className}
             {...dialogProps}
             __css={dialogStyles}
+            data-part="modal.dialog"
           >
             {children}
           </StyleSlide>

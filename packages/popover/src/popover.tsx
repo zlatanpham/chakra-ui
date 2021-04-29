@@ -5,11 +5,9 @@ import {
   forwardRef,
   HTMLChakraProps,
   omitThemingProps,
-  StylesProvider,
   SystemStyleObject,
   ThemingProps,
-  useMultiStyleConfig,
-  useStyles,
+  useStyleConfig,
 } from "@chakra-ui/system"
 import { cx, runIfFn, __DEV__ } from "@chakra-ui/utils"
 import * as React from "react"
@@ -36,21 +34,21 @@ export interface PopoverProps extends UsePopoverProps, ThemingProps<"Popover"> {
  * typically to suggest an action or to guide users through a new experience.
  */
 export const Popover: React.FC<PopoverProps> = (props) => {
-  const styles = useMultiStyleConfig("Popover", props)
+  const styles = useStyleConfig("Popover", props)
 
   const { children, ...rest } = omitThemingProps(props)
   const context = usePopover(rest)
 
   return (
-    <PopoverProvider value={context}>
-      <StylesProvider value={styles}>
+    <chakra.div __css={styles}>
+      <PopoverProvider value={context}>
         {runIfFn(children, {
           isOpen: context.isOpen,
           onClose: context.onClose,
           forceUpdate: context.forceUpdate,
         })}
-      </StylesProvider>
-    </PopoverProvider>
+      </PopoverProvider>
+    </chakra.div>
   )
 }
 
@@ -83,24 +81,23 @@ export const PopoverContent = forwardRef<PopoverContentProps, "section">(
 
     const { getPopoverProps, getPopoverPositionerProps } = usePopoverContext()
 
-    const styles = useStyles()
     const contentStyles: SystemStyleObject = {
       position: "relative",
       display: "flex",
       flexDirection: "column",
-      ...styles.content,
     }
 
     return (
       <chakra.div
         {...getPopoverPositionerProps(rootProps)}
-        __css={styles.popper}
         className="chakra-popover__popper"
+        data-part="popover.popper"
       >
         <PopoverTransition
           {...getPopoverProps(contentProps, ref)}
           className={cx("chakra-popover__content", props.className)}
           __css={contentStyles}
+          data-part="popover.content"
         />
       </chakra.div>
     )
@@ -121,13 +118,11 @@ export const PopoverHeader = forwardRef<PopoverHeaderProps, "header">(
   (props, ref) => {
     const { getHeaderProps } = usePopoverContext()
 
-    const styles = useStyles()
-
     return (
       <chakra.header
         {...getHeaderProps(props, ref)}
         className={cx("chakra-popover__header", props.className)}
-        __css={styles.header}
+        data-part="popover.header"
       />
     )
   },
@@ -146,13 +141,11 @@ export interface PopoverBodyProps extends HTMLChakraProps<"div"> {}
 export const PopoverBody = forwardRef<PopoverBodyProps, "div">((props, ref) => {
   const { getBodyProps } = usePopoverContext()
 
-  const styles = useStyles()
-
   return (
     <chakra.div
       {...getBodyProps(props, ref)}
       className={cx("chakra-popover__body", props.className)}
-      __css={styles.body}
+      data-part="popover.body"
     />
   )
 })
@@ -163,12 +156,11 @@ if (__DEV__) {
 export interface PopoverFooterProps extends HTMLChakraProps<"footer"> {}
 
 export const PopoverFooter: React.FC<PopoverFooterProps> = (props) => {
-  const styles = useStyles()
   return (
     <chakra.footer
       {...props}
       className={cx("chakra-popover__footer", props.className)}
-      __css={styles.footer}
+      data-part="popover.footer"
     />
   )
 }
@@ -204,7 +196,6 @@ export interface PopoverArrowProps extends HTMLChakraProps<"div"> {}
 export const PopoverArrow: React.FC<PopoverArrowProps> = (props) => {
   const { bg, bgColor, backgroundColor } = props
   const { getArrowProps, getArrowInnerProps } = usePopoverContext()
-  const styles = useStyles()
   const arrowBg = bg ?? bgColor ?? backgroundColor
   return (
     <chakra.div
@@ -214,11 +205,9 @@ export const PopoverArrow: React.FC<PopoverArrowProps> = (props) => {
       <chakra.div
         className={cx("chakra-popover__arrow", props.className)}
         {...getArrowInnerProps(props)}
+        data-part="popover.arrow"
         __css={{
-          ...styles.arrow,
-          "--popper-arrow-bg": arrowBg
-            ? `colors.${arrowBg}, ${arrowBg}`
-            : undefined,
+          "--popper-arrow-bg": arrowBg ? `colors.${arrowBg}, ${arrowBg}` : "",
         }}
       />
     </chakra.div>

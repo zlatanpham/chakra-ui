@@ -4,10 +4,8 @@ import {
   forwardRef,
   HTMLChakraProps,
   omitThemingProps,
-  StylesProvider,
   ThemingProps,
-  useMultiStyleConfig,
-  useStyles,
+  useStyleConfig,
 } from "@chakra-ui/system"
 import { cx, dataAttr, __DEV__, scheduleMicrotask } from "@chakra-ui/utils"
 import {
@@ -217,7 +215,7 @@ export interface FormControlProps
  * `select`, `textarea`, etc.
  */
 export const FormControl = forwardRef<FormControlProps, "div">((props, ref) => {
-  const styles = useMultiStyleConfig("Form", props)
+  const styles = useStyleConfig("Form", props)
   const ownProps = omitThemingProps(props)
   const { getRootProps, htmlProps: _, ...context } = useFormControlProvider(
     ownProps,
@@ -228,16 +226,16 @@ export const FormControl = forwardRef<FormControlProps, "div">((props, ref) => {
 
   return (
     <FormControlProvider value={contextValue}>
-      <StylesProvider value={styles}>
-        <chakra.div
-          {...getRootProps({}, ref)}
-          className={className}
-          __css={{
-            width: "100%",
-            position: "relative",
-          }}
-        />
-      </StylesProvider>
+      <chakra.div
+        {...getRootProps({}, ref)}
+        className={className}
+        __css={{
+          width: "100%",
+          position: "relative",
+          ...styles,
+        }}
+        data-part="form.root"
+      />
     </FormControlProvider>
   )
 })
@@ -257,12 +255,11 @@ export interface HelpTextProps extends HTMLChakraProps<"div"> {}
  */
 export const FormHelperText = forwardRef<HelpTextProps, "div">((props, ref) => {
   const field = useFormControlContext()
-  const styles = useStyles()
   const className = cx("chakra-form__helper-text", props.className)
   return (
     <chakra.div
       {...field?.getHelpTextProps(props, ref)}
-      __css={styles.helperText}
+      data-part="form.helperText"
       className={className}
     />
   )

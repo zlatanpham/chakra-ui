@@ -5,13 +5,14 @@ import {
   SystemProps,
   SystemStyleObject,
   ThemingProps,
-  useMultiStyleConfig,
+  useStyleConfig,
   HTMLChakraProps,
 } from "@chakra-ui/system"
 import { cx, filterUndefined, __DEV__ } from "@chakra-ui/utils"
 import { getValidChildren } from "@chakra-ui/react-utils"
 import * as React from "react"
 import { baseStyle } from "./avatar"
+import { part } from "@chakra-ui/theme-tools"
 
 interface AvatarGroupOptions {
   /**
@@ -40,7 +41,7 @@ export interface AvatarGroupProps
  * AvatarGroup displays a number of avatars grouped together in a stack.
  */
 export const AvatarGroup = forwardRef<AvatarGroupProps, "div">((props, ref) => {
-  const styles = useMultiStyleConfig("Avatar", props)
+  const styles = useStyleConfig("AvatarGroup", props)
 
   const {
     children,
@@ -87,13 +88,13 @@ export const AvatarGroup = forwardRef<AvatarGroupProps, "div">((props, ref) => {
     alignItems: "center",
     justifyContent: "flex-end",
     flexDirection: "row-reverse",
+    ...styles,
   }
 
   const excessStyles: SystemStyleObject = {
     borderRadius,
     marginStart: spacing,
     ...baseStyle,
-    ...styles.excessLabel,
   }
 
   return (
@@ -103,9 +104,14 @@ export const AvatarGroup = forwardRef<AvatarGroupProps, "div">((props, ref) => {
       __css={groupStyles}
       {...rest}
       className={cx("chakra-avatar__group", props.className)}
+      data-part="avatar.group"
     >
       {excess > 0 && (
-        <chakra.span className="chakra-avatar__excess" __css={excessStyles}>
+        <chakra.span
+          className="chakra-avatar__excess"
+          data-part="avatar.excessLabel"
+          __css={excessStyles}
+        >
           {`+${excess}`}
         </chakra.span>
       )}

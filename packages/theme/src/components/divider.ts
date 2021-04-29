@@ -11,17 +11,19 @@ const variantDashed = {
   borderStyle: "dashed",
 }
 
-const variants = {
+const variant = {
   solid: variantSolid,
   dashed: variantDashed,
 }
 
-const defaultProps = {
+const defaultVariants = {
   variant: "solid",
 }
 
 export default {
-  baseStyle,
-  variants,
-  defaultProps,
+  ...baseStyle,
+  variants: {
+    variant,
+  },
+  defaultVariants,
 }

@@ -4,7 +4,7 @@ import {
   forwardRef,
   omitThemingProps,
   ThemingProps,
-  useMultiStyleConfig,
+  useStyleConfig,
   HTMLChakraProps,
 } from "@chakra-ui/system"
 import { cx, __DEV__ } from "@chakra-ui/utils"
@@ -47,7 +47,7 @@ export interface InputProps
  * Element that allows users enter single valued data.
  */
 export const Input = forwardRef<InputProps, "input">((props, ref) => {
-  const styles = useMultiStyleConfig("Input", props)
+  const styles = useStyleConfig("Input", props)
   const ownProps = omitThemingProps(props)
   const input = useFormControl<HTMLInputElement>(ownProps)
   const _className = cx("chakra-input", props.className)
@@ -55,9 +55,10 @@ export const Input = forwardRef<InputProps, "input">((props, ref) => {
   return (
     <chakra.input
       {...input}
-      __css={styles.field}
+      __css={styles}
       ref={ref}
       className={_className}
+      data-part="input.field"
     />
   )
 })

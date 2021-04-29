@@ -1,6 +1,4 @@
-import { mode } from "@chakra-ui/theme-tools"
-
-const parts = ["item", "command", "list", "button", "groupTitle", "divider"]
+import { mode, part } from "@chakra-ui/theme-tools"
 
 function baseStyleList(props: Record<string, any>) {
   return {
@@ -56,14 +54,13 @@ const baseStyleDivider = {
 }
 
 const baseStyle = (props: Record<string, any>) => ({
-  list: baseStyleList(props),
-  item: baseStyleItem(props),
-  groupTitle: baseStyleGroupTitle,
-  command: baseStyleCommand,
-  divider: baseStyleDivider,
+  [part("Menu", "list")]: baseStyleList(props),
+  [part("Menu", "item")]: baseStyleItem(props),
+  [part("Menu", "groupTitle")]: baseStyleGroupTitle,
+  [part("Menu", "command")]: baseStyleCommand,
+  [part("Menu", "divider")]: baseStyleDivider,
 })
 
 export default {
-  parts,
   baseStyle,
 }

@@ -1,10 +1,7 @@
-import { mode, orient } from "@chakra-ui/theme-tools"
+import { mode, orient, part } from "@chakra-ui/theme-tools"
+import { ThemeComponentProps } from "../theme.types"
 
-const parts = ["container", "thumb", "track", "filledTrack"]
-
-type Dict = Record<string, any>
-
-function thumbOrientation(props: Dict) {
+function thumbOrientation(props: ThemeComponentProps) {
   return orient({
     orientation: props.orientation,
     vertical: {
@@ -24,7 +21,7 @@ function thumbOrientation(props: Dict) {
   })
 }
 
-const baseStyleContainer = (props: Dict) => {
+const baseStyleContainer = (props: ThemeComponentProps) => {
   const { orientation } = props
 
   return {
@@ -41,7 +38,7 @@ const baseStyleContainer = (props: Dict) => {
   }
 }
 
-function baseStyleTrack(props: Dict) {
+function baseStyleTrack(props: ThemeComponentProps) {
   return {
     borderRadius: "sm",
     bg: mode("gray.200", "whiteAlpha.200")(props),
@@ -51,7 +48,7 @@ function baseStyleTrack(props: Dict) {
   }
 }
 
-function baseStyleThumb(props: Dict) {
+function baseStyleThumb(props: ThemeComponentProps) {
   return {
     zIndex: 1,
     borderRadius: "full",
@@ -66,7 +63,7 @@ function baseStyleThumb(props: Dict) {
   }
 }
 
-function baseStyleFilledTrack(props: Dict) {
+function baseStyleFilledTrack(props: ThemeComponentProps) {
   const { colorScheme: c } = props
 
   return {
@@ -74,17 +71,17 @@ function baseStyleFilledTrack(props: Dict) {
   }
 }
 
-const baseStyle = (props: Dict) => ({
-  container: baseStyleContainer(props),
-  track: baseStyleTrack(props),
-  thumb: baseStyleThumb(props),
-  filledTrack: baseStyleFilledTrack(props),
+const baseStyle = (props: ThemeComponentProps) => ({
+  [part("Slider", "container")]: baseStyleContainer(props),
+  [part("Slider", "track")]: baseStyleTrack(props),
+  [part("Slider", "thumb")]: baseStyleThumb(props),
+  [part("Slider", "filledTrack")]: baseStyleFilledTrack(props),
 })
 
-function sizeLg(props: Dict) {
+function sizeLg(props: ThemeComponentProps) {
   return {
-    thumb: { w: "16px", h: "16px" },
-    track: orient({
+    [part("Slider", "thumb")]: { w: "16px", h: "16px" },
+    [part("Slider", "track")]: orient({
       orientation: props.orientation,
       horizontal: { h: "4px" },
       vertical: { w: "4px" },
@@ -92,10 +89,10 @@ function sizeLg(props: Dict) {
   }
 }
 
-function sizeMd(props: Dict) {
+function sizeMd(props: ThemeComponentProps) {
   return {
-    thumb: { w: "14px", h: "14px" },
-    track: orient({
+    [part("Slider", "thumb")]: { w: "14px", h: "14px" },
+    [part("Slider", "track")]: orient({
       orientation: props.orientation,
       horizontal: { h: "4px" },
       vertical: { w: "4px" },
@@ -103,10 +100,10 @@ function sizeMd(props: Dict) {
   }
 }
 
-function sizeSm(props: Dict) {
+function sizeSm(props: ThemeComponentProps) {
   return {
-    thumb: { w: "10px", h: "10px" },
-    track: orient({
+    [part("Slider", "thumb")]: { w: "10px", h: "10px" },
+    [part("Slider", "track")]: orient({
       orientation: props.orientation,
       horizontal: { h: "2px" },
       vertical: { w: "2px" },
@@ -114,20 +111,19 @@ function sizeSm(props: Dict) {
   }
 }
 
-const sizes = {
+const size = {
   lg: sizeLg,
   md: sizeMd,
   sm: sizeSm,
 }
 
-const defaultProps = {
+const defaultVariants = {
   size: "md",
   colorScheme: "blue",
 }
 
 export default {
-  parts,
-  sizes,
   baseStyle,
-  defaultProps,
+  variants: { size },
+  defaultVariants,
 }

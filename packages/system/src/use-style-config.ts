@@ -7,7 +7,6 @@ import { interpretStyleConfig } from "@chakra-ui/styled-system"
 export function useStyleConfig(
   themeKey: string,
   props: ThemingProps & Dict = {},
-  _: any,
 ) {
   const { theme, colorMode } = useChakra()
   const { styleConfig, ...rest } = props

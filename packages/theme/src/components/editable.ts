@@ -1,4 +1,4 @@
-const parts = ["preview", "input"]
+import { part } from "@chakra-ui/theme-tools"
 
 const baseStylePreview = {
   borderRadius: "md",
@@ -16,11 +16,10 @@ const baseStyleInput = {
 }
 
 const baseStyle = {
-  preview: baseStylePreview,
-  input: baseStyleInput,
+  [part("Editable", "preview")]: baseStylePreview,
+  [part("Editable", "input")]: baseStyleInput,
 }
 
 export default {
-  parts,
-  baseStyle,
+  ...baseStyle,
 }

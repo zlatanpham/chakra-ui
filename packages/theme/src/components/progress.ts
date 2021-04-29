@@ -1,10 +1,7 @@
 import { generateStripe, getColor, mode } from "@chakra-ui/theme-tools"
+import { ThemeComponentProps } from "../theme.types"
 
-type Dict = Record<string, any>
-
-const parts = ["track", "filledTrack", "label"]
-
-function filledStyle(props: Dict) {
+function filledStyle(props: ThemeComponentProps) {
   const { colorScheme: c, theme: t, isIndeterminate, hasStripe } = props
 
   const stripeStyle = mode(
@@ -36,26 +33,26 @@ const baseStyleLabel = {
   color: "white",
 }
 
-function baseStyleTrack(props: Dict) {
+function baseStyleTrack(props: ThemeComponentProps) {
   return {
     bg: mode(`gray.100`, `whiteAlpha.300`)(props),
   }
 }
 
-function baseStyleFilledTrack(props: Dict) {
+function baseStyleFilledTrack(props: ThemeComponentProps) {
   return {
     transition: "all 0.3s",
     ...filledStyle(props),
   }
 }
 
-const baseStyle = (props: Dict) => ({
+const baseStyle = (props: ThemeComponentProps) => ({
   label: baseStyleLabel,
   filledTrack: baseStyleFilledTrack(props),
   track: baseStyleTrack(props),
 })
 
-const sizes = {
+const size = {
   xs: {
     track: { h: "0.25rem" },
   },
@@ -70,14 +67,13 @@ const sizes = {
   },
 }
 
-const defaultProps = {
+const defaultVariants = {
   size: "md",
   colorScheme: "blue",
 }
 
 export default {
-  parts,
-  sizes,
   baseStyle,
-  defaultProps,
+  variants: { size },
+  defaultVariants,
 }

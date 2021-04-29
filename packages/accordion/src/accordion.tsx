@@ -5,7 +5,7 @@ import {
   omitThemingProps,
   SystemStyleObject,
   ThemingProps,
-  useMultiStyleConfig,
+  useStyleConfig,
   HTMLChakraProps,
 } from "@chakra-ui/system"
 import { Collapse } from "@chakra-ui/transition"
@@ -46,7 +46,7 @@ export interface AccordionProps
  */
 export const Accordion = forwardRef<AccordionProps, "div">(
   ({ children, reduceMotion, ...props }, ref) => {
-    const styles = useMultiStyleConfig("Accordion", props)
+    const styles = useStyleConfig("Accordion", props)
     const ownProps = omitThemingProps(props)
 
     const { htmlProps, descendants, ...context } = useAccordion(ownProps)
@@ -62,7 +62,7 @@ export const Accordion = forwardRef<AccordionProps, "div">(
           <chakra.div
           ref={ref}
           {...htmlProps}
-          __css={styles.__partStyles}
+          __css={styles}
           className={cx("chakra-accordion", props.className)}
         >
           {children}

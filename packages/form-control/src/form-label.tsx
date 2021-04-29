@@ -5,7 +5,6 @@ import {
   omitThemingProps,
   ThemingProps,
   useStyleConfig,
-  useStyles,
 } from "@chakra-ui/system"
 import { cx, __DEV__ } from "@chakra-ui/utils"
 import * as React from "react"
@@ -46,6 +45,7 @@ export const FormLabel = forwardRef<FormLabelProps, "label">(
       <chakra.label
         {...field?.getLabelProps(rest, ref)}
         className={cx("chakra-form__label", props.className)}
+        data-part="formlabel.label"
         __css={{
           display: "block",
           textAlign: "start",
@@ -72,7 +72,6 @@ export interface RequiredIndicatorProps extends HTMLChakraProps<"span"> {}
 export const RequiredIndicator = forwardRef<RequiredIndicatorProps, "span">(
   (props, ref) => {
     const field = useFormControlContext()
-    const styles = useStyles()
 
     if (!field?.isRequired) return null
 
@@ -81,7 +80,7 @@ export const RequiredIndicator = forwardRef<RequiredIndicatorProps, "span">(
     return (
       <chakra.span
         {...field?.getRequiredIndicatorProps(props, ref)}
-        __css={styles.requiredIndicator}
+        data-part="form.requiredIndicator"
         className={className}
       />
     )

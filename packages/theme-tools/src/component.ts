@@ -12,13 +12,6 @@ export interface StyleConfig {
   }
 }
 
-export interface MultiStyleConfig {
-  baseStyle?: { [part: string]: SystemStyleObject }
-  sizes?: { [size: string]: { [part: string]: SystemStyleObject } }
-  variants?: { [variants: string]: { [part: string]: SystemStyleObject } }
-  defaultProps?: StyleConfig["defaultProps"]
-}
-
 export interface GlobalStyleProps {
   colorScheme: string
   colorMode: "light" | "dark"
@@ -49,4 +42,10 @@ export function orient(options: {
   const { orientation, vertical, horizontal } = options
   if (!orientation) return {}
   return orientation === "vertical" ? vertical : horizontal
+}
+
+export function part(componentName: string, partName: string) {
+  const dataPart = `${componentName.toLowerCase()}.${partName}`
+  const selector = `[data-part="${dataPart}"]`
+  return `&${selector},${selector}`
 }

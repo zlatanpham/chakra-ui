@@ -1,4 +1,4 @@
-import { chakra, PropsOf, useMultiStyleConfig } from "@chakra-ui/system"
+import { chakra, PropsOf, useStyleConfig } from "@chakra-ui/system"
 import * as React from "react"
 import {
   FormControlOptions,
@@ -35,7 +35,7 @@ type Props = { focusBorderColor?: string; errorBorderColor?: string }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps & Props>(
   (props, ref) => {
-    const styles = useMultiStyleConfig("Input", props)
+    const styles = useStyleConfig("Input", props)
     const inputProps = useFormControl<HTMLInputElement>(props)
     return <chakra.input ref={ref} __css={styles.field} {...inputProps} />
   },
@@ -55,7 +55,7 @@ type TextAreaProps = Omit<PropsOf<"textarea">, OmittedTypes> &
 
 const Textarea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
   (props, ref) => {
-    const styles = useMultiStyleConfig("Textarea", props)
+    const styles = useStyleConfig("Textarea", props)
     const inputProps = useFormControl<HTMLTextAreaElement>(props)
     return <chakra.textarea ref={ref} __css={styles} {...inputProps} />
   },
@@ -77,7 +77,7 @@ type SelectProps = Omit<PropsOf<"select">, OmittedTypes> & FormControlOptions
 
 const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
   (props, ref) => {
-    const styles = useMultiStyleConfig("Select", props)
+    const styles = useStyleConfig("Select", props)
     const inputProps = useFormControl<HTMLSelectElement>(props)
     return <chakra.select ref={ref} __css={styles.field} {...inputProps} />
   },

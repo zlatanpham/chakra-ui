@@ -1,8 +1,6 @@
 import Badge from "./badge"
-
-const parts = ["container", "label", "closeButton"]
-
-type Dict = Record<string, any>
+import { ThemeComponentProps } from "../theme.types"
+import { part } from "@chakra-ui/theme-tools"
 
 const baseStyleContainer = {
   fontWeight: "medium",
@@ -37,27 +35,27 @@ const baseStyleCloseButton = {
 }
 
 const baseStyle = {
-  container: baseStyleContainer,
-  label: baseStyleLabel,
-  closeButton: baseStyleCloseButton,
+  [part("Tag", "container")]: baseStyleContainer,
+  [part("Tag", "label")]: baseStyleLabel,
+  [part("Tag", "closeButton")]: baseStyleCloseButton,
 }
 
-const sizes = {
+const size = {
   sm: {
-    container: {
+    [part("Tag", "container")]: {
       minH: "1.25rem",
       minW: "1.25rem",
       fontSize: "xs",
       px: 2,
       borderRadius: "md",
     },
-    closeButton: {
+    [part("Tag", "closeButton")]: {
       marginEnd: "-2px",
       marginStart: "0.35rem",
     },
   },
   md: {
-    container: {
+    [part("Tag", "container")]: {
       minH: "1.5rem",
       minW: "1.5rem",
       fontSize: "sm",
@@ -66,7 +64,7 @@ const sizes = {
     },
   },
   lg: {
-    container: {
+    [part("Tag", "container")]: {
       minH: 8,
       minW: 8,
       fontSize: "md",
@@ -76,28 +74,26 @@ const sizes = {
   },
 }
 
-const variants = {
-  subtle: (props: Dict) => ({
-    container: Badge.variants.subtle(props),
+const variant = {
+  subtle: (props: ThemeComponentProps) => ({
+    [part("Tag", "container")]: Badge.variants.variant.subtle(props),
   }),
-  solid: (props: Dict) => ({
-    container: Badge.variants.solid(props),
+  solid: (props: ThemeComponentProps) => ({
+    [part("Tag", "container")]: Badge.variants.variant.solid(props),
   }),
-  outline: (props: Dict) => ({
-    container: Badge.variants.outline(props),
+  outline: (props: ThemeComponentProps) => ({
+    [part("Tag", "container")]: Badge.variants.variant.outline(props),
   }),
 }
 
-const defaultProps = {
+const defaultVariants = {
   size: "md",
   variant: "subtle",
   colorScheme: "gray",
 }
 
 export default {
-  parts,
-  variants,
+  variants: { variant, size },
   baseStyle,
-  sizes,
-  defaultProps,
+  defaultVariants,
 }

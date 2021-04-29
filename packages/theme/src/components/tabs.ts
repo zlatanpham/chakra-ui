@@ -1,17 +1,14 @@
 import { getColor, mode } from "@chakra-ui/theme-tools"
+import { ThemeComponentProps } from "../theme.types"
 
-const parts = ["root", "tablist", "tab", "tabpanels", "tabpanel", "indicator"]
-
-type Dict = Record<string, any>
-
-function baseStyleRoot(props: Dict) {
+function baseStyleRoot(props: ThemeComponentProps) {
   const { orientation } = props
   return {
     display: orientation === "vertical" ? "flex" : "block",
   }
 }
 
-function baseStyleTab(props: Dict) {
+function baseStyleTab(props: ThemeComponentProps) {
   const { isFitted } = props
 
   return {
@@ -24,7 +21,7 @@ function baseStyleTab(props: Dict) {
   }
 }
 
-function baseStyleTablist(props: Dict) {
+function baseStyleTablist(props: ThemeComponentProps) {
   const { align = "start", orientation } = props
 
   const alignments = {
@@ -41,14 +38,14 @@ function baseStyleTablist(props: Dict) {
 
 const baseStyleTabpanel = { p: 4 }
 
-const baseStyle = (props: Dict) => ({
+const baseStyle = (props: ThemeComponentProps) => ({
   root: baseStyleRoot(props),
   tab: baseStyleTab(props),
   tablist: baseStyleTablist(props),
   tabpanel: baseStyleTabpanel,
 })
 
-const sizes = {
+const size = {
   sm: {
     tab: {
       py: "0.25rem",
@@ -72,7 +69,7 @@ const sizes = {
   },
 }
 
-function variantLine(props: Dict) {
+function variantLine(props: ThemeComponentProps) {
   const { colorScheme: c, orientation } = props
   const isVertical = orientation === "vertical"
   const borderProp = orientation === "vertical" ? "borderStart" : "borderBottom"
@@ -102,7 +99,7 @@ function variantLine(props: Dict) {
   }
 }
 
-function variantEnclosed(props: Dict) {
+function variantEnclosed(props: ThemeComponentProps) {
   const { colorScheme: c } = props
   return {
     tab: {
@@ -124,7 +121,7 @@ function variantEnclosed(props: Dict) {
   }
 }
 
-function variantEnclosedColored(props: Dict) {
+function variantEnclosedColored(props: ThemeComponentProps) {
   const { colorScheme: c } = props
   return {
     tab: {
@@ -151,7 +148,7 @@ function variantEnclosedColored(props: Dict) {
   }
 }
 
-function variantSoftRounded(props: Dict) {
+function variantSoftRounded(props: ThemeComponentProps) {
   const { colorScheme: c, theme } = props
   return {
     tab: {
@@ -166,7 +163,7 @@ function variantSoftRounded(props: Dict) {
   }
 }
 
-function variantSolidRounded(props: Dict) {
+function variantSolidRounded(props: ThemeComponentProps) {
   const { colorScheme: c } = props
   return {
     tab: {
@@ -183,7 +180,7 @@ function variantSolidRounded(props: Dict) {
 
 const variantUnstyled = {}
 
-const variants = {
+const variant = {
   line: variantLine,
   enclosed: variantEnclosed,
   "enclosed-colored": variantEnclosedColored,
@@ -192,16 +189,14 @@ const variants = {
   unstyled: variantUnstyled,
 }
 
-const defaultProps = {
+const defaultVariants = {
   size: "md",
   variant: "line",
   colorScheme: "blue",
 }
 
 export default {
-  parts,
   baseStyle,
-  sizes,
-  variants,
-  defaultProps,
+  variants: { variant, size },
+  defaultVariants,
 }

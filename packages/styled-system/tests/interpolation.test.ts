@@ -1,13 +1,12 @@
-import { createBreakpoints } from "@chakra-ui/theme-tools"
 import { css, toCSSVar } from "../src"
 
 test("should handle array interpolations", () => {
-  const customBreakpoints = createBreakpoints({
+  const customBreakpoints = {
     sm: "40em",
     md: "50em",
     lg: "60em",
     xl: "70em",
-  })
+  }
 
   // @ts-expect-error "&" is technically disallowed
   const result = css({ "&": [{ bg: "red" }, { bg: "green" }] })(

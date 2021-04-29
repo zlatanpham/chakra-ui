@@ -1,4 +1,3 @@
-import { createBreakpoints } from "@chakra-ui/theme-tools"
 import { breakpoints } from "./test-data"
 import createMediaQueries from "../src/create-media-query"
 
@@ -46,7 +45,7 @@ test("creates media queries for each named breakpoint", () => {
 })
 
 test("matches snapshot (order matters)", () => {
-  const breakpoints = createBreakpoints({
+  const breakpoints = {
     customBreakpoint: "20em",
     sm: "36em",
     md: "46.25em",
@@ -54,7 +53,7 @@ test("matches snapshot (order matters)", () => {
     xs: "30em",
     xl: "78.125em",
     xxl: "95em",
-  })
+  }
 
   expect(createMediaQueries(breakpoints)).toMatchInlineSnapshot(`
     Array [

@@ -6,7 +6,7 @@ import {
   SystemProps,
   SystemStyleObject,
   ThemingProps,
-  useMultiStyleConfig,
+  useStyleConfig,
   HTMLChakraProps,
 } from "@chakra-ui/system"
 import { callAll, split, __DEV__ } from "@chakra-ui/utils"
@@ -47,7 +47,7 @@ export const Radio = forwardRef<RadioProps, "input">((props, ref) => {
   const { onChange: onChangeProp, value: valueProp } = props
 
   const group = useRadioGroupContext()
-  const styles = useMultiStyleConfig("Radio", { ...group, ...props })
+  const styles = useStyleConfig("Radio", { ...group, ...props })
 
   const {
     spacing = "0.5rem",

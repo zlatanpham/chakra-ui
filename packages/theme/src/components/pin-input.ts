@@ -1,13 +1,14 @@
 import Input from "./input"
+import { part } from "@chakra-ui/theme-tools"
 
 type Dict = Record<string, any>
 
 const baseStyle = {
-  ...Input.baseStyle.field,
+  ...Input[part("Input", "field")],
   textAlign: "center",
 }
 
-const sizes = {
+const size = {
   lg: {
     fontSize: "lg",
     w: 12,
@@ -34,18 +35,17 @@ const sizes = {
   },
 }
 
-const variants = {
-  outline: (props: Dict) => Input.variants.outline(props).field,
-  flushed: (props: Dict) => Input.variants.flushed(props).field,
-  filled: (props: Dict) => Input.variants.filled(props).field,
-  unstyled: Input.variants.unstyled.field,
+const variant = {
+  outline: (props: Dict) => Input.variants.variant.outline(props).field,
+  flushed: (props: Dict) => Input.variants.variant.flushed(props).field,
+  filled: (props: Dict) => Input.variants.variant.filled(props).field,
+  unstyled: Input.variants.variant.unstyled.field,
 }
 
-const defaultProps = Input.defaultProps
+const defaultVariants = Input.defaultVariants
 
 export default {
-  baseStyle,
-  sizes,
-  variants,
-  defaultProps,
+  ...baseStyle,
+  variants: { variant, size },
+  defaultVariants,
 }

@@ -1,8 +1,6 @@
-import { mode } from "@chakra-ui/theme-tools"
+import { mode, part } from "@chakra-ui/theme-tools"
 
 type Dict = Record<string, any>
-
-const parts = ["text", "icon"]
 
 function baseStyleText(props: Dict) {
   return {
@@ -20,11 +18,10 @@ function baseStyleIcon(props: Dict) {
 }
 
 const baseStyle = (props: Dict) => ({
-  text: baseStyleText(props),
-  icon: baseStyleIcon(props),
+  [part("FormError", "text")]: baseStyleText(props),
+  [part("FormError", "icon")]: baseStyleIcon(props),
 })
 
 export default {
-  parts,
   baseStyle,
 }

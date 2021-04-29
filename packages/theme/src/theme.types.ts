@@ -1,7 +1,11 @@
-import { ColorMode, ColorModeOptions, ThemingProps } from "@chakra-ui/system"
+import { ColorModeOptions, ThemingProps } from "@chakra-ui/system"
 import { Breakpoints, Styles } from "@chakra-ui/theme-tools"
 import { Dict } from "@chakra-ui/utils"
-import { StyleObjectOrFn, SystemStyleObject } from "@chakra-ui/styled-system"
+import {
+  StyleConfigOptions,
+  StyleConfigThemingProps,
+  StyleObjectOrFn,
+} from "@chakra-ui/styled-system"
 
 export type RecursiveProperty<Nested = string | number> =
   | RecursiveObject<Nested>
@@ -33,53 +37,26 @@ export interface ColorHues {
   800: string
   900: string
 }
+
 export type Colors = RecursiveObject<
   Record<string, Partial<ColorHues>> | string
 >
 export type ThemeDirection = "ltr" | "rtl"
 
-export interface ComponentDefaultProps
+export interface ComponentDefaultVariants
   extends Omit<ThemingProps, "styleConfig">,
-    Dict {}
-
-export interface ThemeComponentProps<Theme extends ChakraTheme = ChakraTheme>
-  extends Dict,
-    Omit<ThemingProps, "styleConfig"> {
-  colorMode: ColorMode
-  theme: Theme
+    Dict {
+  size: string
+  variant: string
 }
 
-export type ThemeComponentFunction<
-  Style,
-  Theme extends ChakraTheme = ChakraTheme
-> = (props: ThemeComponentProps<Theme>) => Style
-
-export type ThemingPropsThunk<Style, Theme extends ChakraTheme = ChakraTheme> =
-  | Style
-  | ThemeComponentFunction<Style, Theme>
+export interface ThemeComponentProps extends StyleConfigThemingProps {}
 
 export interface SystemStyleObjectRecord {
   [key: string]: StyleObjectOrFn
 }
 
-export interface ComponentSingleStyleConfig {
-  baseStyle?: ThemingPropsThunk<SystemStyleObject>
-  sizes?: Record<string, ThemingPropsThunk<SystemStyleObject>>
-  variants?: Record<string, ThemingPropsThunk<SystemStyleObject>>
-  defaultProps?: ComponentDefaultProps
-}
-
-export interface ComponentMultiStyleConfig {
-  parts: string[]
-  baseStyle?: ThemingPropsThunk<SystemStyleObjectRecord>
-  sizes?: Record<string, ThemingPropsThunk<SystemStyleObjectRecord>>
-  variants?: Record<string, ThemingPropsThunk<SystemStyleObjectRecord>>
-  defaultProps?: ComponentDefaultProps
-}
-
-export type ComponentStyleConfig =
-  | ComponentSingleStyleConfig
-  | ComponentMultiStyleConfig
+export type ComponentStyleConfig = StyleConfigOptions
 
 export interface ThemeComponents {
   [componentName: string]: ComponentStyleConfig

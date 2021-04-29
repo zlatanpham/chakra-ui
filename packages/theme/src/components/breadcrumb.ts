@@ -1,4 +1,4 @@
-const parts = ["container", "item", "link", "separator"]
+import { part } from "@chakra-ui/theme-tools"
 
 const baseStyleLink = {
   transition: "all 0.15s ease-out",
@@ -15,10 +15,9 @@ const baseStyleLink = {
 }
 
 const baseStyle = {
-  link: baseStyleLink,
+  [part("Badge", "link")]: baseStyleLink,
 }
 
 export default {
-  parts,
-  baseStyle,
+  ...baseStyle,
 }

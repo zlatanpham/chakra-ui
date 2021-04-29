@@ -4,7 +4,7 @@ import {
   HTMLChakraProps,
   omitThemingProps,
   ThemingProps,
-  useMultiStyleConfig,
+  useStyleConfig,
 } from "@chakra-ui/system"
 import { cx, __DEV__ } from "@chakra-ui/utils"
 import * as React from "react"
@@ -37,7 +37,7 @@ export interface TableProps
     ThemingProps<"Table"> {}
 
 export const Table = forwardRef<TableProps, "table">((props, ref) => {
-  const styles = useMultiStyleConfig("Table", props)
+  const styles = useStyleConfig("Table", props)
   const { className, ...tableProps } = omitThemingProps(props)
 
   return (
@@ -45,7 +45,7 @@ export const Table = forwardRef<TableProps, "table">((props, ref) => {
       data-part="table.table"
       role="table"
       ref={ref}
-      __css={{ ...styles.__partStyles, ...styles.table }}
+      __css={styles}
       className={cx("chakra-table", className)}
       {...tableProps}
     />

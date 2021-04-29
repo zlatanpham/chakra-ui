@@ -1,14 +1,4 @@
-import { mode } from "@chakra-ui/theme-tools"
-
-const parts = [
-  "overlay",
-  "dialogContainer",
-  "dialog",
-  "header",
-  "closeButton",
-  "body",
-  "footer",
-]
+import { mode, part } from "@chakra-ui/theme-tools"
 
 const baseStyleOverlay = {
   bg: "blackAlpha.600",
@@ -72,13 +62,13 @@ const baseStyleFooter = {
 }
 
 const baseStyle = (props: Dict) => ({
-  overlay: baseStyleOverlay,
-  dialogContainer: baseStyleDialogContainer(props),
-  dialog: baseStyleDialog(props),
-  header: baseStyleHeader,
-  closeButton: baseStyleCloseButton,
-  body: baseStyleBody(props),
-  footer: baseStyleFooter,
+  [part("Modal", "overlay")]: baseStyleOverlay,
+  [part("Modal", "dialogContainer")]: baseStyleDialogContainer(props),
+  [part("Modal", "dialog")]: baseStyleDialog(props),
+  [part("Modal", "header")]: baseStyleHeader,
+  [part("Modal", "closeButton")]: baseStyleCloseButton,
+  [part("Modal", "body")]: baseStyleBody(props),
+  [part("Modal", "footer")]: baseStyleFooter,
 })
 
 /**
@@ -87,12 +77,12 @@ const baseStyle = (props: Dict) => ({
  */
 function getSize(value: string) {
   if (value === "full") {
-    return { dialog: { maxW: "100vw", minH: "100vh" } }
+    return { [part("Modal", "dialog")]: { maxW: "100vw", minH: "100vh" } }
   }
-  return { dialog: { maxW: value } }
+  return { [part("Modal", "dialog")]: { maxW: value } }
 }
 
-const sizes = {
+const size = {
   xs: getSize("xs"),
   sm: getSize("sm"),
   md: getSize("md"),
@@ -106,13 +96,14 @@ const sizes = {
   full: getSize("full"),
 }
 
-const defaultProps = {
+const defaultVariants = {
   size: "md",
 }
 
 export default {
-  parts,
   baseStyle,
-  sizes,
-  defaultProps,
+  variants: {
+    size,
+  },
+  defaultVariants,
 }

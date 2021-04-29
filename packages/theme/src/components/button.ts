@@ -151,7 +151,7 @@ const variantUnstyled = {
   p: 0,
 }
 
-const variants = {
+const variant = {
   ghost: variantGhost,
   outline: variantOutline,
   solid: variantSolid,
@@ -159,7 +159,7 @@ const variants = {
   unstyled: variantUnstyled,
 }
 
-const sizes = {
+const size = {
   lg: {
     h: 12,
     minW: 12,
@@ -186,15 +186,17 @@ const sizes = {
   },
 }
 
-const defaultProps = {
+const defaultVariants = {
   variant: "solid",
   size: "md",
   colorScheme: "gray",
 }
 
 export default {
-  baseStyle,
-  variants,
-  sizes,
-  defaultProps,
+  ...baseStyle,
+  variants: {
+    variant,
+    size,
+  },
+  defaultVariants,
 }

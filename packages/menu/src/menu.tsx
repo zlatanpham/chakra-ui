@@ -4,16 +4,14 @@ import {
   HTMLChakraProps,
   omitThemingProps,
   PropsOf,
-  StylesProvider,
   SystemProps,
   SystemStyleObject,
   ThemingProps,
-  useMultiStyleConfig,
-  useStyles,
+  useStyleConfig,
 } from "@chakra-ui/system"
 import { cx, runIfFn, __DEV__ } from "@chakra-ui/utils"
 import { MaybeRenderProp } from "@chakra-ui/react-utils"
-import { CustomDomComponent, motion, Variants } from "framer-motion"
+import { motion, Variants } from "framer-motion"
 import * as React from "react"
 import {
   MenuDescendantsProvider,
@@ -31,6 +29,7 @@ import {
   useMenuPositioner,
   UseMenuProps,
 } from "./use-menu"
+import { part } from "@chakra-ui/theme-tools"
 
 export interface MenuProps extends UseMenuProps, ThemingProps<"Menu"> {
   children: MaybeRenderProp<{
@@ -47,7 +46,6 @@ export interface MenuProps extends UseMenuProps, ThemingProps<"Menu"> {
 export const Menu: React.FC<MenuProps> = (props) => {
   const { children } = props
 
-  const styles = useMultiStyleConfig("Menu", props)
   const ownProps = omitThemingProps(props)
 
   const { descendants, ...ctx } = useMenu(ownProps)
@@ -58,9 +56,7 @@ export const Menu: React.FC<MenuProps> = (props) => {
   return (
     <MenuDescendantsProvider value={descendants}>
       <MenuProvider value={context}>
-        <StylesProvider value={styles}>
-          {runIfFn(children, { isOpen, onClose, forceUpdate })}
-        </StylesProvider>
+        {runIfFn(children, { isOpen, onClose, forceUpdate })}
       </MenuProvider>
     </MenuDescendantsProvider>
   )
@@ -73,7 +69,7 @@ if (__DEV__) {
 export interface MenuButtonProps extends HTMLChakraProps<"button"> {}
 
 const StyledMenuButton = forwardRef<MenuButtonProps, "button">((props, ref) => {
-  const styles = useStyles()
+  const styles = useStyleConfig("Menu", props)[part("Menu", "button")]
   return (
     <chakra.button
       ref={ref}
@@ -84,7 +80,7 @@ const StyledMenuButton = forwardRef<MenuButtonProps, "button">((props, ref) => {
         alignItems: "center",
         outline: 0,
         transition: "all 250ms",
-        ...styles.button,
+        "&": styles,
       }}
     />
   )
@@ -105,8 +101,11 @@ export const MenuButton = forwardRef<MenuButtonProps, "button">(
       <Element
         {...buttonProps}
         className={cx("chakra-menu__menu-button", props.className)}
+        data-part="menu.button"
       >
-        <chakra.span __css={{ pointerEvents: "none", flex: "1 1 auto", minW: 0 }}>
+        <chakra.span
+          __css={{ pointerEvents: "none", flex: "1 1 auto", minW: 0 }}
+        >
           {props.children}
         </chakra.span>
       </Element>
@@ -145,11 +144,7 @@ const motionVariants: Variants = {
   },
 }
 
-// @future: only call `motion(chakra.div)` when we drop framer-motion v3 support
-const MotionDiv: CustomDomComponent<PropsOf<typeof chakra.div>> =
-  "custom" in motion
-    ? (motion as any).custom(chakra.div)
-    : (motion as any)(chakra.div)
+const MotionDiv = motion(chakra.div)
 
 export const MenuList = forwardRef<MenuListProps, "div">((props, ref) => {
   const { rootProps, ...rest } = props
@@ -157,13 +152,13 @@ export const MenuList = forwardRef<MenuListProps, "div">((props, ref) => {
 
   const listProps: any = useMenuList(rest, ref)
   const positionerProps = useMenuPositioner(rootProps)
-
-  const styles = useStyles()
+  const styles = useStyleConfig("Menu", props)
 
   return (
     <chakra.div
       {...positionerProps}
-      __css={{ zIndex: props.zIndex ?? styles.list?.zIndex }}
+      __css={{ ...styles, zIndex: props.zIndex ?? styles.zIndex }}
+      data-part="list.listContainer"
     >
       <MotionDiv
         {...listProps}
@@ -176,9 +171,9 @@ export const MenuList = forwardRef<MenuListProps, "div">((props, ref) => {
         variants={motionVariants}
         initial={false}
         animate={isOpen ? "enter" : "exit"}
+        data-part="menu.list"
         __css={{
           outline: 0,
-          ...styles.list,
         }}
       />
     </chakra.div>
@@ -194,7 +189,6 @@ export interface StyledMenuItemProps extends HTMLChakraProps<"button"> {}
 const StyledMenuItem = forwardRef<StyledMenuItemProps, "button">(
   (props, ref) => {
     const { type, ...rest } = props
-    const styles = useStyles()
 
     /**
      * Given another component, use its type if present
@@ -213,11 +207,16 @@ const StyledMenuItem = forwardRef<StyledMenuItemProps, "button">(
       textAlign: "start",
       flex: "0 0 auto",
       outline: 0,
-      ...styles.item,
     }
 
     return (
-      <chakra.button ref={ref} type={btnType} {...rest} __css={buttonStyles} />
+      <chakra.button
+        ref={ref}
+        type={btnType}
+        {...rest}
+        __css={buttonStyles}
+        data-part="menu.item"
+      />
     )
   },
 )
@@ -372,12 +371,16 @@ export const MenuGroup = forwardRef<MenuGroupProps, "div">((props, ref) => {
   const { title, children, className, ...rest } = props
 
   const _className = cx("chakra-menu__group__title", className)
-  const styles = useStyles()
 
   return (
-    <div ref={ref} className="chakra-menu__group" role="group">
+    <div
+      ref={ref}
+      className="chakra-menu__group"
+      role="group"
+      data-part="menu.group"
+    >
       {title && (
-        <chakra.p className={_className} {...rest} __css={styles.groupTitle}>
+        <chakra.p className={_className} {...rest} data-part="menu.groupTitle">
           {title}
         </chakra.p>
       )}
@@ -394,13 +397,12 @@ export interface MenuCommandProps extends HTMLChakraProps<"span"> {}
 
 export const MenuCommand = forwardRef<MenuCommandProps, "span">(
   (props, ref) => {
-    const styles = useStyles()
     return (
       <chakra.span
         ref={ref}
         {...props}
-        __css={styles.command}
         className="chakra-menu__command"
+        data-part="menu.command"
       />
     )
   },
@@ -446,14 +448,13 @@ export interface MenuDividerProps extends HTMLChakraProps<"hr"> {}
 
 export const MenuDivider: React.FC<MenuDividerProps> = (props) => {
   const { className, ...rest } = props
-  const styles = useStyles()
   return (
     <chakra.hr
       role="separator"
       aria-orientation="horizontal"
       className={cx("chakra-menu__divider", className)}
       {...rest}
-      __css={styles.divider}
+      data-part="menu.divider"
     />
   )
 }

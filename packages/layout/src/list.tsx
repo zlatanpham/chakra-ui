@@ -6,7 +6,7 @@ import {
   HTMLChakraProps,
   omitThemingProps,
   ThemingProps,
-  useMultiStyleConfig,
+  useStyleConfig,
 } from "@chakra-ui/system"
 import { __DEV__ } from "@chakra-ui/utils"
 import { getValidChildren } from "@chakra-ui/react-utils"
@@ -41,7 +41,7 @@ export interface ListProps
  * @see Docs https://chakra-ui.com/docs/data-display/list
  */
 export const List = forwardRef<ListProps, "ul">((props, ref) => {
-  const styles = useMultiStyleConfig("List", props)
+  const styles = useStyleConfig("List", props)
   const {
     children,
     styleType = "none",
@@ -66,7 +66,7 @@ export const List = forwardRef<ListProps, "ul">((props, ref) => {
        * @see https://www.scottohara.me/blog/2019/01/12/lists-and-safari.html
        */
       role="list"
-      __css={{ ...styles.container, ...spacingStyle, ...styles.__partStyles }}
+      __css={{ ...styles, ...spacingStyle }}
       {...rest}
     >
       {validChildren}
@@ -108,9 +108,7 @@ export interface ListItemProps extends HTMLChakraProps<"li"> {}
  * Used to render a list item
  */
 export const ListItem = forwardRef<ListItemProps, "li">((props, ref) => {
-  const styles = useStyles()
-
-  return <chakra.li ref={ref} {...props} __css={styles.item} />
+  return <chakra.li ref={ref} {...props} data-part="list.item" />
 })
 
 if (__DEV__) {
@@ -123,9 +121,7 @@ if (__DEV__) {
  * Used to render an icon beside the list item text
  */
 export const ListIcon = forwardRef<IconProps, "svg">((props, ref) => {
-  const styles = useStyles()
-
-  return <Icon ref={ref} role="presentation" {...props} __css={styles.icon} />
+  return <Icon ref={ref} role="presentation" {...props} data-part="list.icon" />
 })
 
 if (__DEV__) {

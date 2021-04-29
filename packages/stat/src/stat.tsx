@@ -3,10 +3,8 @@ import {
   chakra,
   forwardRef,
   omitThemingProps,
-  StylesProvider,
   ThemingProps,
-  useMultiStyleConfig,
-  useStyles,
+  useStyleConfig,
   HTMLChakraProps,
 } from "@chakra-ui/system"
 import { cx, __DEV__ } from "@chakra-ui/utils"
@@ -16,13 +14,12 @@ import * as React from "react"
 export interface StatLabelProps extends HTMLChakraProps<"dt"> {}
 
 export const StatLabel = forwardRef<StatLabelProps, "dt">((props, ref) => {
-  const styles = useStyles()
   return (
     <chakra.dt
       ref={ref}
       {...props}
       className={cx("chakra-stat__label", props.className)}
-      __css={styles.label}
+      data-part="stat.label"
     />
   )
 })
@@ -35,14 +32,12 @@ export interface StatHelpTextProps extends HTMLChakraProps<"dd"> {}
 
 export const StatHelpText = forwardRef<StatHelpTextProps, "dd">(
   (props, ref) => {
-    const styles = useStyles()
-
     return (
       <chakra.dd
         ref={ref}
         {...props}
         className={cx("chakra-stat__help-text", props.className)}
-        __css={styles.helpText}
+        data-part="stat.helpText"
       />
     )
   },
@@ -55,17 +50,16 @@ if (__DEV__) {
 export interface StatNumberProps extends HTMLChakraProps<"dd"> {}
 
 export const StatNumber = forwardRef<StatNumberProps, "dd">((props, ref) => {
-  const styles = useStyles()
   return (
     <chakra.dd
       ref={ref}
       {...props}
       className={cx("chakra-stat__number", props.className)}
       __css={{
-        ...styles.number,
         fontFeatureSettings: "pnum",
         fontVariantNumeric: "proportional-nums",
       }}
+      data-part="stat.number"
     />
   )
 })
@@ -106,7 +100,6 @@ export interface StatArrowProps extends IconProps {
 
 export const StatArrow: React.FC<StatArrowProps> = (props) => {
   const { type, "aria-label": ariaLabel, ...rest } = props
-  const styles = useStyles()
 
   const IconComponent = type === "increase" ? StatUpArrow : StatDownArrow
   const defaultAriaLabel = type === "increase" ? "increased by" : "decreased by"
@@ -115,7 +108,7 @@ export const StatArrow: React.FC<StatArrowProps> = (props) => {
   return (
     <>
       <VisuallyHidden>{label}</VisuallyHidden>
-      <IconComponent aria-hidden {...rest} __css={styles.icon} />
+      <IconComponent aria-hidden {...rest} data-part="stat.icon" />
     </>
   )
 }
@@ -129,21 +122,20 @@ export interface StatProps
     ThemingProps<"Stat"> {}
 
 export const Stat = forwardRef<StatProps, "div">((props, ref) => {
-  const styles = useMultiStyleConfig("Stat", props)
+  const styles = useStyleConfig("Stat", props)
   const { className, children, ...rest } = omitThemingProps(props)
 
   return (
-    <StylesProvider value={styles}>
-      <chakra.div
-        className={cx("chakra-stat", className)}
-        ref={ref}
-        position="relative"
-        flex="1 1 0%"
-        {...rest}
-      >
-        <dl>{children}</dl>
-      </chakra.div>
-    </StylesProvider>
+    <chakra.div
+      className={cx("chakra-stat", className)}
+      ref={ref}
+      position="relative"
+      flex="1 1 0%"
+      __css={styles}
+      {...rest}
+    >
+      <dl>{children}</dl>
+    </chakra.div>
   )
 })
 

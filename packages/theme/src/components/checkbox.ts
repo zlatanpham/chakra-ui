@@ -1,6 +1,4 @@
-import { mode } from "@chakra-ui/theme-tools"
-
-const parts = ["container", "control", "label", "icon"]
+import { mode, part } from "@chakra-ui/theme-tools"
 
 function baseStyleControl(props: Record<string, any>) {
   const { colorScheme: c } = props
@@ -57,36 +55,35 @@ const baseStyleLabel = {
 }
 
 const baseStyle = (props: Record<string, any>) => ({
-  control: baseStyleControl(props),
-  label: baseStyleLabel,
+  [part("Checkbox", "control")]: baseStyleControl(props),
+  [part("Checkbox", "label")]: baseStyleLabel,
 })
 
-const sizes = {
+const size = {
   sm: {
-    control: { h: 3, w: 3 },
-    label: { fontSize: "sm" },
-    icon: { fontSize: "0.45rem" },
+    [part("Checkbox", "control")]: { h: 3, w: 3 },
+    [part("Checkbox", "label")]: { fontSize: "sm" },
+    [part("Checkbox", "icon")]: { fontSize: "0.45rem" },
   },
   md: {
-    control: { w: 4, h: 4 },
-    label: { fontSize: "md" },
-    icon: { fontSize: "0.625rem" },
+    [part("Checkbox", "control")]: { w: 4, h: 4 },
+    [part("Checkbox", "label")]: { fontSize: "md" },
+    [part("Checkbox", "icon")]: { fontSize: "0.625rem" },
   },
   lg: {
-    control: { w: 5, h: 5 },
-    label: { fontSize: "lg" },
-    icon: { fontSize: "0.625rem" },
+    [part("Checkbox", "control")]: { w: 5, h: 5 },
+    [part("Checkbox", "label")]: { fontSize: "lg" },
+    [part("Checkbox", "icon")]: { fontSize: "0.625rem" },
   },
 }
 
-const defaultProps = {
+const defaultVariants = {
   size: "md",
   colorScheme: "blue",
 }
 
 export default {
-  parts,
   baseStyle,
-  sizes,
-  defaultProps,
+  variants: { size },
+  defaultVariants,
 }

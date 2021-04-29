@@ -2,9 +2,8 @@ import {
   chakra,
   forwardRef,
   omitThemingProps,
-  StylesProvider,
   ThemingProps,
-  useMultiStyleConfig,
+  useStyleConfig,
   HTMLChakraProps,
 } from "@chakra-ui/system"
 import { cx, __DEV__ } from "@chakra-ui/utils"
@@ -16,7 +15,7 @@ export interface InputGroupProps
     ThemingProps<"Input"> {}
 
 export const InputGroup = forwardRef<InputGroupProps, "div">((props, ref) => {
-  const styles = useMultiStyleConfig("Input", props)
+  const styles = useStyleConfig("Input", props)
   const { children, className, ...rest } = omitThemingProps(props)
 
   const _className = cx("chakra-input__group", className)
@@ -24,17 +23,15 @@ export const InputGroup = forwardRef<InputGroupProps, "div">((props, ref) => {
 
   const validChildren = getValidChildren(children)
 
-  const input: any = styles.field
-
   validChildren.forEach((child: any) => {
     if (!styles) return
 
-    if (input && child.type.id === "InputLeftElement") {
-      groupStyles.paddingStart = input.height ?? input.h
+    if (styles && child.type.id === "InputLeftElement") {
+      groupStyles.paddingStart = styles.height ?? styles.h
     }
 
-    if (input && child.type.id === "InputRightElement") {
-      groupStyles.paddingEnd = input.height ?? input.h
+    if (styles && child.type.id === "InputRightElement") {
+      groupStyles.paddingEnd = styles.height ?? styles.h
     }
 
     if (child.type.id === "InputRightAddon") {
@@ -71,10 +68,11 @@ export const InputGroup = forwardRef<InputGroupProps, "div">((props, ref) => {
         width: "100%",
         display: "flex",
         position: "relative",
+        ...styles,
       }}
       {...rest}
     >
-      <StylesProvider value={styles}>{clones}</StylesProvider>
+      {clones}
     </chakra.div>
   )
 })

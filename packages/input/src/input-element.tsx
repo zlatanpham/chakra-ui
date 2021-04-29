@@ -2,7 +2,6 @@ import {
   chakra,
   forwardRef,
   SystemStyleObject,
-  useStyles,
   HTMLChakraProps,
 } from "@chakra-ui/system"
 import { cx, __DEV__ } from "@chakra-ui/utils"
@@ -26,19 +25,20 @@ const StyledElement = chakra("div", {
 const InputElement = forwardRef<InputElementProps, "div">((props, ref) => {
   const { placement = "left", ...rest } = props
 
-  const styles = useStyles()
-  const input: any = styles.field
-
   const attr = placement === "left" ? "insetStart" : "insetEnd"
 
   const elementStyles: SystemStyleObject = {
     [attr]: "0",
-    width: input?.height ?? input?.h,
-    height: input?.height ?? input?.h,
-    fontSize: input?.fontSize,
   }
 
-  return <StyledElement ref={ref} __css={elementStyles} {...rest} />
+  return (
+    <StyledElement
+      ref={ref}
+      {...rest}
+      __css={elementStyles}
+      data-part="input.field"
+    />
+  )
 })
 
 // This is used in `input-group.tsx`

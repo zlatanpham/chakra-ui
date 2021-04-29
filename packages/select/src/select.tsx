@@ -7,7 +7,7 @@ import {
   PropsOf,
   SystemStyleObject,
   ThemingProps,
-  useMultiStyleConfig,
+  useStyleConfig,
   HTMLChakraProps,
 } from "@chakra-ui/system"
 import { cx, mergeWith, split, __DEV__ } from "@chakra-ui/utils"
@@ -30,6 +30,7 @@ export const SelectField = forwardRef<SelectFieldProps, "select">(
         {...ownProps}
         ref={ref}
         className={cx("chakra-select", className)}
+        data-part="select.field"
       >
         {placeholder && <option value="">{placeholder}</option>}
         {children}
@@ -103,7 +104,7 @@ export interface SelectProps
  * React component used to select one item from a list of options.
  */
 export const Select = forwardRef<SelectProps, "select">((props, ref) => {
-  const styles = useMultiStyleConfig("Select", props)
+  const styles = useStyleConfig("Select", props)
 
   const {
     rootProps,
@@ -123,20 +124,22 @@ export const Select = forwardRef<SelectProps, "select">((props, ref) => {
   const [layoutProps, otherProps] = split(rest, layoutPropNames as any[])
 
   const rootStyles: SystemStyleObject = {
+    ...styles,
     width: "100%",
     height: "fit-content",
     position: "relative",
     color,
   }
 
-  const fieldStyles: SystemStyleObject = mergeWith({}, styles.field, {
+  const fieldStyles: SystemStyleObject = {
     paddingEnd: "2rem",
     _focus: { zIndex: "unset" },
-  })
+  }
 
   return (
     <chakra.div
-      className="chakra-select__wrapper"
+      className="chakra-select__container"
+      data-part="select.container"
       __css={rootStyles}
       {...layoutProps}
       {...rootProps}
@@ -155,7 +158,6 @@ export const Select = forwardRef<SelectProps, "select">((props, ref) => {
       <SelectIcon
         data-disabled={props.isDisabled}
         {...((iconColor || color) && { color: iconColor || color })}
-        __css={styles.icon}
         {...(iconSize && { fontSize: iconSize })}
       >
         {icon}
@@ -208,7 +210,11 @@ const SelectIcon: React.FC<SelectIconProps> = (props) => {
   })
 
   return (
-    <IconWrapper {...rest} className="chakra-select__icon-wrapper">
+    <IconWrapper
+      {...rest}
+      className="chakra-select__icon-wrapper"
+      data-part="select.icon"
+    >
       {React.isValidElement(children) ? clone : null}
     </IconWrapper>
   )

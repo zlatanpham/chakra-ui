@@ -61,19 +61,6 @@ const typography = {
   },
 }
 
-/**
- * @deprecated
- * You can derive the Typography type from the DefaultChakraTheme
- *
- * type Typography = Pick<
- *   DefaultChakraTheme,
- *   | "letterSpacings"
- *   | "lineHeights"
- *   | "fontWeights"
- *   | "fonts"
- *   | "fontSizes"
- *  >
- */
 export type Typography = typeof typography
 
 export default typography

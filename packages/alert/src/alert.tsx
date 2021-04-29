@@ -4,7 +4,7 @@ import {
   omitThemingProps,
   SystemStyleObject,
   ThemingProps,
-  useMultiStyleConfig,
+  useStyleConfig,
   HTMLChakraProps,
 } from "@chakra-ui/system"
 import { cx } from "@chakra-ui/utils"
@@ -51,7 +51,8 @@ export const Alert = forwardRef<AlertProps, "div">((props, ref) => {
   const { status = "info", ...rest } = omitThemingProps(props)
   const colorScheme = props.colorScheme ?? STATUSES[status].colorScheme
 
-  const styles = useMultiStyleConfig("Alert", { ...props, colorScheme })
+  const styles = useStyleConfig("Alert", { ...props, colorScheme })
+  console.log(styles)
 
   const alertStyles: SystemStyleObject = {
     width: "100%",
@@ -59,8 +60,7 @@ export const Alert = forwardRef<AlertProps, "div">((props, ref) => {
     alignItems: "center",
     position: "relative",
     overflow: "hidden",
-    ...styles.container,
-    ...styles.__partStyles,
+    ...styles,
   }
 
   return (
