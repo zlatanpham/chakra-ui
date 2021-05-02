@@ -9,6 +9,7 @@ import {
   isFunction,
   mergeWith,
   pipe,
+  runIfFn,
 } from "@chakra-ui/utils"
 
 type CloneKey<Target, Key> = Key extends keyof Target ? Target[Key] : unknown
@@ -52,6 +53,7 @@ export type BaseThemeWithExtensions<
       ? ReturnType<L> & BaseThemeWithExtensions<BaseTheme, R>
       : L & BaseThemeWithExtensions<BaseTheme, R>
     : Extensions)
+
 /**
  * Function to override or customize the Chakra UI theme conveniently.
  * First extension overrides the baseTheme and following extensions override the preceding extensions.
@@ -122,11 +124,10 @@ function mergeThemeCustomizer(
     Object.prototype.hasOwnProperty.call(object, key)
   ) {
     return (...args: unknown[]) => {
-      const sourceValue = isFunction(source) ? source(...args) : source
+      const sourceValue = runIfFn(source, ...args)
+      const overrideValue = runIfFn(override, ...args)
 
-      const overrideValue = isFunction(override) ? override(...args) : override
-
-      return mergeWith({}, sourceValue, overrideValue, mergeThemeCustomizer)
+      return mergeThemeOverride({}, sourceValue, overrideValue)
     }
   }
 

@@ -22,7 +22,7 @@ export function withDefaultColorScheme({
       components: Object.fromEntries(
         names.map((componentName) => {
           const withColorScheme = {
-            defaultProps: {
+            defaultVariants: {
               colorScheme,
             },
           }

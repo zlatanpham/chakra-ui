@@ -22,7 +22,7 @@ export function withDefaultVariant({
       components: Object.fromEntries(
         names.map((componentName) => {
           const withVariant = {
-            defaultProps: {
+            defaultVariants: {
               variant,
             },
           }

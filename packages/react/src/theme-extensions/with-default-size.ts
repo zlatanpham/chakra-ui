@@ -22,7 +22,7 @@ export function withDefaultSize({
       components: Object.fromEntries(
         names.map((componentName) => {
           const withSize = {
-            defaultProps: {
+            defaultVariants: {
               size,
             },
           }
