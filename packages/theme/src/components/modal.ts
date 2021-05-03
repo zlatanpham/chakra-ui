@@ -1,13 +1,12 @@
 import { mode, part } from "@chakra-ui/theme-tools"
+import { ThemeComponentProps } from "../theme.types"
 
 const baseStyleOverlay = {
   bg: "blackAlpha.600",
   zIndex: "modal",
 }
 
-type Dict = Record<string, any>
-
-function baseStyleDialogContainer(props: Dict) {
+function baseStyleDialogContainer(props: ThemeComponentProps) {
   const { isCentered, scrollBehavior } = props
 
   return {
@@ -19,7 +18,7 @@ function baseStyleDialogContainer(props: Dict) {
   }
 }
 
-function baseStyleDialog(props: Dict) {
+function baseStyleDialog(props: ThemeComponentProps) {
   const { scrollBehavior } = props
 
   return {
@@ -46,7 +45,7 @@ const baseStyleCloseButton = {
   insetEnd: 3,
 }
 
-function baseStyleBody(props: Dict) {
+function baseStyleBody(props: ThemeComponentProps) {
   const { scrollBehavior } = props
   return {
     px: 6,
@@ -61,14 +60,14 @@ const baseStyleFooter = {
   py: 4,
 }
 
-const baseStyle = (props: Dict) => ({
-  [part("Modal", "overlay")]: baseStyleOverlay,
-  [part("Modal", "dialogContainer")]: baseStyleDialogContainer(props),
-  [part("Modal", "dialog")]: baseStyleDialog(props),
-  [part("Modal", "header")]: baseStyleHeader,
-  [part("Modal", "closeButton")]: baseStyleCloseButton,
-  [part("Modal", "body")]: baseStyleBody(props),
-  [part("Modal", "footer")]: baseStyleFooter,
+const baseStyle = (props: ThemeComponentProps) => ({
+  [part("Modal", "overlay").selector]: baseStyleOverlay,
+  [part("Modal", "dialogContainer").selector]: baseStyleDialogContainer(props),
+  [part("Modal", "dialog").selector]: baseStyleDialog(props),
+  [part("Modal", "header").selector]: baseStyleHeader,
+  [part("Modal", "closeButton").selector]: baseStyleCloseButton,
+  [part("Modal", "body").selector]: baseStyleBody(props),
+  [part("Modal", "footer").selector]: baseStyleFooter,
 })
 
 /**
@@ -77,9 +76,11 @@ const baseStyle = (props: Dict) => ({
  */
 function getSize(value: string) {
   if (value === "full") {
-    return { [part("Modal", "dialog")]: { maxW: "100vw", minH: "100vh" } }
+    return {
+      [part("Modal", "dialog").selector]: { maxW: "100vw", minH: "100vh" },
+    }
   }
-  return { [part("Modal", "dialog")]: { maxW: value } }
+  return { [part("Modal", "dialog").selector]: { maxW: value } }
 }
 
 const size = {

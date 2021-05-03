@@ -2,7 +2,7 @@ import Input from "./input"
 import { part } from "@chakra-ui/theme-tools"
 import { ThemeComponentProps } from "../theme.types"
 
-const inputFieldPart = part("Input", "field")
+const inputFieldPart = part("Input", "field").selector
 
 const baseStyle = {
   ...Input[inputFieldPart],

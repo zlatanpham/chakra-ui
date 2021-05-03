@@ -35,8 +35,8 @@ const baseStyleIcon = {
 }
 
 export default {
-  [part("Accordion", "item")]: baseStyleContainer,
-  [part("Accordion", "button")]: baseStyleButton,
-  [part("Accordion", "panel")]: baseStylePanel,
-  [part("Accordion", "icon")]: baseStyleIcon,
+  [part("Accordion", "item").selector]: baseStyleContainer,
+  [part("Accordion", "button").selector]: baseStyleButton,
+  [part("Accordion", "panel").selector]: baseStylePanel,
+  [part("Accordion", "icon").selector]: baseStyleIcon,
 }

@@ -1,13 +1,17 @@
 import Checkbox from "./checkbox"
+import { ThemeComponentProps } from "../theme.types"
+import { part } from "@chakra-ui/theme-tools"
 
-function baseStyleControl(props: Record<string, any>) {
-  const { control } = Checkbox.baseStyle(props)
+function baseStyleControl(props: ThemeComponentProps) {
+  const control = Checkbox.baseStyle(props)[
+    part("Checkbox", "control").selector
+  ]
 
   return {
     ...control,
     borderRadius: "full",
     _checked: {
-      ...control["_checked"],
+      ...control?.["_checked"],
       _before: {
         content: `""`,
         display: "inline-block",
@@ -21,7 +25,7 @@ function baseStyleControl(props: Record<string, any>) {
   }
 }
 
-const baseStyle = (props: Record<string, any>) => ({
+const baseStyle = (props: ThemeComponentProps) => ({
   label: Checkbox.baseStyle(props).label,
   control: baseStyleControl(props),
 })

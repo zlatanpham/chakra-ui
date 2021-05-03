@@ -22,6 +22,7 @@ import {
   useTabs,
   UseTabsProps,
 } from "./use-tabs"
+import { part } from "@chakra-ui/theme-tools"
 
 interface TabsOptions {
   /**
@@ -98,7 +99,7 @@ export const Tab = forwardRef<TabProps, "button">((props, ref) => {
       {...tabProps}
       className={cx("chakra-tabs__tab", props.className)}
       __css={tabStyles}
-      data-part="tab.tab"
+      {...part("tab", "tab").attributes}
     />
   )
 })
@@ -127,7 +128,7 @@ export const TabList = forwardRef<TabListProps, "div">((props, ref) => {
       {...tablistProps}
       className={cx("chakra-tabs__tablist", props.className)}
       __css={tablistStyles}
-      data-part="tab.tablist"
+      {...part("tab", "tablist").attributes}
     />
   )
 })
@@ -150,7 +151,7 @@ export const TabPanel = forwardRef<TabPanelProps, "div">((props, ref) => {
       outline="0"
       {...panelProps}
       className={cx("chakra-tabs__tab-panel", props.className)}
-      data-part="tab.tabpanel"
+      {...part("tab", "tabpanel").attributes}
     />
   )
 })
@@ -178,7 +179,7 @@ export const TabPanels = forwardRef<TabPanelsProps, "div">((props, ref) => {
       width="100%"
       ref={ref}
       className={cx("chakra-tabs__tab-panels", props.className)}
-      data-part="tab.tabpanels"
+      {...part("tab", "tabpanels").attributes}
     />
   )
 })
@@ -209,7 +210,7 @@ export const TabIndicator = forwardRef<TabIndicatorProps, "div">(
         {...props}
         className={cx("chakra-tabs__tab-indicator", props.className)}
         style={style}
-        data-part="tab.indicator"
+        {...part("tab", "indicator").attributes}
       />
     )
   },

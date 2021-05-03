@@ -1,12 +1,11 @@
 import { mode, part } from "@chakra-ui/theme-tools"
-
-type Dict = Record<string, any>
+import { ThemeComponentProps } from "../theme.types"
 
 const baseStylePopper = {
   zIndex: 10,
 }
 
-function baseStyleContent(props: Dict) {
+function baseStyleContent(props: ThemeComponentProps) {
   const bg = mode("white", "gray.700")(props)
   const shadowColor = mode("gray.200", "whiteAlpha.300")(props)
   return {
@@ -44,13 +43,13 @@ const baseStyleFooter = {
   borderTopWidth: "1px",
 }
 
-const baseStyle = (props: Dict) => ({
-  [part("Popover", "popper")]: baseStylePopper,
-  [part("Popover", "content")]: baseStyleContent(props),
-  [part("Popover", "header")]: baseStyleHeader,
-  [part("Popover", "body")]: baseStyleBody,
-  [part("Popover", "footer")]: baseStyleFooter,
-  [part("Popover", "arrow")]: {},
+const baseStyle = (props: ThemeComponentProps) => ({
+  [part("Popover", "popper").selector]: baseStylePopper,
+  [part("Popover", "content").selector]: baseStyleContent(props),
+  [part("Popover", "header").selector]: baseStyleHeader,
+  [part("Popover", "body").selector]: baseStyleBody,
+  [part("Popover", "footer").selector]: baseStyleFooter,
+  [part("Popover", "arrow").selector]: {},
 })
 
 export default {

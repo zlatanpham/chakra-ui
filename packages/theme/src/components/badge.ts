@@ -1,4 +1,5 @@
 import { getColor, mode, transparentize } from "@chakra-ui/theme-tools"
+import { ThemeComponentProps } from "../theme.types"
 
 const baseStyle = {
   px: 1,
@@ -8,7 +9,7 @@ const baseStyle = {
   fontWeight: "bold",
 }
 
-function variantSolid(props: Record<string, any>) {
+function variantSolid(props: ThemeComponentProps) {
   const { colorScheme: c, theme } = props
   const dark = transparentize(`${c}.500`, 0.6)(theme)
   return {
@@ -17,7 +18,7 @@ function variantSolid(props: Record<string, any>) {
   }
 }
 
-function variantSubtle(props: Record<string, any>) {
+function variantSubtle(props: ThemeComponentProps) {
   const { colorScheme: c, theme } = props
   const darkBg = transparentize(`${c}.200`, 0.16)(theme)
   return {
@@ -26,7 +27,7 @@ function variantSubtle(props: Record<string, any>) {
   }
 }
 
-function variantOutline(props: Record<string, any>) {
+function variantOutline(props: ThemeComponentProps) {
   const { colorScheme: c, theme } = props
   const darkColor = transparentize(`${c}.200`, 0.8)(theme)
   const lightColor = getColor(theme, `${c}.500`)

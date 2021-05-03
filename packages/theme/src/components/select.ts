@@ -3,9 +3,9 @@ import { mergeWith as merge } from "@chakra-ui/utils"
 import Input from "./input"
 import { ThemeComponentProps } from "../theme.types"
 
-function baseStyleField(props: Record<string, any>) {
+function baseStyleField(props: ThemeComponentProps) {
   return {
-    ...Input[part("Input", "field")],
+    ...Input[part("Input", "field").selector],
     appearance: "none",
     paddingBottom: "1px",
     lineHeight: "normal",
@@ -28,13 +28,13 @@ const baseStyleIcon = {
 }
 
 const baseStyle = (props: ThemeComponentProps) => ({
-  [part("Select", "field")]: baseStyleField(props),
-  [part("Select", "icon")]: baseStyleIcon,
+  [part("Select", "field").selector]: baseStyleField(props),
+  [part("Select", "icon").selector]: baseStyleIcon,
 })
 
 const sizes = merge({}, Input.variants.size, {
   xs: {
-    [part("Select", "icon")]: {
+    [part("Select", "icon").selector]: {
       insetEnd: "0.25rem",
     },
   },

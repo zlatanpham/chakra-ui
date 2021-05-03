@@ -22,17 +22,17 @@ const baseStyleIcon = {
 }
 
 const baseStyle = {
-  [part("Stat", "label")]: baseStyleLabel,
-  [part("Stat", "helpText")]: baseStyleHelpText,
-  [part("Stat", "number")]: baseStyleNumber,
-  [part("Stat", "icon")]: baseStyleIcon,
+  [part("Stat", "label").selector]: baseStyleLabel,
+  [part("Stat", "helpText").selector]: baseStyleHelpText,
+  [part("Stat", "number").selector]: baseStyleNumber,
+  [part("Stat", "icon").selector]: baseStyleIcon,
 }
 
 const size = {
   md: {
-    [part("Stat", "label")]: { fontSize: "sm" },
-    [part("Stat", "helpText")]: { fontSize: "sm" },
-    [part("Stat", "number")]: { fontSize: "2xl" },
+    [part("Stat", "label").selector]: { fontSize: "sm" },
+    [part("Stat", "helpText").selector]: { fontSize: "sm" },
+    [part("Stat", "number").selector]: { fontSize: "2xl" },
   },
 }
 

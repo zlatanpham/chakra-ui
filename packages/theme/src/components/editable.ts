@@ -16,8 +16,8 @@ const baseStyleInput = {
 }
 
 const baseStyle = {
-  [part("Editable", "preview")]: baseStylePreview,
-  [part("Editable", "input")]: baseStyleInput,
+  [part("Editable", "preview").selector]: baseStylePreview,
+  [part("Editable", "input").selector]: baseStyleInput,
 }
 
 export default {

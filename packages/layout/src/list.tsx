@@ -11,6 +11,7 @@ import {
 import { __DEV__ } from "@chakra-ui/utils"
 import { getValidChildren } from "@chakra-ui/react-utils"
 import * as React from "react"
+import { part } from "@chakra-ui/theme-tools"
 
 interface ListOptions {
   /**
@@ -108,7 +109,7 @@ export interface ListItemProps extends HTMLChakraProps<"li"> {}
  * Used to render a list item
  */
 export const ListItem = forwardRef<ListItemProps, "li">((props, ref) => {
-  return <chakra.li ref={ref} {...props} data-part="list.item" />
+  return <chakra.li ref={ref} {...props} {...part("list", "item").attributes} />
 })
 
 if (__DEV__) {
@@ -121,7 +122,14 @@ if (__DEV__) {
  * Used to render an icon beside the list item text
  */
 export const ListIcon = forwardRef<IconProps, "svg">((props, ref) => {
-  return <Icon ref={ref} role="presentation" {...props} data-part="list.icon" />
+  return (
+    <Icon
+      ref={ref}
+      role="presentation"
+      {...props}
+      {...part("list", "icon").attributes}
+    />
+  )
 })
 
 if (__DEV__) {

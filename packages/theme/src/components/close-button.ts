@@ -1,6 +1,7 @@
 import { mode } from "@chakra-ui/theme-tools"
+import { ThemeComponentProps } from "../theme.types"
 
-function baseStyle(props: Record<string, any>) {
+function baseStyle(props: ThemeComponentProps) {
   const hoverBg = mode(`blackAlpha.100`, `whiteAlpha.100`)(props)
   const activeBg = mode(`blackAlpha.200`, `whiteAlpha.200`)(props)
 

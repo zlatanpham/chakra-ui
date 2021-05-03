@@ -1,17 +1,6 @@
 import { SystemStyleObject } from "@chakra-ui/system"
 import { Dict, runIfFn } from "@chakra-ui/utils"
 
-export interface StyleConfig {
-  baseStyle?: SystemStyleObject
-  sizes?: { [size: string]: SystemStyleObject }
-  variants?: { [variant: string]: SystemStyleObject }
-  defaultProps?: {
-    size?: string
-    variant?: string
-    colorScheme?: string
-  }
-}
-
 export interface GlobalStyleProps {
   colorScheme: string
   colorMode: "light" | "dark"
@@ -44,8 +33,36 @@ export function orient(options: {
   return orientation === "vertical" ? vertical : horizontal
 }
 
-export function part(componentName: string, partName: string) {
+export function part(
+  componentName: string,
+  partName: string,
+): string & {
+  attributes: Record<string, string>
+  selector: string
+} {
   const dataPart = `${componentName.toLowerCase()}.${partName}`
-  const selector = `[data-part="${dataPart}"]`
-  return `&${selector},${selector}`
+
+  const attributes = {
+    "data-part": dataPart,
+  }
+
+  const dataSelector = Object.entries(attributes).map(
+    ([prop, value]) => `[${prop}="${value}"]`,
+  )
+
+  const selector = `&${dataSelector},${dataSelector}`
+
+  return Object.defineProperty(
+    {
+      attributes,
+      selector,
+    },
+    "toString",
+    {
+      configurable: false,
+      enumerable: false,
+      writable: false,
+      value: () => selector,
+    },
+  )
 }

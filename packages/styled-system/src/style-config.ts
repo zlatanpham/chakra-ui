@@ -25,11 +25,11 @@ export interface StyleConfigThemingProps extends Dict {
   children?: unknown
 }
 
-export type VariantConfig = Record<
-  string,
-  Thunk<StyleObjectOrFn, [StyleConfigThemingProps]>
+export type ThemeComponentThunk = Thunk<
+  StyleObjectOrFn,
+  [StyleConfigThemingProps]
 >
-
+export type VariantConfig = Record<string, ThemeComponentThunk>
 export type Variants = Partial<Record<string & {}, VariantConfig>>
 
 export type RightJoin<Left extends object, Right extends object> = Omit<
@@ -41,7 +41,7 @@ export type RightJoin<Left extends object, Right extends object> = Omit<
 export type StyleConfigOptions = RightJoin<
   CSSObject,
   {
-    baseStyle?: StyleObjectOrFn
+    baseStyle?: ThemeComponentThunk
     variants?: Variants
     defaultVariants?: Record<keyof Variants, string>
   }

@@ -18,8 +18,10 @@ function baseStyleHelperText(props: ThemeComponentProps) {
 }
 
 const baseStyle = (props: ThemeComponentProps) => ({
-  [part("Form", "requiredIndicator")]: baseStyleRequiredIndicator(props),
-  [part("Form", "helperText")]: baseStyleHelperText(props),
+  [part("Form", "requiredIndicator").selector]: baseStyleRequiredIndicator(
+    props,
+  ),
+  [part("Form", "helperText").selector]: baseStyleHelperText(props),
 })
 
 export default {

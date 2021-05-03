@@ -1,6 +1,7 @@
 import { mode, part } from "@chakra-ui/theme-tools"
+import { ThemeComponentProps } from "../theme.types"
 
-function baseStyleList(props: Record<string, any>) {
+function baseStyleList(props: ThemeComponentProps) {
   return {
     bg: mode(`#fff`, `gray.700`)(props),
     boxShadow: mode(`sm`, `dark-lg`)(props),
@@ -13,7 +14,7 @@ function baseStyleList(props: Record<string, any>) {
   }
 }
 
-function baseStyleItem(props: Record<string, any>) {
+function baseStyleItem(props: ThemeComponentProps) {
   return {
     py: "0.4rem",
     px: "0.8rem",
@@ -53,12 +54,12 @@ const baseStyleDivider = {
   opacity: 0.6,
 }
 
-const baseStyle = (props: Record<string, any>) => ({
-  [part("Menu", "list")]: baseStyleList(props),
-  [part("Menu", "item")]: baseStyleItem(props),
-  [part("Menu", "groupTitle")]: baseStyleGroupTitle,
-  [part("Menu", "command")]: baseStyleCommand,
-  [part("Menu", "divider")]: baseStyleDivider,
+const baseStyle = (props: ThemeComponentProps) => ({
+  [part("Menu", "list").selector]: baseStyleList(props),
+  [part("Menu", "item").selector]: baseStyleItem(props),
+  [part("Menu", "groupTitle").selector]: baseStyleGroupTitle,
+  [part("Menu", "command").selector]: baseStyleCommand,
+  [part("Menu", "divider").selector]: baseStyleDivider,
 })
 
 export default {

@@ -2,16 +2,17 @@ import { FormControlOptions, useFormControl } from "@chakra-ui/form-control"
 import {
   chakra,
   forwardRef,
+  HTMLChakraProps,
   layoutPropNames,
   omitThemingProps,
   PropsOf,
   SystemStyleObject,
   ThemingProps,
   useStyleConfig,
-  HTMLChakraProps,
 } from "@chakra-ui/system"
-import { cx, mergeWith, split, __DEV__ } from "@chakra-ui/utils"
+import { __DEV__, cx, split } from "@chakra-ui/utils"
 import * as React from "react"
+import { part } from "@chakra-ui/theme-tools"
 
 type Omitted = "disabled" | "required" | "readOnly" | "size"
 
@@ -30,7 +31,7 @@ export const SelectField = forwardRef<SelectFieldProps, "select">(
         {...ownProps}
         ref={ref}
         className={cx("chakra-select", className)}
-        data-part="select.field"
+        {...part("Select", "field").attributes}
       >
         {placeholder && <option value="">{placeholder}</option>}
         {children}
@@ -139,7 +140,7 @@ export const Select = forwardRef<SelectProps, "select">((props, ref) => {
   return (
     <chakra.div
       className="chakra-select__container"
-      data-part="select.container"
+      {...part("Select", "container").attributes}
       __css={rootStyles}
       {...layoutProps}
       {...rootProps}
@@ -213,7 +214,7 @@ const SelectIcon: React.FC<SelectIconProps> = (props) => {
     <IconWrapper
       {...rest}
       className="chakra-select__icon-wrapper"
-      data-part="select.icon"
+      {...part("Select", "icon").attributes}
     >
       {React.isValidElement(children) ? clone : null}
     </IconWrapper>

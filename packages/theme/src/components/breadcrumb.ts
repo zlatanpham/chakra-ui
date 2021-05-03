@@ -15,7 +15,7 @@ const baseStyleLink = {
 }
 
 const baseStyle = {
-  [part("Badge", "link")]: baseStyleLink,
+  [part("Badge", "link").selector]: baseStyleLink,
 }
 
 export default {

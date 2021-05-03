@@ -1,6 +1,7 @@
 import { mode } from "@chakra-ui/theme-tools"
+import { ThemeComponentProps } from "../theme.types"
 
-function baseStyle(props: Record<string, any>) {
+function baseStyle(props: ThemeComponentProps) {
   const bg = mode("gray.700", "gray.300")(props)
   return {
     "--tooltip-bg": `colors.${bg}`,

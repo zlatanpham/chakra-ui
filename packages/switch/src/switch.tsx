@@ -11,6 +11,7 @@ import {
 } from "@chakra-ui/system"
 import { cx, dataAttr, __DEV__ } from "@chakra-ui/utils"
 import * as React from "react"
+import { part } from "@chakra-ui/theme-tools"
 
 export interface SwitchProps
   extends Omit<UseCheckboxProps, "isIndeterminate">,
@@ -70,24 +71,24 @@ export const Switch = forwardRef<SwitchProps, "input">((props, ref) => {
     <chakra.label
       {...getRootProps()}
       className={cx("chakra-switch", props.className)}
-      data-part="switch.container"
+      {...part("Switch", "container").attributes}
       __css={containerStyles}
     >
       <input
         className="chakra-switch__input"
-        data-part="switch.input"
+        {...part("Switch", "input").attributes}
         {...getInputProps({}, ref)}
       />
       <chakra.span
         {...getCheckboxProps()}
         className="chakra-switch__track"
-        data-part="switch.track"
+        {...part("Switch", "track").attributes}
         __css={trackStyles}
       >
         <chakra.span
           __css={styles.thumb}
           className="chakra-switch__thumb"
-          data-part="switch.thumb"
+          {...part("Switch", "thumb").attributes}
           data-checked={dataAttr(state.isChecked)}
           data-hover={dataAttr(state.isHovered)}
         />
@@ -95,7 +96,7 @@ export const Switch = forwardRef<SwitchProps, "input">((props, ref) => {
       {children && (
         <chakra.span
           className="chakra-switch__label"
-          data-part="switch.label"
+          {...part("Switch", "label").attributes}
           {...getLabelProps()}
           __css={labelStyles}
         >

@@ -1,6 +1,7 @@
 import { mode, part } from "@chakra-ui/theme-tools"
 import Input from "./input"
 import typography from "../foundations/typography"
+import { ThemeComponentProps } from "../theme.types"
 
 const { variants, defaultVariants } = Input
 
@@ -10,14 +11,14 @@ const baseStyleRoot = {
     "calc(var(--number-input-stepper-width) + 0.5rem)",
 }
 
-const inputFieldPart = part("Input", "field")
-const baseStyleField = Input[inputFieldPart]
+const inputFieldSelector = part("Input", "field").selector
+const baseStyleField = Input[inputFieldSelector]
 
 const baseStyleStepperGroup = {
   width: "var(--number-input-stepper-width)",
 }
 
-function baseStyleStepper(props: Record<string, any>) {
+function baseStyleStepper(props: ThemeComponentProps) {
   return {
     borderStart: "1px solid",
     borderStartColor: mode("inherit", "whiteAlpha.300")(props),
@@ -32,11 +33,11 @@ function baseStyleStepper(props: Record<string, any>) {
   }
 }
 
-const baseStyle = (props: Record<string, any>) => ({
+const baseStyle = (props: ThemeComponentProps) => ({
   ...baseStyleRoot,
-  [part("NumberInput", "field")]: baseStyleField,
-  [part("NumberInput", "stepperGroup")]: baseStyleStepperGroup,
-  [part("NumberInput", "stepper")]: baseStyleStepper(props),
+  [part("NumberInput", "field").selector]: baseStyleField,
+  [part("NumberInput", "stepperGroup").selector]: baseStyleStepperGroup,
+  [part("NumberInput", "stepper").selector]: baseStyleStepper(props),
 })
 
 function getSize(size: "xs" | "sm" | "md" | "lg") {
@@ -48,16 +49,16 @@ function getSize(size: "xs" | "sm" | "md" | "lg") {
     sm: "sm",
     xs: "sm",
   }
-  console.log(sizeStyle)
-  const resolvedFontSize = typography.fontSizes[sizeStyle.fontSize]
+
+  const resolvedFontSize = typography.fontSizes[sizeStyle?.fontSize?.fontSize]
 
   return {
-    [part("NumberInput", "field")]: {
-      ...sizeStyle[inputFieldPart],
+    [part("NumberInput", "field").selector]: {
+      ...sizeStyle[inputFieldSelector],
       paddingInlineEnd: "var(--number-input-field-padding)",
       verticalAlign: "top",
     },
-    [part("NumberInput", "stepper")]: {
+    [part("NumberInput", "stepper").selector]: {
       fontSize: `calc(${resolvedFontSize} * 0.75)`,
       _first: {
         borderTopEndRadius: radius[size],

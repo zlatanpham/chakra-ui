@@ -11,9 +11,9 @@ const baseStyleIcon = {
 }
 
 const baseStyle = {
-  [part("List", "container")]: baseStyleContainer,
-  [part("List", "item")]: baseStyleItem,
-  [part("List", "icon")]: baseStyleIcon,
+  [part("List", "container").selector]: baseStyleContainer,
+  [part("List", "item").selector]: baseStyleItem,
+  [part("List", "icon").selector]: baseStyleIcon,
 }
 
 export default {

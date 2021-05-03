@@ -1,7 +1,8 @@
 import { isDark, mode, part, randomColor } from "@chakra-ui/theme-tools"
 import themeSizes from "../foundations/sizes"
+import { ThemeComponentProps } from "../theme.types"
 
-function baseStyleBadge(props: Record<string, any>) {
+function baseStyleBadge(props: ThemeComponentProps) {
   return {
     transform: "translate(25%, 25%)",
     borderRadius: "full",
@@ -10,13 +11,13 @@ function baseStyleBadge(props: Record<string, any>) {
   }
 }
 
-function baseStyleExcessLabel(props: Record<string, any>) {
+function baseStyleExcessLabel(props: ThemeComponentProps) {
   return {
     bg: mode("gray.200", "whiteAlpha.400")(props),
   }
 }
 
-function baseStyleContainer(props: Record<string, any>) {
+function baseStyleContainer(props: ThemeComponentProps) {
   const { name, theme } = props
   const bg = name ? randomColor({ string: name }) : "gray.400"
   const isBgDark = isDark(bg)(theme)
@@ -24,7 +25,7 @@ function baseStyleContainer(props: Record<string, any>) {
   let color = "white"
   if (!isBgDark) color = "gray.800"
 
-  const borderColor = mode("white", "gray.800")(props)
+  const borderColor: string = mode("white", "gray.800")(props)
 
   return {
     bg,
@@ -34,10 +35,10 @@ function baseStyleContainer(props: Record<string, any>) {
   }
 }
 
-const baseStyle = (props: Record<string, any>) => ({
-  ...baseStyleContainer(props),
-  [part("Avatar", "badge")]: baseStyleBadge(props),
-  [part("Avatar", "excessLabel")]: baseStyleExcessLabel(props),
+const baseStyle = (props: ThemeComponentProps) => ({
+  [part("Avatar", "container").selector]: baseStyleContainer(props),
+  [part("Avatar", "badge").selector]: baseStyleBadge(props),
+  [part("Avatar", "excessLabel").selector]: baseStyleExcessLabel(props),
 })
 
 function getSize(size: string) {
@@ -46,7 +47,7 @@ function getSize(size: string) {
     width: size,
     height: size,
     fontSize: `calc(${themeSize ?? size} / 2.5)`,
-    [part("Avatar", "label")]: {
+    [part("Avatar", "label").selector]: {
       fontSize: `calc(${themeSize ?? size} / 2.5)`,
       lineHeight: size !== "100%" ? themeSize ?? size : undefined,
     },

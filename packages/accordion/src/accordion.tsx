@@ -22,6 +22,7 @@ import {
   UseAccordionProps,
   AccordionDescendantsProvider,
 } from "./use-accordion"
+import { part } from "@chakra-ui/theme-tools"
 
 /* -------------------------------------------------------------------------------------------------
  * Accordion - The wrapper that provides context for all accordion items
@@ -60,13 +61,13 @@ export const Accordion = forwardRef<AccordionProps, "div">(
       <AccordionDescendantsProvider value={descendants}>
         <AccordionProvider value={ctx}>
           <chakra.div
-          ref={ref}
-          {...htmlProps}
-          __css={styles}
-          className={cx("chakra-accordion", props.className)}
-        >
-          {children}
-        </chakra.div>
+            ref={ref}
+            {...htmlProps}
+            __css={styles}
+            className={cx("chakra-accordion", props.className)}
+          >
+            {children}
+          </chakra.div>
         </AccordionProvider>
       </AccordionDescendantsProvider>
     )
@@ -123,7 +124,7 @@ export const AccordionItem = forwardRef<AccordionItemProps, "div">(
         <chakra.div
           ref={ref}
           {...htmlProps}
-          data-part="accordion.item"
+          {...part("Accordion", "item").attributes}
           className={cx("chakra-accordion__item", className)}
           __css={containerStyles}
         >
@@ -178,7 +179,7 @@ export const AccordionButton = forwardRef<AccordionButtonProps, "button">(
     return (
       <chakra.button
         {...buttonProps}
-        data-part="accordion.button"
+        {...part("Accordion", "button").attributes}
         className={cx("chakra-accordion__button", props.className)}
         __css={buttonStyles}
       />
@@ -219,7 +220,7 @@ export const AccordionPanel = forwardRef<AccordionPanelProps, "div">(
     const child = (
       <chakra.div
         {...panelProps}
-        data-part="accordion.panel"
+        {...part("Accordion", "panel").attributes}
         className={_className}
       />
     )
@@ -262,7 +263,7 @@ export const AccordionIcon: React.FC<IconProps> = (props) => {
       viewBox="0 0 24 24"
       aria-hidden
       {...props}
-      data-part="accordion.icon"
+      {...part("Accordion", "icon").attributes}
       className={_className}
       __css={iconStyles}
     >

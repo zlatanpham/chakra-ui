@@ -1,25 +1,26 @@
-import { isDark, mode, part, randomColor } from "@chakra-ui/theme-tools"
+import { mode, part } from "@chakra-ui/theme-tools"
 import themeSizes from "../foundations/sizes"
 import { get } from "@chakra-ui/utils"
+import { ThemeComponentProps } from "../theme.types"
 
-function baseStyleExcessLabel(props: Record<string, any>) {
+function baseStyleExcessLabel(props: ThemeComponentProps) {
   return {
     bg: mode("gray.200", "whiteAlpha.400")(props),
   }
 }
 
-const baseStyle = (props: Record<string, any>) => ({
-  [part("Avatar", "excessLabel")]: baseStyleExcessLabel(props),
+const baseStyle = (props: ThemeComponentProps) => ({
+  [part("Avatar", "excessLabel").selector]: baseStyleExcessLabel(props),
 })
 
 function getSize(size: string) {
   const themeSize = get(themeSizes, size)
   return {
-    [part("Avatar", "excessLabel")]: {
+    [part("Avatar", "excessLabel").selector]: {
       width: size,
       height: size,
     },
-    [part("Avatar", "label")]: {
+    [part("Avatar", "label").selector]: {
       fontSize: `calc(${themeSize ?? size} / 2.5)`,
       lineHeight: size !== "100%" ? themeSize ?? size : undefined,
     },

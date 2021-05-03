@@ -14,6 +14,7 @@ import * as React from "react"
 import { PopoverProvider, usePopoverContext } from "./popover-context"
 import { PopoverTransition, PopoverTransitionProps } from "./popover-transition"
 import { usePopover, UsePopoverProps } from "./use-popover"
+import { part } from "@chakra-ui/theme-tools"
 
 export { usePopoverContext }
 
@@ -91,13 +92,13 @@ export const PopoverContent = forwardRef<PopoverContentProps, "section">(
       <chakra.div
         {...getPopoverPositionerProps(rootProps)}
         className="chakra-popover__popper"
-        data-part="popover.popper"
+        {...part("popover", "popper").attributes}
       >
         <PopoverTransition
           {...getPopoverProps(contentProps, ref)}
           className={cx("chakra-popover__content", props.className)}
           __css={contentStyles}
-          data-part="popover.content"
+          {...part("popover", "content").attributes}
         />
       </chakra.div>
     )
@@ -122,7 +123,7 @@ export const PopoverHeader = forwardRef<PopoverHeaderProps, "header">(
       <chakra.header
         {...getHeaderProps(props, ref)}
         className={cx("chakra-popover__header", props.className)}
-        data-part="popover.header"
+        {...part("popover", "header").attributes}
       />
     )
   },
@@ -145,7 +146,7 @@ export const PopoverBody = forwardRef<PopoverBodyProps, "div">((props, ref) => {
     <chakra.div
       {...getBodyProps(props, ref)}
       className={cx("chakra-popover__body", props.className)}
-      data-part="popover.body"
+      {...part("popover", "body").attributes}
     />
   )
 })
@@ -160,7 +161,7 @@ export const PopoverFooter: React.FC<PopoverFooterProps> = (props) => {
     <chakra.footer
       {...props}
       className={cx("chakra-popover__footer", props.className)}
-      data-part="popover.footer"
+      {...part("popover", "footer").attributes}
     />
   )
 }
@@ -205,7 +206,7 @@ export const PopoverArrow: React.FC<PopoverArrowProps> = (props) => {
       <chakra.div
         className={cx("chakra-popover__arrow", props.className)}
         {...getArrowInnerProps(props)}
-        data-part="popover.arrow"
+        {...part("popover", "arrow").attributes}
         __css={{
           "--popper-arrow-bg": arrowBg ? `colors.${arrowBg}, ${arrowBg}` : "",
         }}

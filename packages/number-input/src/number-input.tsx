@@ -16,6 +16,7 @@ import {
   UseNumberInputProps,
   UseNumberInputReturn,
 } from "./use-number-input"
+import { part } from "@chakra-ui/theme-tools"
 
 interface NumberInputContext extends Omit<UseNumberInputReturn, "htmlProps"> {}
 
@@ -128,7 +129,7 @@ export const NumberInputStepper = forwardRef<NumberInputStepperProps, "div">(
           height: "calc(100% - 2px)",
           zIndex: 1,
         }}
-        data-part="numberinput.stepperGroup"
+        {...part("numberinput", "stepperGroup").attributes}
       />
     )
   },
@@ -164,7 +165,7 @@ export const NumberInputField = forwardRef<NumberInputFieldProps, "input">(
         __css={{
           width: "100%",
         }}
-        data-part="numberinput.field"
+        {...part("numberinput", "field").attributes}
       />
     )
   },
@@ -204,7 +205,10 @@ export const NumberDecrementStepper = forwardRef<
   const decrement = getDecrementButtonProps(props, ref)
 
   return (
-    <StyledStepper {...decrement} data-part="numberinput.stepper">
+    <StyledStepper
+      {...decrement}
+      {...part("numberinput", "stepper").attributes}
+    >
       {props.children ?? <TriangleDownIcon />}
     </StyledStepper>
   )
@@ -231,7 +235,10 @@ export const NumberIncrementStepper = forwardRef<
   const increment = getIncrementButtonProps(props, ref)
 
   return (
-    <StyledStepper {...increment} data-part="numberinput.stepper">
+    <StyledStepper
+      {...increment}
+      {...part("numberinput", "stepper").attributes}
+    >
       {props.children ?? <TriangleUpIcon />}
     </StyledStepper>
   )

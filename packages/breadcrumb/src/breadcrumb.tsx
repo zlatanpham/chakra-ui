@@ -11,6 +11,7 @@ import {
 import { cx, __DEV__ } from "@chakra-ui/utils"
 import { getValidChildren } from "@chakra-ui/react-utils"
 import * as React from "react"
+import { part } from "@chakra-ui/theme-tools"
 
 export interface BreadcrumbSeparatorProps extends HTMLChakraProps<"div"> {
   /**
@@ -35,7 +36,7 @@ export const BreadcrumbSeparator = forwardRef<BreadcrumbSeparatorProps, "span">(
         ref={ref}
         role="presentation"
         {...rest}
-        data-part="breadcrumb.separator"
+        {...part("Breadcrumb", "separator").attributes}
         __css={separatorStyles}
       />
     )
@@ -71,13 +72,15 @@ export const BreadcrumbLink = forwardRef<BreadcrumbLinkProps, "a">(
       return (
         <chakra.span
           aria-current="page"
-          data-part="breadcrumb.link"
+          {...part("Breadcrumb", "link").attributes}
           {...sharedProps}
         />
       )
     }
 
-    return <chakra.a data-part="breadcrumb.link" {...sharedProps} />
+    return (
+      <chakra.a {...part("Breadcrumb", "link").attributes} {...sharedProps} />
+    )
   },
 )
 
@@ -143,7 +146,7 @@ export const BreadcrumbItem = forwardRef<BreadcrumbItemProps, "li">(
         ref={ref}
         className={_className}
         {...rest}
-        data-part="editable.list-item"
+        {...part("editable", "list-item").attributes}
         __css={itemStyles}
       >
         {clones}

@@ -1,6 +1,7 @@
 import { chakra, forwardRef, HTMLChakraProps } from "@chakra-ui/system"
 import { cx, __DEV__ } from "@chakra-ui/utils"
 import * as React from "react"
+import { part } from "@chakra-ui/theme-tools"
 
 type Placement = "left" | "right"
 
@@ -44,7 +45,7 @@ export const InputAddon = forwardRef<InputAddonProps, "div">((props, ref) => {
     <StyledAddon
       ref={ref}
       {...rest}
-      data-part="input.addon"
+      {...part("Input", "addon").attributes}
       __css={placementStyles}
     />
   )

@@ -15,6 +15,7 @@ import {
   PropGetterV2,
 } from "@chakra-ui/react-utils"
 import * as React from "react"
+import { part } from "@chakra-ui/theme-tools"
 
 export interface FormControlOptions {
   /**
@@ -234,7 +235,7 @@ export const FormControl = forwardRef<FormControlProps, "div">((props, ref) => {
           position: "relative",
           ...styles,
         }}
-        data-part="form.root"
+        {...part("form", "root").attributes}
       />
     </FormControlProvider>
   )
@@ -259,7 +260,7 @@ export const FormHelperText = forwardRef<HelpTextProps, "div">((props, ref) => {
   return (
     <chakra.div
       {...field?.getHelpTextProps(props, ref)}
-      data-part="form.helperText"
+      {...part("form", "helperText").attributes}
       className={className}
     />
   )

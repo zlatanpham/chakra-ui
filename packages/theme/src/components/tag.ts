@@ -35,27 +35,27 @@ const baseStyleCloseButton = {
 }
 
 const baseStyle = {
-  [part("Tag", "container")]: baseStyleContainer,
-  [part("Tag", "label")]: baseStyleLabel,
-  [part("Tag", "closeButton")]: baseStyleCloseButton,
+  [part("Tag", "container").selector]: baseStyleContainer,
+  [part("Tag", "label").selector]: baseStyleLabel,
+  [part("Tag", "closeButton").selector]: baseStyleCloseButton,
 }
 
 const size = {
   sm: {
-    [part("Tag", "container")]: {
+    [part("Tag", "container").selector]: {
       minH: "1.25rem",
       minW: "1.25rem",
       fontSize: "xs",
       px: 2,
       borderRadius: "md",
     },
-    [part("Tag", "closeButton")]: {
+    [part("Tag", "closeButton").selector]: {
       marginEnd: "-2px",
       marginStart: "0.35rem",
     },
   },
   md: {
-    [part("Tag", "container")]: {
+    [part("Tag", "container").selector]: {
       minH: "1.5rem",
       minW: "1.5rem",
       fontSize: "sm",
@@ -64,7 +64,7 @@ const size = {
     },
   },
   lg: {
-    [part("Tag", "container")]: {
+    [part("Tag", "container").selector]: {
       minH: 8,
       minW: 8,
       fontSize: "md",
@@ -76,13 +76,13 @@ const size = {
 
 const variant = {
   subtle: (props: ThemeComponentProps) => ({
-    [part("Tag", "container")]: Badge.variants.variant.subtle(props),
+    [part("Tag", "container").selector]: Badge.variants.variant.subtle(props),
   }),
   solid: (props: ThemeComponentProps) => ({
-    [part("Tag", "container")]: Badge.variants.variant.solid(props),
+    [part("Tag", "container").selector]: Badge.variants.variant.solid(props),
   }),
   outline: (props: ThemeComponentProps) => ({
-    [part("Tag", "container")]: Badge.variants.variant.outline(props),
+    [part("Tag", "container").selector]: Badge.variants.variant.outline(props),
   }),
 }
 

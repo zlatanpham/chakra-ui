@@ -9,6 +9,7 @@ import {
 import { cx, __DEV__ } from "@chakra-ui/utils"
 import { getValidChildren } from "@chakra-ui/react-utils"
 import * as React from "react"
+import { part } from "@chakra-ui/theme-tools"
 
 export interface InputGroupProps
   extends HTMLChakraProps<"div">,
@@ -70,6 +71,7 @@ export const InputGroup = forwardRef<InputGroupProps, "div">((props, ref) => {
         position: "relative",
         ...styles,
       }}
+      {...part("Input", "group").attributes}
       {...rest}
     >
       {clones}

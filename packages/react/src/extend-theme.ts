@@ -127,7 +127,7 @@ function mergeThemeCustomizer(
       const sourceValue = runIfFn(source, ...args)
       const overrideValue = runIfFn(override, ...args)
 
-      return mergeThemeOverride({}, sourceValue, overrideValue)
+      return mergeWith({}, sourceValue, overrideValue, mergeThemeCustomizer)
     }
   }
 

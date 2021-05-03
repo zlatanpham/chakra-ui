@@ -1,6 +1,5 @@
 import { mode, transparentize } from "@chakra-ui/theme-tools"
-
-type Dict = Record<string, any>
+import { ThemeComponentProps } from "../theme.types"
 
 const baseStyle = {
   lineHeight: "1.2",
@@ -21,7 +20,7 @@ const baseStyle = {
   },
 }
 
-function variantGhost(props: Dict) {
+function variantGhost(props: ThemeComponentProps) {
   const { colorScheme: c, theme } = props
 
   if (c === "gray") {
@@ -49,7 +48,7 @@ function variantGhost(props: Dict) {
   }
 }
 
-function variantOutline(props: Dict) {
+function variantOutline(props: ThemeComponentProps) {
   const { colorScheme: c } = props
   const borderColor = mode(`gray.200`, `whiteAlpha.300`)(props)
   return {
@@ -82,7 +81,7 @@ const accessibleColorMap: { [key: string]: AccessibleColor } = {
   },
 }
 
-function variantSolid(props: Dict) {
+function variantSolid(props: ThemeComponentProps) {
   const { colorScheme: c } = props
 
   if (c === "gray") {
@@ -105,7 +104,7 @@ function variantSolid(props: Dict) {
     color = "white",
     hoverBg = `${c}.600`,
     activeBg = `${c}.700`,
-  } = accessibleColorMap[c] || {}
+  } = c ? accessibleColorMap[c] || {} : {}
 
   const background = mode(bg, `${c}.200`)(props)
 
@@ -122,7 +121,7 @@ function variantSolid(props: Dict) {
   }
 }
 
-function variantLink(props: Dict) {
+function variantLink(props: ThemeComponentProps) {
   const { colorScheme: c } = props
   return {
     padding: 0,

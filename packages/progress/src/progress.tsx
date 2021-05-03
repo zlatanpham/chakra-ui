@@ -15,6 +15,7 @@ import {
   progress,
   stripe,
 } from "./progress.utils"
+import { part } from "@chakra-ui/theme-tools"
 
 export interface ProgressLabelProps extends HTMLChakraProps<"div"> {}
 
@@ -32,7 +33,11 @@ export const ProgressLabel: React.FC<ProgressLabelProps> = (props) => {
     transform: "translate(-50%, -50%)",
   }
   return (
-    <chakra.div {...props} __css={labelStyles} data-part="progress.label" />
+    <chakra.div
+      {...props}
+      __css={labelStyles}
+      {...part("progress", "label").attributes}
+    />
   )
 }
 
@@ -69,7 +74,7 @@ const ProgressFilledTrack: React.FC<ProgressFilledTrackProps> = (props) => {
       {...progress.bind}
       {...rest}
       __css={trackStyles}
-      data-part="progress.filledTrack"
+      {...part("progress", "filledTrack").attributes}
     />
   )
 }

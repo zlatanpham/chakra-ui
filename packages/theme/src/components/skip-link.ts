@@ -1,6 +1,7 @@
 import { mode } from "@chakra-ui/theme-tools"
+import { ThemeComponentProps } from "../theme.types"
 
-const baseStyle = (props: Record<string, any>) => ({
+const baseStyle = (props: ThemeComponentProps) => ({
   borderRadius: "md",
   fontWeight: "semibold",
   _focus: {

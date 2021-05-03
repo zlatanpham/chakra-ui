@@ -10,6 +10,7 @@ import {
 import { cx, __DEV__ } from "@chakra-ui/utils"
 import * as React from "react"
 import { useFormControlContext } from "./form-control"
+import { part } from "@chakra-ui/theme-tools"
 
 export interface FormErrorMessageProps
   extends HTMLChakraProps<"div">,
@@ -31,7 +32,7 @@ export const FormErrorMessage = forwardRef<FormErrorMessageProps, "div">(
       <chakra.div
         {...field?.getErrorMessageProps(ownProps, ref)}
         className={cx("chakra-form__error-message", props.className)}
-        data-part="formerror.message"
+        {...part("formerror", "message").attributes}
         __css={{
           display: "flex",
           alignItems: "center",
@@ -63,7 +64,7 @@ export const FormErrorIcon = forwardRef<IconProps, "svg">((props, ref) => {
       aria-hidden
       {...props}
       className={_className}
-      data-part="formerror.icon"
+      {...part("formerror", "icon").attributes}
     >
       <path
         fill="currentColor"

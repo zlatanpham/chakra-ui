@@ -10,6 +10,7 @@ import { cx, __DEV__ } from "@chakra-ui/utils"
 import { createContext } from "@chakra-ui/react-utils"
 import * as React from "react"
 import { Modal, ModalFocusScope, ModalProps, useModalContext } from "./modal"
+import { part } from "@chakra-ui/theme-tools"
 
 const [DrawerContextProvider, useDrawerContext] = createContext<DrawerOptions>()
 
@@ -104,7 +105,7 @@ export const DrawerContent = forwardRef<DrawerContentProps, "section">(
         {...containerProps}
         className="chakra-modal__content-container"
         __css={dialogContainerStyles}
-        data-part="modal.dialogContainer"
+        {...part("Modal", "dialogContainer").attributes}
       >
         <ModalFocusScope>
           <StyleSlide
@@ -113,7 +114,7 @@ export const DrawerContent = forwardRef<DrawerContentProps, "section">(
             className={_className}
             {...dialogProps}
             __css={dialogStyles}
-            data-part="modal.dialog"
+            {...part("Modal", "dialog").attributes}
           >
             {children}
           </StyleSlide>
