@@ -39,6 +39,7 @@ export function part(
 ): string & {
   attributes: Record<string, string>
   selector: string
+  childOf: string
 } {
   const dataPart = `${componentName.toLowerCase()}.${partName}`
 
@@ -51,11 +52,13 @@ export function part(
   )
 
   const selector = `&${dataSelector},${dataSelector}`
+  const childOf = `${selector} &`
 
   return Object.defineProperty(
     {
       attributes,
       selector,
+      childOf,
     },
     "toString",
     {

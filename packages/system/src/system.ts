@@ -6,11 +6,12 @@ import {
 } from "@chakra-ui/styled-system"
 import { objectFilter } from "@chakra-ui/utils"
 import _styled, { CSSObject, FunctionInterpolation } from "@emotion/styled"
-import { shouldForwardProp } from "./should-forward-prop"
+import { shouldForwardProp as defaultShouldForwardProp } from "./should-forward-prop"
 import { As, ChakraComponent, ChakraProps, PropsOf } from "./system.types"
 import { domElements, DOMElements } from "./system.utils"
 
 type StyleResolverProps = SystemStyleObject & {
+  "data-part"?: string
   __css?: SystemStyleObject
   sx?: SystemStyleObject
   theme: any
@@ -37,17 +38,27 @@ interface GetStyleObject {
  * fontSize will be `40px`
  */
 export const toCSSObject: GetStyleObject = ({ baseStyle }) => (props) => {
-  const { theme, css: cssProp, __css, sx, ...rest } = props
+  const {
+    theme,
+    css: cssProp,
+    __css,
+    sx,
+    "data-part": dataPart,
+    ...rest
+  } = props
   const styleProps = objectFilter(rest, (_, prop) => isStyleProp(prop))
 
-  const priorityStyles = { "&&": Object.assign({}, styleProps, sx) }
+  const prioritySelector = "&&"
+  const priorityStyles = {
+    [prioritySelector]: Object.assign({}, styleProps, sx),
+  }
   const styles = Object.assign({}, __css, baseStyle, priorityStyles)
 
   const computedCSS = css(styles)(props.theme)
   return cssProp ? [computedCSS, cssProp] : computedCSS
 }
 
-interface StyledOptions {
+type StyledOptions = SystemStyleObject & {
   shouldForwardProp?(prop: string): boolean
   label?: string
   baseStyle?: SystemStyleObject
@@ -57,16 +68,27 @@ export function styled<T extends As, P = {}>(
   component: T,
   options?: StyledOptions,
 ) {
-  const { baseStyle, ...styledOptions } = options ?? {}
-
-  if (!styledOptions.shouldForwardProp) {
-    styledOptions.shouldForwardProp = shouldForwardProp
+  const {
+    label,
+    baseStyle,
+    shouldForwardProp = defaultShouldForwardProp,
+    ...styledOptions
+  } = options ?? {
+    shouldForwardProp: undefined,
   }
 
-  const styleObject = toCSSObject({ baseStyle })
+  const styleObject = toCSSObject({
+    baseStyle: { baseStyle, ...styledOptions },
+  })
+
+  const emotionOptions = {
+    shouldForwardProp,
+    ...styledOptions,
+  }
+
   return _styled(
     component as React.ComponentType<any>,
-    styledOptions,
+    emotionOptions,
   )(styleObject) as ChakraComponent<T, P>
 }
 

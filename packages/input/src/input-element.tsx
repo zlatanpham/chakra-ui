@@ -13,14 +13,12 @@ export interface InputElementProps extends HTMLChakraProps<"div"> {
 }
 
 const StyledElement = chakra("div", {
-  baseStyle: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    position: "absolute",
-    top: "0",
-    zIndex: 2,
-  },
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  position: "absolute",
+  top: "0",
+  zIndex: 2,
 })
 
 const InputElement = forwardRef<InputElementProps, "div">((props, ref) => {

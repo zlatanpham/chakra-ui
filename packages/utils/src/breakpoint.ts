@@ -46,7 +46,7 @@ function subtract(value: string) {
 function queryString(min: string | null, max?: string) {
   const query = []
 
-  if (min || max) query.push("@media screen ")
+  if (min || max) query.push("@media screen")
   if (min) query.push(`and (min-width: ${px(min)})`)
   if (max) query.push(`and (max-width: ${px(max)})`)
 

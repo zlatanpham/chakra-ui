@@ -7,25 +7,27 @@ type Placement = "left" | "right"
 
 const placements = {
   left: {
-    marginEnd: "-1px",
-    borderEndRadius: 0,
-    borderEndColor: "transparent",
+    [part("Input", "group").childOf]: {
+      marginEnd: "-1px",
+      borderEndRadius: 0,
+      borderEndColor: "transparent",
+    },
   },
   right: {
-    marginStart: "-1px",
-    borderStartRadius: 0,
-    borderStartColor: "transparent",
+    [part("Input", "group").childOf]: {
+      marginStart: "-1px",
+      borderStartRadius: 0,
+      borderStartColor: "transparent",
+    },
   },
 }
 
 const StyledAddon = chakra("div", {
-  baseStyle: {
-    flex: "0 0 auto",
-    width: "auto",
-    display: "flex",
-    alignItems: "center",
-    whiteSpace: "nowrap",
-  },
+  flex: "0 0 auto",
+  width: "auto",
+  display: "flex",
+  alignItems: "center",
+  whiteSpace: "nowrap",
 })
 
 export interface InputAddonProps extends HTMLChakraProps<"div"> {
