@@ -1,5 +1,15 @@
-import { mode, part } from "@chakra-ui/theme-tools"
+import { mode, scope } from "@chakra-ui/theme-tools"
 import { ThemeComponentProps } from "../theme.types"
+
+const parts = scope("modal").parts(
+  "overlay",
+  "dialogContainer",
+  "dialog",
+  "header",
+  "closeButton",
+  "body",
+  "footer",
+)
 
 const baseStyleOverlay = {
   bg: "blackAlpha.600",
@@ -61,13 +71,13 @@ const baseStyleFooter = {
 }
 
 const baseStyle = (props: ThemeComponentProps) => ({
-  [part("Modal", "overlay").selector]: baseStyleOverlay,
-  [part("Modal", "dialogContainer").selector]: baseStyleDialogContainer(props),
-  [part("Modal", "dialog").selector]: baseStyleDialog(props),
-  [part("Modal", "header").selector]: baseStyleHeader,
-  [part("Modal", "closeButton").selector]: baseStyleCloseButton,
-  [part("Modal", "body").selector]: baseStyleBody(props),
-  [part("Modal", "footer").selector]: baseStyleFooter,
+  [parts.overlay]: baseStyleOverlay,
+  [parts.dialogContainer]: baseStyleDialogContainer(props),
+  [parts.dialog]: baseStyleDialog(props),
+  [parts.header]: baseStyleHeader,
+  [parts.closeButton]: baseStyleCloseButton,
+  [parts.body]: baseStyleBody(props),
+  [parts.footer]: baseStyleFooter,
 })
 
 /**
@@ -77,10 +87,10 @@ const baseStyle = (props: ThemeComponentProps) => ({
 function getSize(value: string) {
   if (value === "full") {
     return {
-      [part("Modal", "dialog").selector]: { maxW: "100vw", minH: "100vh" },
+      [parts.dialog]: { maxW: "100vw", minH: "100vh" },
     }
   }
-  return { [part("Modal", "dialog").selector]: { maxW: value } }
+  return { [parts.dialog]: { maxW: value } }
 }
 
 const size = {

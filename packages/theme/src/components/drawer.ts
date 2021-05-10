@@ -1,5 +1,15 @@
-import { mode, part } from "@chakra-ui/theme-tools"
+import { mode, scope } from "@chakra-ui/theme-tools"
 import { ThemeComponentProps } from "../theme.types"
+
+const parts = scope("drawer").parts(
+  "overlay",
+  "dialogContainer",
+  "dialog",
+  "header",
+  "closeButton",
+  "body",
+  "footer",
+)
 
 /**
  * Since the `maxWidth` prop references theme.sizes internally,
@@ -8,10 +18,10 @@ import { ThemeComponentProps } from "../theme.types"
 function getSize(value: string) {
   if (value === "full") {
     return {
-      [part("Drawer", "dialog").selector]: { maxW: "100vw", h: "100vh" },
+      [parts.dialog]: { maxW: "100vw", h: "100vh" },
     }
   }
-  return { [part("Drawer", "dialog").selector]: { maxW: value } }
+  return { [parts.dialog]: { maxW: value } }
 }
 
 const baseStyleOverlay = {
@@ -64,13 +74,13 @@ const baseStyleFooter = {
 }
 
 const baseStyle = (props: ThemeComponentProps) => ({
-  [part("Drawer", "overlay").selector]: baseStyleOverlay,
-  [part("Drawer", "dialogContainer").selector]: baseStyleDialogContainer,
-  [part("Drawer", "dialog").selector]: baseStyleDialog(props),
-  [part("Drawer", "header").selector]: baseStyleHeader,
-  [part("Drawer", "closeButton").selector]: baseStyleCloseButton,
-  [part("Drawer", "body").selector]: baseStyleBody,
-  [part("Drawer", "footer").selector]: baseStyleFooter,
+  [parts.overlay]: baseStyleOverlay,
+  [parts.dialogContainer]: baseStyleDialogContainer,
+  [parts.dialog]: baseStyleDialog(props),
+  [parts.header]: baseStyleHeader,
+  [parts.closeButton]: baseStyleCloseButton,
+  [parts.body]: baseStyleBody,
+  [parts.footer]: baseStyleFooter,
 })
 
 const size = {

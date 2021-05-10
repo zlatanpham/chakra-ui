@@ -1,4 +1,6 @@
-import { part } from "@chakra-ui/theme-tools"
+import { scope } from "@chakra-ui/theme-tools"
+
+const parts = scope("stat").parts("label", "helpText", "number", "icon")
 
 const baseStyleLabel = {
   fontWeight: "medium",
@@ -22,17 +24,17 @@ const baseStyleIcon = {
 }
 
 const baseStyle = {
-  [part("Stat", "label").selector]: baseStyleLabel,
-  [part("Stat", "helpText").selector]: baseStyleHelpText,
-  [part("Stat", "number").selector]: baseStyleNumber,
-  [part("Stat", "icon").selector]: baseStyleIcon,
+  [parts.label]: baseStyleLabel,
+  [parts.helpText]: baseStyleHelpText,
+  [parts.number]: baseStyleNumber,
+  [parts.icon]: baseStyleIcon,
 }
 
 const size = {
   md: {
-    [part("Stat", "label").selector]: { fontSize: "sm" },
-    [part("Stat", "helpText").selector]: { fontSize: "sm" },
-    [part("Stat", "number").selector]: { fontSize: "2xl" },
+    [parts.label]: { fontSize: "sm" },
+    [parts.helpText]: { fontSize: "sm" },
+    [parts.number]: { fontSize: "2xl" },
   },
 }
 

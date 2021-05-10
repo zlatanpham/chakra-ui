@@ -14,7 +14,16 @@ import * as React from "react"
 import { PopoverProvider, usePopoverContext } from "./popover-context"
 import { PopoverTransition, PopoverTransitionProps } from "./popover-transition"
 import { usePopover, UsePopoverProps } from "./use-popover"
-import { part } from "@chakra-ui/theme-tools"
+import { scope } from "@chakra-ui/theme-tools"
+
+const parts = scope("popover").parts(
+  "popper",
+  "content",
+  "header",
+  "body",
+  "footer",
+  "arrow",
+)
 
 export { usePopoverContext }
 
@@ -92,13 +101,13 @@ export const PopoverContent = forwardRef<PopoverContentProps, "section">(
       <chakra.div
         {...getPopoverPositionerProps(rootProps)}
         className="chakra-popover__popper"
-        {...part("popover", "popper").attributes}
+        {...parts.popper.attrs}
       >
         <PopoverTransition
           {...getPopoverProps(contentProps, ref)}
           className={cx("chakra-popover__content", props.className)}
           __css={contentStyles}
-          {...part("popover", "content").attributes}
+          {...parts.content.attrs}
         />
       </chakra.div>
     )
@@ -123,7 +132,7 @@ export const PopoverHeader = forwardRef<PopoverHeaderProps, "header">(
       <chakra.header
         {...getHeaderProps(props, ref)}
         className={cx("chakra-popover__header", props.className)}
-        {...part("popover", "header").attributes}
+        {...parts.header.attrs}
       />
     )
   },
@@ -146,7 +155,7 @@ export const PopoverBody = forwardRef<PopoverBodyProps, "div">((props, ref) => {
     <chakra.div
       {...getBodyProps(props, ref)}
       className={cx("chakra-popover__body", props.className)}
-      {...part("popover", "body").attributes}
+      {...parts.body.attrs}
     />
   )
 })
@@ -161,7 +170,7 @@ export const PopoverFooter: React.FC<PopoverFooterProps> = (props) => {
     <chakra.footer
       {...props}
       className={cx("chakra-popover__footer", props.className)}
-      {...part("popover", "footer").attributes}
+      {...parts.footer.attrs}
     />
   )
 }
@@ -206,7 +215,7 @@ export const PopoverArrow: React.FC<PopoverArrowProps> = (props) => {
       <chakra.div
         className={cx("chakra-popover__arrow", props.className)}
         {...getArrowInnerProps(props)}
-        {...part("popover", "arrow").attributes}
+        {...parts.arrow.attrs}
         __css={{
           "--popper-arrow-bg": arrowBg ? `colors.${arrowBg}, ${arrowBg}` : "",
         }}

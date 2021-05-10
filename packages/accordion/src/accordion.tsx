@@ -22,7 +22,9 @@ import {
   UseAccordionProps,
   AccordionDescendantsProvider,
 } from "./use-accordion"
-import { part } from "@chakra-ui/theme-tools"
+import { scope } from "@chakra-ui/theme-tools"
+
+const parts = scope("accordion").parts("item", "button", "panel", "icon")
 
 /* -------------------------------------------------------------------------------------------------
  * Accordion - The wrapper that provides context for all accordion items
@@ -124,7 +126,7 @@ export const AccordionItem = forwardRef<AccordionItemProps, "div">(
         <chakra.div
           ref={ref}
           {...htmlProps}
-          {...part("Accordion", "item").attributes}
+          {...parts.item.attrs}
           className={cx("chakra-accordion__item", className)}
           __css={containerStyles}
         >
@@ -179,7 +181,7 @@ export const AccordionButton = forwardRef<AccordionButtonProps, "button">(
     return (
       <chakra.button
         {...buttonProps}
-        {...part("Accordion", "button").attributes}
+        {...parts.button.attrs}
         className={cx("chakra-accordion__button", props.className)}
         __css={buttonStyles}
       />
@@ -220,7 +222,7 @@ export const AccordionPanel = forwardRef<AccordionPanelProps, "div">(
     const child = (
       <chakra.div
         {...panelProps}
-        {...part("Accordion", "panel").attributes}
+        {...parts.panel.attrs}
         className={_className}
       />
     )
@@ -263,7 +265,7 @@ export const AccordionIcon: React.FC<IconProps> = (props) => {
       viewBox="0 0 24 24"
       aria-hidden
       {...props}
-      {...part("Accordion", "icon").attributes}
+      {...parts.icon.attrs}
       className={_className}
       __css={iconStyles}
     >

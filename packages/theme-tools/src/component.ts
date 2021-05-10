@@ -33,39 +33,38 @@ export function orient(options: {
   return orientation === "vertical" ? vertical : horizontal
 }
 
-export function part(
-  componentName: string,
-  partName: string,
-): string & {
-  attributes: Record<string, string>
-  selector: string
-  childOf: string
-} {
-  const dataPart = `${componentName.toLowerCase()}.${partName}`
+const joinParts = (...values: string[]) => values.join(".")
 
-  const attributes = {
-    "data-part": dataPart,
+function toPart(value: string) {
+  const attrs = {
+    "data-part": value,
   }
 
-  const dataSelector = Object.entries(attributes).map(
+  const dataSelector = Object.entries(attrs).map(
     ([prop, value]) => `[${prop}="${value}"]`,
   )
 
   const selector = `&${dataSelector},${dataSelector}`
   const childOf = `${selector} &`
+  const part = {
+    attrs,
+    childOf,
+    selector,
+    toString: () => selector,
+  }
 
-  return Object.defineProperty(
-    {
-      attributes,
-      selector,
-      childOf,
-    },
-    "toString",
-    {
-      configurable: false,
-      enumerable: false,
-      writable: false,
-      value: () => selector,
-    },
-  )
+  return part as typeof part & string
+}
+
+export type ComponentPart = ReturnType<typeof toPart>
+
+export function scope<Root extends string>(root: Root) {
+  return {
+    parts: <PartNames extends string[]>(...values: PartNames) =>
+      values.reduce((map, part) => {
+        const partStr = joinParts(root, part)
+        map[part] = toPart(partStr)
+        return map
+      }, {} as Record<PartNames[number], ComponentPart>),
+  }
 }

@@ -29,7 +29,18 @@ import {
   useMenuPositioner,
   UseMenuProps,
 } from "./use-menu"
-import { part } from "@chakra-ui/theme-tools"
+import { scope } from "@chakra-ui/theme-tools"
+
+const parts = scope("menu").parts(
+  "list",
+  "item",
+  "groupTitle",
+  "command",
+  "divider",
+  "button",
+  "listContainer",
+  "group",
+)
 
 export interface MenuProps extends UseMenuProps, ThemingProps<"Menu"> {
   children: MaybeRenderProp<{
@@ -69,7 +80,7 @@ if (__DEV__) {
 export interface MenuButtonProps extends HTMLChakraProps<"button"> {}
 
 const StyledMenuButton = forwardRef<MenuButtonProps, "button">((props, ref) => {
-  const styles = useStyleConfig("Menu", props)[part("Menu", "button").selector]
+  const styles = useStyleConfig("Menu", props)[parts.button]
   return (
     <chakra.button
       ref={ref}
@@ -101,7 +112,7 @@ export const MenuButton = forwardRef<MenuButtonProps, "button">(
       <Element
         {...buttonProps}
         className={cx("chakra-menu__menu-button", props.className)}
-        {...part("Menu", "button").attributes}
+        {...parts.button.attrs}
       >
         <chakra.span
           __css={{ pointerEvents: "none", flex: "1 1 auto", minW: 0 }}
@@ -158,7 +169,7 @@ export const MenuList = forwardRef<MenuListProps, "div">((props, ref) => {
     <chakra.div
       {...positionerProps}
       __css={{ ...styles, zIndex: props.zIndex ?? styles.zIndex }}
-      {...part("list", "listContainer").attributes}
+      {...parts.listContainer.attrs}
     >
       <MotionDiv
         {...listProps}
@@ -171,7 +182,7 @@ export const MenuList = forwardRef<MenuListProps, "div">((props, ref) => {
         variants={motionVariants}
         initial={false}
         animate={isOpen ? "enter" : "exit"}
-        {...part("Menu", "list").attributes}
+        {...parts.list.attrs}
         __css={{
           outline: 0,
         }}
@@ -215,7 +226,7 @@ const StyledMenuItem = forwardRef<StyledMenuItemProps, "button">(
         type={btnType}
         {...rest}
         __css={buttonStyles}
-        {...part("Menu", "item").attributes}
+        {...parts.item.attrs}
       />
     )
   },
@@ -377,14 +388,10 @@ export const MenuGroup = forwardRef<MenuGroupProps, "div">((props, ref) => {
       ref={ref}
       className="chakra-menu__group"
       role="group"
-      {...part("Menu", "group").attributes}
+      {...parts.group.attrs}
     >
       {title && (
-        <chakra.p
-          className={_className}
-          {...rest}
-          {...part("Menu", "groupTitle").attributes}
-        >
+        <chakra.p className={_className} {...rest} {...parts.groupTitle.attrs}>
           {title}
         </chakra.p>
       )}
@@ -406,7 +413,7 @@ export const MenuCommand = forwardRef<MenuCommandProps, "span">(
         ref={ref}
         {...props}
         className="chakra-menu__command"
-        {...part("Menu", "command").attributes}
+        {...parts.command.attrs}
       />
     )
   },
@@ -458,7 +465,7 @@ export const MenuDivider: React.FC<MenuDividerProps> = (props) => {
       aria-orientation="horizontal"
       className={cx("chakra-menu__divider", className)}
       {...rest}
-      {...part("Menu", "divider").attributes}
+      {...parts.divider.attrs}
     />
   )
 }

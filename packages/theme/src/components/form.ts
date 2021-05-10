@@ -1,5 +1,7 @@
-import { mode, part } from "@chakra-ui/theme-tools"
+import { mode, scope } from "@chakra-ui/theme-tools"
 import { ThemeComponentProps } from "../theme.types"
+
+const parts = scope("form").parts("requiredIndicator", "helperText")
 
 function baseStyleRequiredIndicator(props: ThemeComponentProps) {
   return {
@@ -18,10 +20,8 @@ function baseStyleHelperText(props: ThemeComponentProps) {
 }
 
 const baseStyle = (props: ThemeComponentProps) => ({
-  [part("Form", "requiredIndicator").selector]: baseStyleRequiredIndicator(
-    props,
-  ),
-  [part("Form", "helperText").selector]: baseStyleHelperText(props),
+  [parts.requiredIndicator]: baseStyleRequiredIndicator(props),
+  [parts.helperText]: baseStyleHelperText(props),
 })
 
 export default {

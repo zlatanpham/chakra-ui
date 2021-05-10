@@ -1,6 +1,8 @@
 import Badge from "./badge"
 import { ThemeComponentProps } from "../theme.types"
-import { part } from "@chakra-ui/theme-tools"
+import { scope } from "@chakra-ui/theme-tools"
+
+const parts = scope("tag").parts("container", "label", "closeButton")
 
 const baseStyleContainer = {
   fontWeight: "medium",
@@ -35,27 +37,27 @@ const baseStyleCloseButton = {
 }
 
 const baseStyle = {
-  [part("Tag", "container").selector]: baseStyleContainer,
-  [part("Tag", "label").selector]: baseStyleLabel,
-  [part("Tag", "closeButton").selector]: baseStyleCloseButton,
+  [parts.container]: baseStyleContainer,
+  [parts.label]: baseStyleLabel,
+  [parts.closeButton]: baseStyleCloseButton,
 }
 
 const size = {
   sm: {
-    [part("Tag", "container").selector]: {
+    [parts.container]: {
       minH: "1.25rem",
       minW: "1.25rem",
       fontSize: "xs",
       px: 2,
       borderRadius: "md",
     },
-    [part("Tag", "closeButton").selector]: {
+    [parts.closeButton]: {
       marginEnd: "-2px",
       marginStart: "0.35rem",
     },
   },
   md: {
-    [part("Tag", "container").selector]: {
+    [parts.container]: {
       minH: "1.5rem",
       minW: "1.5rem",
       fontSize: "sm",
@@ -64,7 +66,7 @@ const size = {
     },
   },
   lg: {
-    [part("Tag", "container").selector]: {
+    [parts.container]: {
       minH: 8,
       minW: 8,
       fontSize: "md",
@@ -76,13 +78,13 @@ const size = {
 
 const variant = {
   subtle: (props: ThemeComponentProps) => ({
-    [part("Tag", "container").selector]: Badge.variants.variant.subtle(props),
+    [parts.container]: Badge.variants.variant.subtle(props),
   }),
   solid: (props: ThemeComponentProps) => ({
-    [part("Tag", "container").selector]: Badge.variants.variant.solid(props),
+    [parts.container]: Badge.variants.variant.solid(props),
   }),
   outline: (props: ThemeComponentProps) => ({
-    [part("Tag", "container").selector]: Badge.variants.variant.outline(props),
+    [parts.container]: Badge.variants.variant.outline(props),
   }),
 }
 

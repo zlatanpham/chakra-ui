@@ -1,5 +1,12 @@
-import { mode, orient, part } from "@chakra-ui/theme-tools"
+import { mode, orient, scope } from "@chakra-ui/theme-tools"
 import { ThemeComponentProps } from "../theme.types"
+
+const parts = scope("slider").parts(
+  "container",
+  "track",
+  "thumb",
+  "filledTrack",
+)
 
 function thumbOrientation(props: ThemeComponentProps) {
   return orient({
@@ -72,16 +79,16 @@ function baseStyleFilledTrack(props: ThemeComponentProps) {
 }
 
 const baseStyle = (props: ThemeComponentProps) => ({
-  [part("Slider", "container")]: baseStyleContainer(props),
-  [part("Slider", "track")]: baseStyleTrack(props),
-  [part("Slider", "thumb")]: baseStyleThumb(props),
-  [part("Slider", "filledTrack")]: baseStyleFilledTrack(props),
+  [parts.container]: baseStyleContainer(props),
+  [parts.track]: baseStyleTrack(props),
+  [parts.thumb]: baseStyleThumb(props),
+  [parts.filledTrack]: baseStyleFilledTrack(props),
 })
 
 function sizeLg(props: ThemeComponentProps) {
   return {
-    [part("Slider", "thumb")]: { w: "16px", h: "16px" },
-    [part("Slider", "track")]: orient({
+    [parts.thumb]: { w: "16px", h: "16px" },
+    [parts.track]: orient({
       orientation: props.orientation,
       horizontal: { h: "4px" },
       vertical: { w: "4px" },
@@ -91,8 +98,8 @@ function sizeLg(props: ThemeComponentProps) {
 
 function sizeMd(props: ThemeComponentProps) {
   return {
-    [part("Slider", "thumb")]: { w: "14px", h: "14px" },
-    [part("Slider", "track")]: orient({
+    [parts.thumb]: { w: "14px", h: "14px" },
+    [parts.track]: orient({
       orientation: props.orientation,
       horizontal: { h: "4px" },
       vertical: { w: "4px" },
@@ -102,8 +109,8 @@ function sizeMd(props: ThemeComponentProps) {
 
 function sizeSm(props: ThemeComponentProps) {
   return {
-    [part("Slider", "thumb")]: { w: "10px", h: "10px" },
-    [part("Slider", "track")]: orient({
+    [parts.thumb]: { w: "10px", h: "10px" },
+    [parts.track]: orient({
       orientation: props.orientation,
       horizontal: { h: "2px" },
       vertical: { w: "2px" },

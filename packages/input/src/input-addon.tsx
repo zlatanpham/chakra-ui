@@ -1,20 +1,21 @@
 import { chakra, forwardRef, HTMLChakraProps } from "@chakra-ui/system"
 import { cx, __DEV__ } from "@chakra-ui/utils"
 import * as React from "react"
-import { part } from "@chakra-ui/theme-tools"
+import { scope } from "@chakra-ui/theme-tools"
+const parts = scope("input").parts("addon", "group")
 
 type Placement = "left" | "right"
 
 const placements = {
   left: {
-    [part("Input", "group").childOf]: {
+    [parts.group.childOf]: {
       marginEnd: "-1px",
       borderEndRadius: 0,
       borderEndColor: "transparent",
     },
   },
   right: {
-    [part("Input", "group").childOf]: {
+    [parts.group.childOf]: {
       marginStart: "-1px",
       borderStartRadius: 0,
       borderStartColor: "transparent",
@@ -47,7 +48,7 @@ export const InputAddon = forwardRef<InputAddonProps, "div">((props, ref) => {
     <StyledAddon
       ref={ref}
       {...rest}
-      {...part("Input", "addon").attributes}
+      {...parts.addon.attrs}
       __css={placementStyles}
     />
   )

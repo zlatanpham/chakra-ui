@@ -9,7 +9,9 @@ import {
 } from "@chakra-ui/system"
 import { cx, __DEV__ } from "@chakra-ui/utils"
 import * as React from "react"
-import { part } from "@chakra-ui/theme-tools"
+import { scope } from "@chakra-ui/theme-tools"
+
+const parts = scope("input").parts("addon", "field", "element")
 
 interface InputOptions {
   /**
@@ -59,7 +61,7 @@ export const Input = forwardRef<InputProps, "input">((props, ref) => {
       __css={styles}
       ref={ref}
       className={_className}
-      {...part("Input", "field").attributes}
+      {...parts.field.attrs}
     />
   )
 })

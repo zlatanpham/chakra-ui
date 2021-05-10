@@ -9,7 +9,9 @@ import {
 import { cx, __DEV__ } from "@chakra-ui/utils"
 import * as React from "react"
 import { useFormControlContext } from "./form-control"
-import { part } from "@chakra-ui/theme-tools"
+import { scope } from "@chakra-ui/theme-tools"
+
+const parts = scope("form").parts("requiredIndicator", "label")
 
 export interface FormLabelProps
   extends HTMLChakraProps<"label">,
@@ -46,7 +48,7 @@ export const FormLabel = forwardRef<FormLabelProps, "label">(
       <chakra.label
         {...field?.getLabelProps(rest, ref)}
         className={cx("chakra-form__label", props.className)}
-        {...part("formlabel", "label").attributes}
+        {...parts.label.attrs}
         __css={{
           display: "block",
           textAlign: "start",
@@ -81,7 +83,7 @@ export const RequiredIndicator = forwardRef<RequiredIndicatorProps, "span">(
     return (
       <chakra.span
         {...field?.getRequiredIndicatorProps(props, ref)}
-        {...part("form", "requiredIndicator").attributes}
+        {...parts.requiredIndicator.attrs}
         className={className}
       />
     )

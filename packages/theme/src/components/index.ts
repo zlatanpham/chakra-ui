@@ -1,7 +1,6 @@
 import Accordion from "./accordion"
 import Alert from "./alert"
 import Avatar from "./avatar"
-import AvatarGroup from "./avatar-group"
 import Badge from "./badge"
 import Breadcrumb from "./breadcrumb"
 import Button from "./button"
@@ -44,7 +43,6 @@ export default {
   Accordion,
   Alert,
   Avatar,
-  AvatarGroup,
   Badge,
   Breadcrumb,
   Button,

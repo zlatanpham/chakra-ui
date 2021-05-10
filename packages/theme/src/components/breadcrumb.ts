@@ -1,4 +1,5 @@
-import { part } from "@chakra-ui/theme-tools"
+import { scope } from "@chakra-ui/theme-tools"
+const parts = scope("breadcrumb").parts("link")
 
 const baseStyleLink = {
   transition: "all 0.15s ease-out",
@@ -15,7 +16,7 @@ const baseStyleLink = {
 }
 
 const baseStyle = {
-  [part("Badge", "link").selector]: baseStyleLink,
+  [parts.link]: baseStyleLink,
 }
 
 export default {

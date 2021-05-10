@@ -1,8 +1,10 @@
-import { getColor, mode, part } from "@chakra-ui/theme-tools"
+import { getColor, mode, scope } from "@chakra-ui/theme-tools"
 import { ThemeComponentProps } from "../theme.types"
 
+const parts = scope("input").parts("addon", "field", "element")
+
 const baseStyle = {
-  [part("Input", "field").selector]: {
+  [parts.field]: {
     width: "100%",
     minWidth: 0,
     outline: 0,
@@ -44,32 +46,16 @@ const sizes = {
 
 const size = {
   lg: {
-    [[
-      part("Input", "addon").selector,
-      part("Input", "field").selector,
-      part("Input", "element").selector,
-    ].join(", ")]: sizes.lg,
+    [[parts.addon, parts.field, parts.element].join(", ")]: sizes.lg,
   },
   md: {
-    [[
-      part("Input", "addon").selector,
-      part("Input", "field").selector,
-      part("Input", "element").selector,
-    ].join(", ")]: sizes.md,
+    [[parts.addon, parts.field, parts.element].join(", ")]: sizes.md,
   },
   sm: {
-    [[
-      part("Input", "addon").selector,
-      part("Input", "field").selector,
-      part("Input", "element").selector,
-    ].join(", ")]: sizes.sm,
+    [[parts.addon, parts.field, parts.element].join(", ")]: sizes.sm,
   },
   xs: {
-    [[
-      part("Input", "addon").selector,
-      part("Input", "field").selector,
-      part("Input", "element").selector,
-    ].join(", ")]: sizes.xs,
+    [[parts.addon, parts.field, parts.element].join(", ")]: sizes.xs,
   },
 }
 
@@ -86,7 +72,7 @@ function variantOutline(props: ThemeComponentProps) {
   const { focusBorderColor: fc, errorBorderColor: ec } = getDefaults(props)
 
   return {
-    [part("Input", "field").selector]: {
+    [parts.field]: {
       border: "1px solid",
       borderColor: "inherit",
       bg: "inherit",
@@ -111,7 +97,7 @@ function variantOutline(props: ThemeComponentProps) {
         boxShadow: `0 0 0 1px ${getColor(theme, fc)}`,
       },
     },
-    [part("Input", "addon").selector]: {
+    [parts.addon]: {
       border: "1px solid",
       borderColor: mode("inherit", "whiteAlpha.50")(props),
       bg: mode("gray.100", "whiteAlpha.300")(props),
@@ -124,7 +110,7 @@ function variantFilled(props: ThemeComponentProps) {
   const { focusBorderColor: fc, errorBorderColor: ec } = getDefaults(props)
 
   return {
-    [part("Input", "field").selector]: {
+    [parts.field]: {
       border: "2px solid",
       borderColor: "transparent",
       bg: mode("gray.100", "whiteAlpha.50")(props),
@@ -147,7 +133,7 @@ function variantFilled(props: ThemeComponentProps) {
         borderColor: getColor(theme, fc),
       },
     },
-    [part("Input", "addon").selector]: {
+    [parts.addon]: {
       border: "2px solid",
       borderColor: "transparent",
       bg: mode("gray.100", "whiteAlpha.50")(props),
@@ -160,7 +146,7 @@ function variantFlushed(props: ThemeComponentProps) {
   const { focusBorderColor: fc, errorBorderColor: ec } = getDefaults(props)
 
   return {
-    [part("Input", "field").selector]: {
+    [parts.field]: {
       borderBottom: "1px solid",
       borderColor: "inherit",
       borderRadius: 0,
@@ -179,7 +165,7 @@ function variantFlushed(props: ThemeComponentProps) {
         boxShadow: `0px 1px 0px 0px ${getColor(theme, fc)}`,
       },
     },
-    [part("Input", "addon").selector]: {
+    [parts.addon]: {
       borderBottom: "2px solid",
       borderColor: "inherit",
       borderRadius: 0,
@@ -190,12 +176,12 @@ function variantFlushed(props: ThemeComponentProps) {
 }
 
 const variantUnstyled = {
-  [part("Input", "field").selector]: {
+  [parts.field]: {
     bg: "transparent",
     px: 0,
     height: "auto",
   },
-  [part("Input", "addon").selector]: {
+  [parts.addon]: {
     bg: "transparent",
     px: 0,
     height: "auto",

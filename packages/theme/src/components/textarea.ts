@@ -1,11 +1,11 @@
 import Input from "./input"
-import { part } from "@chakra-ui/theme-tools"
+import { scope } from "@chakra-ui/theme-tools"
 import { ThemeComponentProps } from "../theme.types"
 
-const inputFieldPart = part("Input", "field").selector
+const parts = scope("textarea").parts("field")
 
 const baseStyle = {
-  ...Input[inputFieldPart],
+  ...Input[parts.field],
   paddingY: "8px",
   minHeight: "80px",
   lineHeight: "short",
@@ -13,19 +13,19 @@ const baseStyle = {
 
 const variant = {
   outline: (props: ThemeComponentProps) =>
-    Input.variants.variant.outline(props)[inputFieldPart],
+    Input.variants.variant.outline(props)[parts.field],
   flushed: (props: ThemeComponentProps) =>
-    Input.variants.variant.flushed(props)[inputFieldPart],
+    Input.variants.variant.flushed(props)[parts.field],
   filled: (props: ThemeComponentProps) =>
-    Input.variants.variant.filled(props)[inputFieldPart],
-  unstyled: Input.variants.variant.unstyled[inputFieldPart],
+    Input.variants.variant.filled(props)[parts.field],
+  unstyled: Input.variants.variant.unstyled[parts.field],
 }
 
 const size = {
-  xs: Input.variants.size.xs[inputFieldPart],
-  sm: Input.variants.size.sm[inputFieldPart],
-  md: Input.variants.size.md[inputFieldPart],
-  lg: Input.variants.size.lg[inputFieldPart],
+  xs: Input.variants.size.xs[parts.field],
+  sm: Input.variants.size.sm[parts.field],
+  md: Input.variants.size.md[parts.field],
+  lg: Input.variants.size.lg[parts.field],
 }
 
 const defaultVariants = {

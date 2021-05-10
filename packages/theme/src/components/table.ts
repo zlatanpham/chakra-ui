@@ -1,23 +1,33 @@
-import { mode, part } from "@chakra-ui/theme-tools"
+import { mode, scope } from "@chakra-ui/theme-tools"
 import { ThemeComponentProps } from "../theme.types"
 
+const parts = scope("table").parts(
+  "table",
+  "tbody",
+  "tr",
+  "th",
+  "td",
+  "tfoot",
+  "caption",
+)
+
 const baseStyle = {
-  [part("Table", "table").selector]: {
+  [parts.table]: {
     fontVariantNumeric: "lining-nums tabular-nums",
     borderCollapse: "collapse",
     width: "full",
   },
-  [part("Table", "th").selector]: {
+  [parts.th]: {
     fontFamily: "heading",
     fontWeight: "bold",
     textTransform: "uppercase",
     letterSpacing: "wider",
     textAlign: "start",
   },
-  [part("Table", "td").selector]: {
+  [parts.td]: {
     textAlign: "start",
   },
-  [part("Table", "caption").selector]: {
+  [parts.caption]: {
     mt: 4,
     fontFamily: "heading",
     textAlign: "center",
@@ -35,21 +45,21 @@ const simpleVariant = (props: ThemeComponentProps) => {
   const { colorScheme: c } = props
 
   return {
-    [part("Table", "th").selector]: {
+    [parts.th]: {
       color: mode(`gray.600`, `gray.400`)(props),
       borderBottom: "1px",
       borderColor: mode(`${c}.100`, `${c}.700`)(props),
       ...numericStyles,
     },
-    [part("Table", "td").selector]: {
+    [parts.td]: {
       borderBottom: "1px",
       borderColor: mode(`${c}.100`, `${c}.700`)(props),
       ...numericStyles,
     },
-    [part("Table", "caption").selector]: {
+    [parts.caption]: {
       color: mode(`gray.600`, `gray.100`)(props),
     },
-    [part("Table", "tfoot").selector]: {
+    [parts.tfoot]: {
       tr: {
         "&:last-of-type": {
           th: { borderBottomWidth: 0 },
@@ -63,21 +73,21 @@ const stripedVariant = (props: ThemeComponentProps) => {
   const { colorScheme: c } = props
 
   return {
-    [part("Table", "th").selector]: {
+    [parts.th]: {
       color: mode(`gray.600`, `gray.400`)(props),
       borderBottom: "1px",
       borderColor: mode(`${c}.100`, `${c}.700`)(props),
       ...numericStyles,
     },
-    [part("Table", "td").selector]: {
+    [parts.td]: {
       borderBottom: "1px",
       borderColor: mode(`${c}.100`, `${c}.700`)(props),
       ...numericStyles,
     },
-    [part("Table", "caption").selector]: {
+    [parts.caption]: {
       color: mode(`gray.600`, `gray.100`)(props),
     },
-    [part("Table", "tbody").selector]: {
+    [parts.tbody]: {
       tr: {
         "&:nth-of-type(odd)": {
           "th, td": {
@@ -90,7 +100,7 @@ const stripedVariant = (props: ThemeComponentProps) => {
         },
       },
     },
-    [part("Table", "tfoot").selector]: {
+    [parts.tfoot]: {
       tr: {
         "&:last-of-type": {
           th: { borderBottomWidth: 0 },
@@ -108,55 +118,55 @@ const variant = {
 
 const size = {
   sm: {
-    [part("Table", "th").selector]: {
+    [parts.th]: {
       px: "4",
       py: "1",
       lineHeight: "4",
       fontSize: "xs",
     },
-    [part("Table", "td").selector]: {
+    [parts.td]: {
       px: "4",
       py: "2",
       fontSize: "sm",
       lineHeight: "4",
     },
-    [part("Table", "caption").selector]: {
+    [parts.caption]: {
       px: "4",
       py: "2",
       fontSize: "xs",
     },
   },
   md: {
-    [part("Table", "th").selector]: {
+    [parts.th]: {
       px: "6",
       py: "3",
       lineHeight: "4",
       fontSize: "xs",
     },
-    [part("Table", "td").selector]: {
+    [parts.td]: {
       px: "6",
       py: "4",
       lineHeight: "5",
     },
-    [part("Table", "caption").selector]: {
+    [parts.caption]: {
       px: "6",
       py: "2",
       fontSize: "sm",
     },
   },
   lg: {
-    [part("Table", "th").selector]: {
+    [parts.th]: {
       px: "8",
       py: "4",
       lineHeight: "5",
       fontSize: "sm",
     },
-    [part("Table", "td").selector]: {
+    [parts.td]: {
       px: "8",
       py: "5",
       lineHeight: "6",
     },
-    [part("Table", "caption").selector]: {
+    [parts.caption]: {
       px: "6",
       py: "2",
       fontSize: "md",

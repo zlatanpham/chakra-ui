@@ -1,9 +1,11 @@
 import Input from "./input"
-import { part } from "@chakra-ui/theme-tools"
+import { scope } from "@chakra-ui/theme-tools"
 import { ThemeComponentProps } from "../theme.types"
 
+const parts = scope("pininput").parts("field")
+
 const baseStyle = {
-  ...Input[part("Input", "field").selector],
+  ...Input[parts.field],
   textAlign: "center",
 }
 

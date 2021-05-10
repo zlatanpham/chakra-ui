@@ -1,11 +1,13 @@
-import { mode, part } from "@chakra-ui/theme-tools"
+import { mode, scope } from "@chakra-ui/theme-tools"
 import { mergeWith as merge } from "@chakra-ui/utils"
 import Input from "./input"
 import { ThemeComponentProps } from "../theme.types"
 
+const parts = scope("select").parts("field", "icon")
+
 function baseStyleField(props: ThemeComponentProps) {
   return {
-    ...Input[part("Input", "field").selector],
+    ...Input[parts.field],
     appearance: "none",
     paddingBottom: "1px",
     lineHeight: "normal",
@@ -28,13 +30,13 @@ const baseStyleIcon = {
 }
 
 const baseStyle = (props: ThemeComponentProps) => ({
-  [part("Select", "field").selector]: baseStyleField(props),
-  [part("Select", "icon").selector]: baseStyleIcon,
+  [parts.field]: baseStyleField(props),
+  [parts.icon]: baseStyleIcon,
 })
 
 const sizes = merge({}, Input.variants.size, {
   xs: {
-    [part("Select", "icon").selector]: {
+    [parts.icon]: {
       insetEnd: "0.25rem",
     },
   },

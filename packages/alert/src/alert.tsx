@@ -11,7 +11,9 @@ import { cx } from "@chakra-ui/utils"
 import { createContext } from "@chakra-ui/react-utils"
 import * as React from "react"
 import { CheckIcon, InfoIcon, WarningIcon } from "./icons"
-import { part } from "@chakra-ui/theme-tools"
+import { scope } from "@chakra-ui/theme-tools"
+
+const parts = scope("alert").parts("tile", "description", "icon")
 
 const STATUSES = {
   info: { icon: InfoIcon, colorScheme: "blue" },
@@ -83,7 +85,7 @@ export const AlertTitle = forwardRef<AlertTitleProps, "div">((props, ref) => {
     <chakra.div
       ref={ref}
       {...props}
-      {...part("Alert", "tile").attributes}
+      {...parts.tile.attrs}
       className={cx("chakra-alert__title", props.className)}
     />
   )
@@ -101,7 +103,7 @@ export const AlertDescription = forwardRef<AlertDescriptionProps, "div">(
       <chakra.div
         ref={ref}
         {...props}
-        {...part("Alert", "desc").attributes}
+        {...parts.description.attrs}
         className={cx("chakra-alert__desc", props.className)}
         __css={descriptionStyles}
       />
@@ -118,7 +120,7 @@ export const AlertIcon: React.FC<AlertIconProps> = (props) => {
   return (
     <chakra.span
       display="inherit"
-      {...part("Alert", "icon").attributes}
+      {...parts.icon.attrs}
       className={cx("chakra-alert__icon", props.className)}
     >
       <BaseIcon w="100%" h="100%" />

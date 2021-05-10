@@ -15,7 +15,9 @@ import {
   PropGetterV2,
 } from "@chakra-ui/react-utils"
 import * as React from "react"
-import { part } from "@chakra-ui/theme-tools"
+import { scope } from "@chakra-ui/theme-tools"
+
+const parts = scope("form").parts("root", "requiredIndicator", "helperText")
 
 export interface FormControlOptions {
   /**
@@ -235,7 +237,7 @@ export const FormControl = forwardRef<FormControlProps, "div">((props, ref) => {
           position: "relative",
           ...styles,
         }}
-        {...part("form", "root").attributes}
+        {...parts.root.attrs}
       />
     </FormControlProvider>
   )
@@ -260,7 +262,7 @@ export const FormHelperText = forwardRef<HelpTextProps, "div">((props, ref) => {
   return (
     <chakra.div
       {...field?.getHelpTextProps(props, ref)}
-      {...part("form", "helperText").attributes}
+      {...parts.helperText.attrs}
       className={className}
     />
   )

@@ -15,7 +15,9 @@ import {
   UseEditableProps,
   UseEditableReturn,
 } from "./use-editable"
-import { part } from "@chakra-ui/theme-tools"
+import { scope } from "@chakra-ui/theme-tools"
+
+const parts = scope("editable").parts("preview", "input")
 
 type EditableContext = Omit<UseEditableReturn, "htmlProps">
 
@@ -113,7 +115,7 @@ export const EditablePreview = forwardRef<EditablePreviewProps, "span">(
           display: "inline-block",
           ...commonStyles,
         }}
-        {...part("editable", "preview").attributes}
+        {...parts.preview.attrs}
         className={_className}
       />
     )
@@ -145,7 +147,7 @@ export const EditableInput = forwardRef<EditableInputProps, "input">(
           outline: 0,
           ...commonStyles,
         }}
-        {...part("editable", "input").attributes}
+        {...parts.input.attrs}
         className={_className}
       />
     )

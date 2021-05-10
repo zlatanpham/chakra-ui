@@ -15,7 +15,9 @@ import {
   progress,
   stripe,
 } from "./progress.utils"
-import { part } from "@chakra-ui/theme-tools"
+import { scope } from "@chakra-ui/theme-tools"
+
+const parts = scope("progress").parts("filledTrack", "label", "track")
 
 export interface ProgressLabelProps extends HTMLChakraProps<"div"> {}
 
@@ -32,13 +34,7 @@ export const ProgressLabel: React.FC<ProgressLabelProps> = (props) => {
     position: "absolute",
     transform: "translate(-50%, -50%)",
   }
-  return (
-    <chakra.div
-      {...props}
-      __css={labelStyles}
-      {...part("progress", "label").attributes}
-    />
-  )
+  return <chakra.div {...props} __css={labelStyles} {...parts.label.attrs} />
 }
 
 if (__DEV__) {
@@ -74,7 +70,7 @@ const ProgressFilledTrack: React.FC<ProgressFilledTrackProps> = (props) => {
       {...progress.bind}
       {...rest}
       __css={trackStyles}
-      {...part("progress", "filledTrack").attributes}
+      {...parts.filledTrack.attrs}
     />
   )
 }
@@ -145,7 +141,7 @@ export const Progress: React.FC<ProgressProps> = (props) => {
 
   const borderRadius =
     propBorderRadius ??
-    (styles.track?.borderRadius as string | number | undefined)
+    (styles[parts.track]?.borderRadius as string | number | undefined)
 
   const stripAnimation = { animation: `${stripe} 1s linear infinite` }
 

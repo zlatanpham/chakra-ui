@@ -1,5 +1,7 @@
-import { mode, part } from "@chakra-ui/theme-tools"
+import { mode, scope } from "@chakra-ui/theme-tools"
 import { ThemeComponentProps } from "../theme.types"
+
+const parts = scope("formerror").parts("message", "icon")
 
 function baseStyleText(props: ThemeComponentProps) {
   return {
@@ -17,8 +19,8 @@ function baseStyleIcon(props: ThemeComponentProps) {
 }
 
 const baseStyle = (props: ThemeComponentProps) => ({
-  [part("FormError", "text").selector]: baseStyleText(props),
-  [part("FormError", "icon").selector]: baseStyleIcon(props),
+  [parts.message]: baseStyleText(props),
+  [parts.icon]: baseStyleIcon(props),
 })
 
 export default {

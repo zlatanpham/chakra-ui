@@ -1,5 +1,7 @@
-import { getColor, mode } from "@chakra-ui/theme-tools"
+import { getColor, mode, scope } from "@chakra-ui/theme-tools"
 import { ThemeComponentProps } from "../theme.types"
+
+const parts = scope("tabs").parts("root", "tab", "tablist", "tabpanel")
 
 function baseStyleRoot(props: ThemeComponentProps) {
   const { orientation } = props
@@ -39,29 +41,29 @@ function baseStyleTablist(props: ThemeComponentProps) {
 const baseStyleTabpanel = { p: 4 }
 
 const baseStyle = (props: ThemeComponentProps) => ({
-  root: baseStyleRoot(props),
-  tab: baseStyleTab(props),
-  tablist: baseStyleTablist(props),
-  tabpanel: baseStyleTabpanel,
+  [parts.root]: baseStyleRoot(props),
+  [parts.tab]: baseStyleTab(props),
+  [parts.tablist]: baseStyleTablist(props),
+  [parts.tabpanel]: baseStyleTabpanel,
 })
 
 const size = {
   sm: {
-    tab: {
+    [parts.tab]: {
       py: "0.25rem",
       px: "1rem",
       fontSize: "0.85rem",
     },
   },
   md: {
-    tab: {
+    [parts.tab]: {
       fontSize: "1rem",
       py: "0.5rem",
       px: "1rem",
     },
   },
   lg: {
-    tab: {
+    [parts.tab]: {
       fontSize: "1.15rem",
       py: "0.75rem",
       px: "1rem",
@@ -76,11 +78,11 @@ function variantLine(props: ThemeComponentProps) {
   const marginProp = isVertical ? "marginStart" : "marginBottom"
 
   return {
-    tablist: {
+    [parts.tablist]: {
       [borderProp]: "2px solid",
       borderColor: "inherit",
     },
-    tab: {
+    [parts.tab]: {
       [borderProp]: "2px solid",
       borderColor: "transparent",
       [marginProp]: "-2px",
@@ -102,7 +104,7 @@ function variantLine(props: ThemeComponentProps) {
 function variantEnclosed(props: ThemeComponentProps) {
   const { colorScheme: c } = props
   return {
-    tab: {
+    [parts.tab]: {
       borderTopRadius: "md",
       border: "1px solid",
       borderColor: "transparent",
@@ -113,7 +115,7 @@ function variantEnclosed(props: ThemeComponentProps) {
         borderBottomColor: mode(`white`, `gray.800`)(props),
       },
     },
-    tablist: {
+    [parts.tablist]: {
       mb: "-1px",
       borderBottom: "1px solid",
       borderColor: "inherit",
@@ -124,7 +126,7 @@ function variantEnclosed(props: ThemeComponentProps) {
 function variantEnclosedColored(props: ThemeComponentProps) {
   const { colorScheme: c } = props
   return {
-    tab: {
+    [parts.tab]: {
       border: "1px solid",
       borderColor: "inherit",
       bg: mode(`gray.50`, `whiteAlpha.50`)(props),
@@ -140,7 +142,7 @@ function variantEnclosedColored(props: ThemeComponentProps) {
         borderBottomColor: "transparent",
       },
     },
-    tablist: {
+    [parts.tablist]: {
       mb: "-1px",
       borderBottom: "1px solid",
       borderColor: "inherit",
@@ -151,7 +153,7 @@ function variantEnclosedColored(props: ThemeComponentProps) {
 function variantSoftRounded(props: ThemeComponentProps) {
   const { colorScheme: c, theme } = props
   return {
-    tab: {
+    [parts.tab]: {
       borderRadius: "full",
       fontWeight: "semibold",
       color: "gray.600",
@@ -166,7 +168,7 @@ function variantSoftRounded(props: ThemeComponentProps) {
 function variantSolidRounded(props: ThemeComponentProps) {
   const { colorScheme: c } = props
   return {
-    tab: {
+    [parts.tab]: {
       borderRadius: "full",
       fontWeight: "semibold",
       color: mode("gray.600", "inherit")(props),

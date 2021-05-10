@@ -1,5 +1,16 @@
-import { mode, part } from "@chakra-ui/theme-tools"
+import { mode, scope } from "@chakra-ui/theme-tools"
 import { ThemeComponentProps } from "../theme.types"
+
+const parts = scope("menu").parts(
+  "list",
+  "item",
+  "groupTitle",
+  "command",
+  "divider",
+  "button",
+  "listContainer",
+  "group",
+)
 
 function baseStyleList(props: ThemeComponentProps) {
   return {
@@ -55,11 +66,11 @@ const baseStyleDivider = {
 }
 
 const baseStyle = (props: ThemeComponentProps) => ({
-  [part("Menu", "list").selector]: baseStyleList(props),
-  [part("Menu", "item").selector]: baseStyleItem(props),
-  [part("Menu", "groupTitle").selector]: baseStyleGroupTitle,
-  [part("Menu", "command").selector]: baseStyleCommand,
-  [part("Menu", "divider").selector]: baseStyleDivider,
+  [parts.list]: baseStyleList(props),
+  [parts.item]: baseStyleItem(props),
+  [parts.groupTitle]: baseStyleGroupTitle,
+  [parts.command]: baseStyleCommand,
+  [parts.divider]: baseStyleDivider,
 })
 
 export default {

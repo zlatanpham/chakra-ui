@@ -1,11 +1,11 @@
 import Checkbox from "./checkbox"
 import { ThemeComponentProps } from "../theme.types"
-import { part } from "@chakra-ui/theme-tools"
+import { scope } from "@chakra-ui/theme-tools"
+
+const parts = scope("radio").parts("control")
 
 function baseStyleControl(props: ThemeComponentProps) {
-  const control = Checkbox.baseStyle(props)[
-    part("Checkbox", "control").selector
-  ]
+  const control = Checkbox.baseStyle(props)[parts.control]
 
   return {
     ...control,

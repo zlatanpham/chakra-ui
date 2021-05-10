@@ -1,5 +1,7 @@
-import { mode, part } from "@chakra-ui/theme-tools"
+import { mode, scope } from "@chakra-ui/theme-tools"
 import { ThemeComponentProps } from "../theme.types"
+
+const parts = scope("checkbox").parts("control", "icon", "label", "input")
 
 function baseStyleControl(props: ThemeComponentProps) {
   const { colorScheme: c } = props
@@ -56,25 +58,25 @@ const baseStyleLabel = {
 }
 
 const baseStyle = (props: ThemeComponentProps) => ({
-  [part("Checkbox", "control").selector]: baseStyleControl(props),
-  [part("Checkbox", "label").selector]: baseStyleLabel,
+  [parts.control]: baseStyleControl(props),
+  [parts.label]: baseStyleLabel,
 })
 
 const size = {
   sm: {
-    [part("Checkbox", "control").selector]: { h: 3, w: 3 },
-    [part("Checkbox", "label").selector]: { fontSize: "sm" },
-    [part("Checkbox", "icon").selector]: { fontSize: "0.45rem" },
+    [parts.control]: { h: 3, w: 3 },
+    [parts.label]: { fontSize: "sm" },
+    [parts.icon]: { fontSize: "0.45rem" },
   },
   md: {
-    [part("Checkbox", "control").selector]: { w: 4, h: 4 },
-    [part("Checkbox", "label").selector]: { fontSize: "md" },
-    [part("Checkbox", "icon").selector]: { fontSize: "0.625rem" },
+    [parts.control]: { w: 4, h: 4 },
+    [parts.label]: { fontSize: "md" },
+    [parts.icon]: { fontSize: "0.625rem" },
   },
   lg: {
-    [part("Checkbox", "control").selector]: { w: 5, h: 5 },
-    [part("Checkbox", "label").selector]: { fontSize: "lg" },
-    [part("Checkbox", "icon").selector]: { fontSize: "0.625rem" },
+    [parts.control]: { w: 5, h: 5 },
+    [parts.label]: { fontSize: "lg" },
+    [parts.icon]: { fontSize: "0.625rem" },
   },
 }
 

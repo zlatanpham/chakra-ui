@@ -1,18 +1,20 @@
-import { getColor, mode, part, transparentize } from "@chakra-ui/theme-tools"
+import { getColor, mode, scope, transparentize } from "@chakra-ui/theme-tools"
 import { ThemeComponentProps } from "../theme.types"
+
+const parts = scope("alert").parts("title", "description", "icon")
 
 const baseStyle = {
   px: 4,
   py: 3,
-  [part("Alert", "title").selector]: {
+  [parts.title]: {
     fontWeight: "bold",
     lineHeight: 6,
     marginEnd: 2,
   },
-  [part("Alert", "description").selector]: {
+  [parts.description]: {
     lineHeight: 6,
   },
-  [part("Alert", "icon").selector]: {
+  [parts.icon]: {
     flexShrink: 0,
     marginEnd: 3,
     w: 5,
@@ -31,7 +33,7 @@ function variantSubtle(props: ThemeComponentProps) {
   const { colorScheme: c } = props
   return {
     bg: getBg(props),
-    [part("Alert", "icon").selector]: {
+    [parts.icon]: {
       color: mode(`${c}.500`, `${c}.200`)(props).selector,
     },
   }
@@ -44,7 +46,7 @@ function variantLeftAccent(props: ThemeComponentProps) {
     borderStartWidth: "4px",
     borderStartColor: mode(`${c}.500`, `${c}.200`)(props),
     bg: getBg(props),
-    [part("Alert", "icon").selector]: {
+    [parts.icon]: {
       color: mode(`${c}.500`, `${c}.200`)(props),
     },
   }
@@ -57,7 +59,7 @@ function variantTopAccent(props: ThemeComponentProps) {
     borderTopWidth: "4px",
     borderTopColor: mode(`${c}.500`, `${c}.200`)(props),
     bg: getBg(props),
-    [part("Alert", "icon").selector]: {
+    [parts.icon]: {
       color: mode(`${c}.500`, `${c}.200`)(props),
     },
   }

@@ -1,4 +1,6 @@
-import { part } from "@chakra-ui/theme-tools"
+import { scope } from "@chakra-ui/theme-tools"
+
+const parts = scope("list").parts("container", "item", "icon")
 
 const baseStyleContainer = {}
 
@@ -11,9 +13,9 @@ const baseStyleIcon = {
 }
 
 const baseStyle = {
-  [part("List", "container").selector]: baseStyleContainer,
-  [part("List", "item").selector]: baseStyleItem,
-  [part("List", "icon").selector]: baseStyleIcon,
+  [parts.container]: baseStyleContainer,
+  [parts.item]: baseStyleItem,
+  [parts.icon]: baseStyleIcon,
 }
 
 export default {

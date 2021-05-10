@@ -1,4 +1,6 @@
-import { part } from "@chakra-ui/theme-tools"
+import { scope } from "@chakra-ui/theme-tools"
+
+const parts = scope("accordion").parts("item", "button", "panel", "icon")
 
 const baseStyleContainer = {
   borderTopWidth: "1px",
@@ -35,8 +37,8 @@ const baseStyleIcon = {
 }
 
 export default {
-  [part("Accordion", "item").selector]: baseStyleContainer,
-  [part("Accordion", "button").selector]: baseStyleButton,
-  [part("Accordion", "panel").selector]: baseStylePanel,
-  [part("Accordion", "icon").selector]: baseStyleIcon,
+  [parts.item]: baseStyleContainer,
+  [parts.button]: baseStyleButton,
+  [parts.panel]: baseStylePanel,
+  [parts.icon]: baseStyleIcon,
 }

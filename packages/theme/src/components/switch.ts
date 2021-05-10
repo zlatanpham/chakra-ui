@@ -1,5 +1,7 @@
-import { mode, part } from "@chakra-ui/theme-tools"
+import { mode, scope } from "@chakra-ui/theme-tools"
 import { ThemeComponentProps } from "../theme.types"
+
+const parts = scope("switch").parts("container", "track", "thumb")
 
 function baseStyleTrack(props: ThemeComponentProps) {
   const { colorScheme: c } = props
@@ -36,7 +38,7 @@ const baseStyleThumb = {
 }
 
 const baseStyle = (props: ThemeComponentProps) => ({
-  [part("Switch", "container").selector]: {
+  [parts.container]: {
     "--slider-track-diff":
       "calc(var(--slider-track-width) - var(--slider-track-height))",
     "--slider-thumb-x": "var(--slider-track-diff)",
@@ -44,25 +46,25 @@ const baseStyle = (props: ThemeComponentProps) => ({
       "--slider-thumb-x": "calc(-1 * var(--slider-track-diff))",
     },
   },
-  [part("Switch", "track").selector]: baseStyleTrack(props),
-  [part("Switch", "thumb").selector]: baseStyleThumb,
+  [parts.track]: baseStyleTrack(props),
+  [parts.thumb]: baseStyleThumb,
 })
 
 const size = {
   sm: {
-    [part("Switch", "container").selector]: {
+    [parts.container]: {
       "--slider-track-width": "1.375rem",
       "--slider-track-height": "0.75rem",
     },
   },
   md: {
-    [part("Switch", "container").selector]: {
+    [parts.container]: {
       "--slider-track-width": "1.875rem",
       "--slider-track-height": "1rem",
     },
   },
   lg: {
-    [part("Switch", "container").selector]: {
+    [parts.container]: {
       "--slider-track-width": "2.875rem",
       "--slider-track-height": "1.5rem",
     },

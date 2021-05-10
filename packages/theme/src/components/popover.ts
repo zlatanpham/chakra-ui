@@ -1,5 +1,14 @@
-import { mode, part } from "@chakra-ui/theme-tools"
+import { mode, scope } from "@chakra-ui/theme-tools"
 import { ThemeComponentProps } from "../theme.types"
+
+const parts = scope("popover").parts(
+  "popper",
+  "content",
+  "header",
+  "body",
+  "footer",
+  "arrow",
+)
 
 const baseStylePopper = {
   zIndex: 10,
@@ -44,12 +53,12 @@ const baseStyleFooter = {
 }
 
 const baseStyle = (props: ThemeComponentProps) => ({
-  [part("Popover", "popper").selector]: baseStylePopper,
-  [part("Popover", "content").selector]: baseStyleContent(props),
-  [part("Popover", "header").selector]: baseStyleHeader,
-  [part("Popover", "body").selector]: baseStyleBody,
-  [part("Popover", "footer").selector]: baseStyleFooter,
-  [part("Popover", "arrow").selector]: {},
+  [parts.popper]: baseStylePopper,
+  [parts.content]: baseStyleContent(props),
+  [parts.header]: baseStyleHeader,
+  [parts.body]: baseStyleBody,
+  [parts.footer]: baseStyleFooter,
+  [parts.arrow]: {},
 })
 
 export default {

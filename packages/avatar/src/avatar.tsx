@@ -15,7 +15,9 @@ import {
 } from "@chakra-ui/system"
 import { cx, __DEV__ } from "@chakra-ui/utils"
 import * as React from "react"
-import { part } from "@chakra-ui/theme-tools"
+import { scope } from "@chakra-ui/theme-tools"
+
+const parts = scope("avatar").parts("badge", "container", "label")
 
 interface AvatarOptions {
   /**
@@ -88,7 +90,7 @@ export const AvatarBadge = forwardRef<AvatarBadgeProps, "div">((props, ref) => {
     <chakra.div
       ref={ref}
       {...props}
-      {...part("Avatar", "badge").attributes}
+      {...parts.badge.attrs}
       className={cx("chakra-avatar__badge", props.className)}
       __css={badgeStyles}
     />
@@ -117,12 +119,7 @@ const AvatarName: React.FC<AvatarNameProps> = (props) => {
   const { name, getInitials, ...rest } = props
 
   return (
-    <chakra.div
-      role="img"
-      aria-label={name}
-      {...rest}
-      {...part("Avatar", "label").attributes}
-    >
+    <chakra.div role="img" aria-label={name} {...rest} {...parts.label.attrs}>
       {name ? getInitials?.(name) : null}
     </chakra.div>
   )
@@ -208,7 +205,7 @@ export const Avatar = forwardRef<AvatarProps, "span">((props, ref) => {
       ref={ref}
       {...rest}
       className={cx("chakra-avatar", props.className)}
-      {...part("Avatar", "container").attributes}
+      {...parts.container.attrs}
       __css={avatarStyles}
     >
       <AvatarImage

@@ -1,6 +1,14 @@
-import { isDark, mode, part, randomColor } from "@chakra-ui/theme-tools"
+import { isDark, mode, randomColor, scope } from "@chakra-ui/theme-tools"
 import themeSizes from "../foundations/sizes"
 import { ThemeComponentProps } from "../theme.types"
+
+const parts = scope("avatar").parts(
+  "container",
+  "badge",
+  "excessLabel",
+  "label",
+  "group",
+)
 
 function baseStyleBadge(props: ThemeComponentProps) {
   return {
@@ -36,9 +44,9 @@ function baseStyleContainer(props: ThemeComponentProps) {
 }
 
 const baseStyle = (props: ThemeComponentProps) => ({
-  [part("Avatar", "container").selector]: baseStyleContainer(props),
-  [part("Avatar", "badge").selector]: baseStyleBadge(props),
-  [part("Avatar", "excessLabel").selector]: baseStyleExcessLabel(props),
+  [parts.container]: baseStyleContainer(props),
+  [parts.badge]: baseStyleBadge(props),
+  [parts.excessLabel]: baseStyleExcessLabel(props),
 })
 
 function getSize(size: string) {
@@ -47,7 +55,7 @@ function getSize(size: string) {
     width: size,
     height: size,
     fontSize: `calc(${themeSize ?? size} / 2.5)`,
-    [part("Avatar", "label").selector]: {
+    [parts.label]: {
       fontSize: `calc(${themeSize ?? size} / 2.5)`,
       lineHeight: size !== "100%" ? themeSize ?? size : undefined,
     },

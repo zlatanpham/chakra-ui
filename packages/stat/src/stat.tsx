@@ -10,7 +10,9 @@ import {
 import { cx, __DEV__ } from "@chakra-ui/utils"
 import { VisuallyHidden } from "@chakra-ui/visually-hidden"
 import * as React from "react"
-import { part } from "@chakra-ui/theme-tools"
+import { scope } from "@chakra-ui/theme-tools"
+
+const parts = scope("stat").parts("label", "helpText", "number", "icon")
 
 export interface StatLabelProps extends HTMLChakraProps<"dt"> {}
 
@@ -20,7 +22,7 @@ export const StatLabel = forwardRef<StatLabelProps, "dt">((props, ref) => {
       ref={ref}
       {...props}
       className={cx("chakra-stat__label", props.className)}
-      {...part("Stat", "label").attributes}
+      {...parts.label.attrs}
     />
   )
 })
@@ -38,7 +40,7 @@ export const StatHelpText = forwardRef<StatHelpTextProps, "dd">(
         ref={ref}
         {...props}
         className={cx("chakra-stat__help-text", props.className)}
-        {...part("Stat", "helpText").attributes}
+        {...parts.helpText.attrs}
       />
     )
   },
@@ -60,7 +62,7 @@ export const StatNumber = forwardRef<StatNumberProps, "dd">((props, ref) => {
         fontFeatureSettings: "pnum",
         fontVariantNumeric: "proportional-nums",
       }}
-      {...part("Stat", "number").attributes}
+      {...parts.number.attrs}
     />
   )
 })
@@ -109,11 +111,7 @@ export const StatArrow: React.FC<StatArrowProps> = (props) => {
   return (
     <>
       <VisuallyHidden>{label}</VisuallyHidden>
-      <IconComponent
-        aria-hidden
-        {...rest}
-        {...part("Stat", "icon").attributes}
-      />
+      <IconComponent aria-hidden {...rest} {...parts.icon.attrs} />
     </>
   )
 }

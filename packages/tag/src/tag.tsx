@@ -10,7 +10,9 @@ import {
 } from "@chakra-ui/system"
 import { __DEV__ } from "@chakra-ui/utils"
 import * as React from "react"
-import { part } from "@chakra-ui/theme-tools"
+import { scope } from "@chakra-ui/theme-tools"
+
+const parts = scope("tag").parts("container", "label", "closeButton")
 
 export interface TagProps
   extends HTMLChakraProps<"span">,
@@ -38,7 +40,7 @@ export const Tag = forwardRef<TagProps, "span">((props, ref) => {
       ref={ref}
       {...ownProps}
       __css={containerStyles}
-      {...part("tag", "container").attributes}
+      {...parts.container.attrs}
     />
   )
 })
@@ -50,14 +52,7 @@ if (__DEV__) {
 export interface TagLabelProps extends HTMLChakraProps<"span"> {}
 
 export const TagLabel = forwardRef<TagLabelProps, "span">((props, ref) => {
-  return (
-    <chakra.span
-      ref={ref}
-      isTruncated
-      {...props}
-      {...part("tag", "label").attributes}
-    />
-  )
+  return <chakra.span ref={ref} isTruncated {...props} {...parts.label.attrs} />
 })
 
 if (__DEV__) {
@@ -120,7 +115,7 @@ export const TagCloseButton: React.FC<TagCloseButtonProps> = (props) => {
       aria-label="close"
       disabled={isDisabled}
       __css={btnStyles}
-      {...part("tag", "closeButton").attributes}
+      {...parts.closeButton.attrs}
     >
       {children || <TagCloseIcon />}
     </chakra.button>

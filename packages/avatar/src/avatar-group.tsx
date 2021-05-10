@@ -12,7 +12,15 @@ import { cx, filterUndefined, __DEV__ } from "@chakra-ui/utils"
 import { getValidChildren } from "@chakra-ui/react-utils"
 import * as React from "react"
 import { baseStyle } from "./avatar"
-import { part } from "@chakra-ui/theme-tools"
+import { scope } from "@chakra-ui/theme-tools"
+
+const parts = scope("avatar").parts(
+  "container",
+  "badge",
+  "excessLabel",
+  "label",
+  "group",
+)
 
 interface AvatarGroupOptions {
   /**
@@ -104,12 +112,12 @@ export const AvatarGroup = forwardRef<AvatarGroupProps, "div">((props, ref) => {
       __css={groupStyles}
       {...rest}
       className={cx("chakra-avatar__group", props.className)}
-      {...part("Avatar", "group").attributes}
+      {...parts.group.attrs}
     >
       {excess > 0 && (
         <chakra.span
           className="chakra-avatar__excess"
-          {...part("Avatar", "excessLabel").attributes}
+          {...parts.excessLabel.attrs}
           __css={excessStyles}
         >
           {`+${excess}`}

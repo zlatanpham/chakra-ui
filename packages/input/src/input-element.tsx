@@ -6,7 +6,9 @@ import {
 } from "@chakra-ui/system"
 import { cx, __DEV__ } from "@chakra-ui/utils"
 import * as React from "react"
-import { part } from "@chakra-ui/theme-tools"
+import { scope } from "@chakra-ui/theme-tools"
+
+const parts = scope("input").parts("element")
 
 export interface InputElementProps extends HTMLChakraProps<"div"> {
   placement?: "left" | "right"
@@ -35,7 +37,7 @@ const InputElement = forwardRef<InputElementProps, "div">((props, ref) => {
       ref={ref}
       {...rest}
       __css={elementStyles}
-      {...part("Input", "element").attributes}
+      {...parts.element.attrs}
     />
   )
 })

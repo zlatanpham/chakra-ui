@@ -8,7 +8,17 @@ import {
 } from "@chakra-ui/system"
 import { cx, __DEV__ } from "@chakra-ui/utils"
 import * as React from "react"
-import { part } from "@chakra-ui/theme-tools"
+import { scope } from "@chakra-ui/theme-tools"
+
+const parts = scope("table").parts(
+  "table",
+  "tbody",
+  "tr",
+  "th",
+  "td",
+  "tfoot",
+  "caption",
+)
 
 export interface TableContainerProps extends HTMLChakraProps<"div"> {}
 
@@ -43,7 +53,7 @@ export const Table = forwardRef<TableProps, "table">((props, ref) => {
 
   return (
     <chakra.table
-      {...part("table", "table").attributes}
+      {...parts.table.attrs}
       role="table"
       ref={ref}
       __css={styles}
@@ -72,7 +82,7 @@ export const TableCaption = forwardRef<TableCaptionProps, "caption">(
     return (
       <chakra.caption
         {...rest}
-        {...part("table", "caption").attributes}
+        {...parts.caption.attrs}
         ref={ref}
         __css={{
           captionSide: placement,
@@ -89,19 +99,19 @@ if (__DEV__) {
 export interface TableHeadProps extends HTMLChakraProps<"thead"> {}
 
 export const Thead = forwardRef<TableHeadProps, "thead">(({ ...rest }, ref) => (
-  <chakra.thead {...rest} ref={ref} {...part("table", "thead").attributes} />
+  <chakra.thead {...rest} ref={ref} {...parts.thead.attrs} />
 ))
 
 export interface TableBodyProps extends HTMLChakraProps<"tbody"> {}
 
 export const Tbody = forwardRef<TableBodyProps, "tbody">((props, ref) => (
-  <chakra.tbody {...props} {...part("table", "tbody").attributes} ref={ref} />
+  <chakra.tbody {...props} {...parts.tbody.attrs} ref={ref} />
 ))
 
 export interface TableFooterProps extends HTMLChakraProps<"tfoot"> {}
 
 export const Tfoot = forwardRef<TableFooterProps, "tfoot">((props, ref) => (
-  <chakra.tfoot {...props} {...part("table", "tfoot").attributes} ref={ref} />
+  <chakra.tfoot {...props} {...parts.tfoot.attrs} ref={ref} />
 ))
 
 export interface TableColumnHeaderProps extends HTMLChakraProps<"th"> {
@@ -114,7 +124,7 @@ export const Th = forwardRef<TableColumnHeaderProps, "th">(
   ({ isNumeric, ...rest }, ref) => (
     <chakra.th
       {...rest}
-      {...part("table", "th").attributes}
+      {...parts.th.attrs}
       ref={ref}
       data-is-numeric={isNumeric}
     />
@@ -123,12 +133,7 @@ export const Th = forwardRef<TableColumnHeaderProps, "th">(
 
 export interface TableRowProps extends HTMLChakraProps<"tr"> {}
 export const Tr = forwardRef<TableRowProps, "tr">((props, ref) => (
-  <chakra.tr
-    role="row"
-    {...part("table", "tr").attributes}
-    {...props}
-    ref={ref}
-  />
+  <chakra.tr role="row" {...parts.tr.attrs} {...props} ref={ref} />
 ))
 
 export interface TableCellProps extends HTMLChakraProps<"td"> {
@@ -142,7 +147,7 @@ export const Td = forwardRef<TableCellProps, "td">(
     <chakra.td
       role="gridcell"
       {...rest}
-      {...part("table", "td").attributes}
+      {...parts.td.attrs}
       ref={ref}
       data-is-numeric={isNumeric}
     />

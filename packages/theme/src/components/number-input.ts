@@ -1,7 +1,9 @@
-import { mode, part } from "@chakra-ui/theme-tools"
+import { mode, scope } from "@chakra-ui/theme-tools"
 import Input from "./input"
 import typography from "../foundations/typography"
 import { ThemeComponentProps } from "../theme.types"
+
+const parts = scope("numberinput").parts("field", "stepperGroup", "stepper")
 
 const { variants, defaultVariants } = Input
 
@@ -11,7 +13,7 @@ const baseStyleRoot = {
     "calc(var(--number-input-stepper-width) + 0.5rem)",
 }
 
-const inputFieldSelector = part("Input", "field").selector
+const inputFieldSelector = parts.field
 const baseStyleField = Input[inputFieldSelector]
 
 const baseStyleStepperGroup = {
@@ -35,9 +37,9 @@ function baseStyleStepper(props: ThemeComponentProps) {
 
 const baseStyle = (props: ThemeComponentProps) => ({
   ...baseStyleRoot,
-  [part("NumberInput", "field").selector]: baseStyleField,
-  [part("NumberInput", "stepperGroup").selector]: baseStyleStepperGroup,
-  [part("NumberInput", "stepper").selector]: baseStyleStepper(props),
+  [parts.field]: baseStyleField,
+  [parts.stepperGroup]: baseStyleStepperGroup,
+  [parts.stepper]: baseStyleStepper(props),
 })
 
 function getSize(size: "xs" | "sm" | "md" | "lg") {
@@ -53,12 +55,12 @@ function getSize(size: "xs" | "sm" | "md" | "lg") {
   const resolvedFontSize = typography.fontSizes[sizeStyle?.fontSize?.fontSize]
 
   return {
-    [part("NumberInput", "field").selector]: {
+    [parts.field]: {
       ...sizeStyle[inputFieldSelector],
       paddingInlineEnd: "var(--number-input-field-padding)",
       verticalAlign: "top",
     },
-    [part("NumberInput", "stepper").selector]: {
+    [parts.stepper]: {
       fontSize: `calc(${resolvedFontSize} * 0.75)`,
       _first: {
         borderTopEndRadius: radius[size],

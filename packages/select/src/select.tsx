@@ -12,7 +12,9 @@ import {
 } from "@chakra-ui/system"
 import { __DEV__, cx, split } from "@chakra-ui/utils"
 import * as React from "react"
-import { part } from "@chakra-ui/theme-tools"
+import { scope } from "@chakra-ui/theme-tools"
+
+const parts = scope("select").parts("container", "field", "icon")
 
 type Omitted = "disabled" | "required" | "readOnly" | "size"
 
@@ -31,7 +33,7 @@ export const SelectField = forwardRef<SelectFieldProps, "select">(
         {...ownProps}
         ref={ref}
         className={cx("chakra-select", className)}
-        {...part("Select", "field").attributes}
+        {...parts.field.attrs}
       >
         {placeholder && <option value="">{placeholder}</option>}
         {children}
@@ -140,7 +142,7 @@ export const Select = forwardRef<SelectProps, "select">((props, ref) => {
   return (
     <chakra.div
       className="chakra-select__container"
-      {...part("Select", "container").attributes}
+      {...parts.container.attrs}
       __css={rootStyles}
       {...layoutProps}
       {...rootProps}
@@ -214,7 +216,7 @@ const SelectIcon: React.FC<SelectIconProps> = (props) => {
     <IconWrapper
       {...rest}
       className="chakra-select__icon-wrapper"
-      {...part("Select", "icon").attributes}
+      {...parts.icon.attrs}
     >
       {React.isValidElement(children) ? clone : null}
     </IconWrapper>

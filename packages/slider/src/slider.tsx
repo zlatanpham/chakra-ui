@@ -11,7 +11,14 @@ import { cx, __DEV__ } from "@chakra-ui/utils"
 import { createContext } from "@chakra-ui/react-utils"
 import * as React from "react"
 import { useSlider, UseSliderProps, UseSliderReturn } from "./use-slider"
-import { part } from "@chakra-ui/theme-tools"
+import { scope } from "@chakra-ui/theme-tools"
+
+const parts = scope("slider").parts(
+  "container",
+  "track",
+  "thumb",
+  "filledTrack",
+)
 
 interface SliderContext
   extends Omit<UseSliderReturn, "getInputProps" | "getRootProps"> {}
@@ -95,7 +102,7 @@ export const SliderThumb = forwardRef<SliderThumbProps, "div">((props, ref) => {
       {...thumbProps}
       className={cx("chakra-slider__thumb", props.className)}
       __css={thumbStyles}
-      {...part("Slider", "thumb").attributes}
+      {...parts.thumb.attrs}
     />
   )
 })
@@ -119,7 +126,7 @@ export const SliderTrack = forwardRef<SliderTrackProps, "div">((props, ref) => {
     <chakra.div
       {...trackProps}
       className={cx("chakra-slider__track", props.className)}
-      {...part("Slider", "track").attributes}
+      {...parts.track.attrs}
       __css={trackStyles}
     />
   )
@@ -146,7 +153,7 @@ export const SliderFilledTrack = forwardRef<SliderInnerTrackProps, "div">(
       <chakra.div
         {...trackProps}
         className="chakra-slider__filled-track"
-        {...part("Slider", "filledTrack").attributes}
+        {...parts.filledTrack.attrs}
         __css={trackStyles}
       />
     )

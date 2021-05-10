@@ -29,7 +29,17 @@ import { RemoveScroll } from "react-remove-scroll"
 import { MouseEvent } from "react"
 import { ModalTransition } from "./modal-transition"
 import { useModal, UseModalProps, UseModalReturn } from "./use-modal"
-import { part } from "@chakra-ui/theme-tools"
+import { scope } from "@chakra-ui/theme-tools"
+
+const parts = scope("modal").parts(
+  "overlay",
+  "dialogContainer",
+  "dialog",
+  "header",
+  "closeButton",
+  "body",
+  "footer",
+)
 
 interface ModalOptions extends Pick<FocusLockProps, "lockFocusAcrossFrames"> {
   /**
@@ -247,14 +257,14 @@ export const ModalContent = forwardRef<ModalContentProps, "section">(
           {...containerProps}
           className="chakra-modal__content-container"
           __css={dialogContainerStyles}
-          {...part("Modal", "dialogContainer").attributes}
+          {...parts.dialogContainer.attrs}
         >
           <ModalTransition
             preset={motionPreset}
             className={_className}
             {...dialogProps}
             __css={dialogStyles}
-            {...part("Modal", "dialog").attributes}
+            {...parts.dialog.attrs}
           >
             {children}
           </ModalTransition>
@@ -353,7 +363,7 @@ export const ModalOverlay = forwardRef<ModalOverlayProps, "div">(
         __css={overlayStyle}
         ref={ref}
         className={_className}
-        {...part("Modal", "overlay").attributes}
+        {...parts.overlay.attrs}
         {...rest}
       />
     )
@@ -401,7 +411,7 @@ export const ModalHeader = forwardRef<ModalHeaderProps, "header">(
         id={headerId}
         {...rest}
         __css={headerStyles}
-        {...part("Modal", "header").attributes}
+        {...parts.header.attrs}
       />
     )
   },
@@ -441,7 +451,7 @@ export const ModalBody = forwardRef<ModalBodyProps, "div">((props, ref) => {
       className={_className}
       id={bodyId}
       {...rest}
-      {...part("Modal", "body").attributes}
+      {...parts.body.attrs}
     />
   )
 })
@@ -473,7 +483,7 @@ export const ModalFooter = forwardRef<ModalFooterProps, "footer">(
         {...rest}
         __css={footerStyles}
         className={_className}
-        {...part("Modal", "footer").attributes}
+        {...parts.footer.attrs}
       />
     )
   },
@@ -499,7 +509,7 @@ export const ModalCloseButton = forwardRef<CloseButtonProps, "button">(
     return (
       <CloseButton
         ref={ref}
-        {...part("Modal", "closeButton").attributes}
+        {...parts.closeButton.attrs}
         className={_className}
         onClick={callAllHandlers(onClick, (event: MouseEvent) => {
           event.stopPropagation()
