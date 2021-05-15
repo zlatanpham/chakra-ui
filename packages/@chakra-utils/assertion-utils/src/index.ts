@@ -63,7 +63,12 @@ export const __DEV__ = process.env.NODE_ENV !== "production"
 
 export const __TEST__ = process.env.NODE_ENV === "test"
 
-export const isBrowser = () => typeof window !== "undefined"
+export const canUseDOM = () =>
+  Boolean(
+    typeof window !== "undefined" &&
+      window.document &&
+      window.document.createElement,
+  )
 
 export const isSafari = () =>
   /Safari/.test(navigator.userAgent) && /Apple Computer/.test(navigator.vendor)
@@ -79,13 +84,13 @@ export const getDeviceType = () => {
 }
 
 export const supportsPointerEvents = () =>
-  isBrowser() && window.onpointerdown === null
+  canUseDOM() && window.onpointerdown === null
 
 export const supportsTouchEvents = () =>
-  isBrowser() && window.ontouchstart === null
+  canUseDOM() && window.ontouchstart === null
 
 export const supportsMouseEvents = () =>
-  isBrowser() && window.onmousedown === null
+  canUseDOM() && window.onmousedown === null
 
 /**
 |--------------------------------------------------
