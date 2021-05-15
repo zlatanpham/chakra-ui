@@ -14,13 +14,15 @@ const toPart = (value: string) => ({
 
 type AnatomyPart = ReturnType<typeof toPart>
 
-type Anatomy<T extends string> = Record<T, AnatomyPart> & {
+type Anatomy<T extends string> = Record<T | "root", AnatomyPart> & {
   readonly extend: <U extends string>(...args: U[]) => Anatomy<T | U>
   readonly selectors: Record<T, string>
 }
 
 export function anatomy(root: string) {
-  const map: Record<string, AnatomyPart> = {}
+  const map: Record<string, AnatomyPart> = {
+    root: toPart(root),
+  }
   return {
     parts<T extends string>(...values: T[]) {
       for (const part of values) {
