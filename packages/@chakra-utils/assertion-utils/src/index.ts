@@ -6,6 +6,9 @@
 export const isNumber = (value: any): value is number =>
   typeof value === "number"
 
+export const isDecimal = (value: any) =>
+  !Number.isInteger(parseFloat(value.toString()))
+
 /**
 |--------------------------------------------------
 | Array assertions
@@ -97,8 +100,8 @@ export const isInputEvent = (
   "target" in event &&
   event.target instanceof HTMLInputElement
 
-export const isRightClickEvent = (event: Pick<MouseEvent, "button">) =>
-  event.button !== 0
+export const isRightClickEvent = (event: unknown) =>
+  isMouseEvent(event) && event.button !== 0
 
 export const isTouchEvent = (event: unknown): event is TouchEvent =>
   !!(event instanceof TouchEvent && event.touches)

@@ -1,7 +1,7 @@
 {
-  "name": "@chakra-ui/event-utils",
+  "name": "@chakra-ui/css-utils",
   "version": "1.0.0",
-  "description": "DOM event utilities for chakra ui",
+  "description": "css and theming utils for chakra ui",
   "keywords": [
     "theme",
     "theming",
@@ -50,13 +50,9 @@
     "lint:types": "tsc --noEmit"
   },
   "dependencies": {
-    "@chakra-ui/assertion-utils": "1.0.0",
-    "@chakra-ui/function-utils": "1.0.0"
+    "@chakra-ui/assertion-utils": "workspace:*"
   },
   "peerDependencies": {
     "react": ">=16.8.6"
-  },
-  "devDependencies": {
-    "react": "^17.0.1"
   }
 }

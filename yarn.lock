@@ -2768,7 +2768,7 @@
   dependencies:
     "@chakra-ui/utils" "1.8.0"
 
-"@chakra-ui/utils@1.8.0", "@chakra-ui/utils@^1.7.0", "@chakra-ui/utils@^1.8.0":
+"@chakra-ui/utils@*", "@chakra-ui/utils@1.8.0", "@chakra-ui/utils@^1.7.0", "@chakra-ui/utils@^1.8.0":
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/@chakra-ui/utils/-/utils-1.8.0.tgz#f7aad8175cc5a26a1d2795dc78691bbc21fd539e"
   integrity sha512-BWIhKcXnLbOIwCTKeNcOStNwk9RyYVA9xRRFPGK6Kp3EhrxP0rDwAbu4D3o3qAc+yhIDhGmPaIj1jRXHB5DTfg==
