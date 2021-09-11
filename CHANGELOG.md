@@ -17,6 +17,47 @@ To better understand the changelog, here are some legends we use:
 
 <!-- CHANGELOG:INSERT -->
 
+## 11-09-2021
+
+**Image** `v1.0.20`
+
+- Fix issue where onload doesn't get called when using srcset
+- If the user doesn't provide a `fallbackSrc` or a `fallback` `ignoreFallback` is
+  applied by default
+
+**Avatar** `v1.2.10`
+
+- Fix issue where avatar blinks during API call due to its fallback logic. You can
+  disable the fallback logic by setting `ignoreFallback`, just like you can with
+  the `Image` component
+
+**Provider** `v1.6.8`
+
+- Resolve dependency issues caused by previous release
+- Add `ChakraProviderProps` type what was removed in previous release
+
+**Modal** `v1.8.12`
+
+- Drawer: omit the `motionPreset` prop type since `Drawer` only implements the
+  `Slide` transition, unlike `Modal` that allows you switch its motion preset.
+
+**Menu** `v1.7.4`
+
+- Fix issue where keyboard navigation doesn't work when `MenuButton` isn't
+  rendered. This is useful in scenarios where you want the menu to be triggered by
+  a command or right-click.
+
+**Button** `v1.4.3`
+
+- Fix issue where composing `Button` with framer-motion's `motion` factory breaks
+  animation/transition
+
+**Select** `v1.1.15`
+
+- The disabled state of the `SelectIcon` can be reflected by a disabled
+  `FormControl` or by the `isDisabled`-flag of the `select` field
+
+
 ## 29-08-2021
 
 `@chakra-ui/react@1.6.7`
