@@ -1,5 +1,20 @@
 # Change Log
 
+## 2.1.0
+
+### Minor Changes
+
+- [`3612559a7`](https://github.com/chakra-ui/chakra-ui/commit/3612559a7b373e6dc60fc2b025c314842f0ff1e5)
+  [#4687](https://github.com/chakra-ui/chakra-ui/pull/4687) Thanks
+  [@lazarnikolov94](https://github.com/lazarnikolov94)! - Added egghead course
+  banner in Getting Started page
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @chakra-ui/react@1.6.8
+  - @chakra-ui/props-docs@1.0.33
+
 ## 2.0.0
 
 ### Major Changes

@@ -1,5 +1,14 @@
 # Change Log
 
+## 1.8.12
+
+### Patch Changes
+
+- [`c1d1029bc`](https://github.com/chakra-ui/chakra-ui/commit/c1d1029bca08a9774fc3ca8d2e04a1cc5b58a43b)
+  Thanks [@segunadebayo](https://github.com/segunadebayo)! - Drawer: omit the
+  `motionPreset` prop type since `Drawer` only implements the `Slide`
+  transition, unlike `Modal` that allows you switch its motion preset.
+
 ## 1.8.11
 
 ### Patch Changes

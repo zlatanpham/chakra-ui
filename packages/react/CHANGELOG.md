@@ -1,5 +1,26 @@
 # Change Log
 
+## 1.6.8
+
+### Patch Changes
+
+- Updated dependencies
+  [[`a1ca91b76`](https://github.com/chakra-ui/chakra-ui/commit/a1ca91b769000a9d4e6badb5bce46cd5e4035106),
+  [`93c99bdd7`](https://github.com/chakra-ui/chakra-ui/commit/93c99bdd77b01f699a70a9fe1ffbfc2f0be5776a),
+  [`11eebac4c`](https://github.com/chakra-ui/chakra-ui/commit/11eebac4cc951c3af65ebdf4ec0f70b8fe9d0f63),
+  [`17c84be66`](https://github.com/chakra-ui/chakra-ui/commit/17c84be66fcb68e77a838cbb900315caaaf61d26),
+  [`c1d1029bc`](https://github.com/chakra-ui/chakra-ui/commit/c1d1029bca08a9774fc3ca8d2e04a1cc5b58a43b),
+  [`19d9abe75`](https://github.com/chakra-ui/chakra-ui/commit/19d9abe75cf863468b70362ce7eee90f0ad94d29),
+  [`87ffdd1cb`](https://github.com/chakra-ui/chakra-ui/commit/87ffdd1cb615e9d4bc8a9af66fb6ae9ef1563caf),
+  [`fba77bf32`](https://github.com/chakra-ui/chakra-ui/commit/fba77bf32a817e31327e566484c1b1439f14fb42)]:
+  - @chakra-ui/image@1.0.20
+  - @chakra-ui/avatar@1.2.10
+  - @chakra-ui/provider@1.6.8
+  - @chakra-ui/modal@1.8.12
+  - @chakra-ui/menu@1.7.4
+  - @chakra-ui/button@1.4.3
+  - @chakra-ui/select@1.1.15
+
 ## 1.6.7
 
 ### Patch Changes
